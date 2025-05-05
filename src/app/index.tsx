@@ -5,6 +5,10 @@ import { Input } from "@/components/input";
 import { useState } from "react";
 import { router } from "expo-router";
 
+import { typography } from "@/theme/typography";
+import { colors } from "@/theme/colors";
+("@/theme/colors");
+
 export default function Index() {
 	const [name, setName] = useState("");
 
@@ -15,6 +19,7 @@ export default function Index() {
 	return (
 		<View style={styles.container}>
 			<Text style={styles.text}>Olá, {name} </Text>
+			<Text style={typography.headingLg}>Olá pessoal</Text>
 
 			<Input onChangeText={setName} />
 

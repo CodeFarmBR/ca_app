@@ -1,13 +1,14 @@
 import { StyleSheet } from "react-native";
+import { colors } from "@/theme/colors";
 
 export const styles = StyleSheet.create({
 	input: {
 		width: "100%",
-		height: 52,
-		borderRadius: 10,
+		height: 48,
+		borderRadius: 6,
 		borderWidth: 1,
-		borderColor: "#121214",
-		padding: 12,
-		fontSize: 16,
+		borderColor: colors.gray50,
+		paddingHorizontal: 16,
+		paddingVertical: 13,
 	},
 });

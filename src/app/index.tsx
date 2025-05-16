@@ -9,35 +9,38 @@ import { typography } from "@/theme/typography";
 import { colors } from "@/theme/colors";
 ("@/theme/colors");
 
-export default function Index() {
-	const [name, setName] = useState("");
+export default function Login() {
 
 	function handleNext() {
 		router.navigate("/dashboard");
 	}
 
 	return (
-		<View style={styles.container}>
-			<Text style={styles.text}>Olá, {name} </Text>
-			<Text style={typography.headingLg}>Olá pessoal</Text>
+		<View style={styles.base}>
+			<Text style={[typography.headingLg, { color: colors.gray900 }]}>Nome do App</Text>
 
-			<Input onChangeText={setName} />
+			<View style={styles.container}>
+				<Input placeholder="Nome"/>
+				<MyButton activeOpacity={0.8} title="Enviar" onPress={handleNext} />
 
-			<MyButton activeOpacity={0.8} title="Enviar" onPress={handleNext} />
+			</View>
+
+
 		</View>
 	);
 }
 
 const styles = StyleSheet.create({
-	container: {
+	base: {
 		flex: 1,
+		width: '100%',
 		padding: 32,
-		justifyContent: "center",
-		gap: 16,
+		justifyContent: "flex-start",
+		alignItems: 'center',
+		gap: 200,
 	},
-	text: {
-		fontSize: 24,
-		color: "#453478",
-		fontWeight: "bold",
-	},
+	container: {
+		width: '100%',
+		gap: 12
+	}
 });

@@ -3,26 +3,32 @@ import { StyleSheet } from "react-native";
 export const typography = StyleSheet.create({
 	headingLg: {
 		fontSize: 28,
-		fontFamily: "Raleway_700Bold",
+		fontFamily: "Raleway",
+		fontWeight: "700"
 	},
 	headingMd: {
 		fontSize: 22,
-		fontFamily: "Raleway_600SemiBold",
+		fontFamily: "Raleway",
+		fontWeight: "600"
 	},
 	headingSm: {
 		fontSize: 18,
-		fontFamily: "Raleway_500Medium",
+		fontFamily: "Raleway",
+		fontWeight: "500"
 	},
 	bodyLg: {
 		fontSize: 16,
-		fontFamily: "NotoSans_300Light",
+		fontFamily: "NotoSans",
+		fontWeight: "300"
 	},
 	bodyMd: {
 		fontSize: 13,
-		fontFamily: "NotoSans_300Light",
+		fontFamily: "NotoSans",
+		fontWeight: "300"
 	},
 	button: {
 		fontSize: 16,
-		fontFamily: "NotoSans_400Regular",
+		fontFamily: "NotoSans",
+		fontWeight: "400"
 	},
 });

@@ -1,13 +1,4 @@
-import {
-	useFonts,
-	Raleway_500Medium,
-	Raleway_600SemiBold,
-	Raleway_700Bold,
-} from "@expo-google-fonts/raleway";
-import {
-	NotoSans_300Light,
-	NotoSans_400Regular,
-} from "@expo-google-fonts/noto-sans";
+import { useFonts } from 'expo-font'
 import { Slot } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect, useCallback } from "react";
@@ -18,11 +9,8 @@ SplashScreen.preventAutoHideAsync();
 
 export default function App() {
 	const [fontsLoaded] = useFonts({
-		Raleway_500Medium,
-		Raleway_600SemiBold,
-		Raleway_700Bold,
-		NotoSans_300Light,
-		NotoSans_400Regular,
+		'Raleway': require('./assets/fonts/Raleway-VariableFont_wght.ttf'),
+		'NotoSans': require('./assets/fonts/NotoSans-VariableFont_wght.ttf'),
 	});
 
 	const onLayoutRootView = useCallback(async () => {

@@ -2,13 +2,41 @@ import { StyleSheet } from "react-native";
 import { colors } from "@/theme/colors";
 
 export const styles = StyleSheet.create({
-	input: {
-		width: "100%",
-		height: 48,
+	container: {
+		flexDirection: "row",
+		alignItems: "center",
 		borderRadius: 6,
 		borderWidth: 1,
-		borderColor: colors.gray50,
 		paddingHorizontal: 16,
+		height: 48,
+	},
+	input: {
+		flex: 1,
 		paddingVertical: 13,
+		color: colors.gray900,
+	},
+	emptyDefault: {
+		borderColor: colors.gray50,
+		color: colors.gray300,
+	},
+	emptyActive: {
+		borderColor: colors.green500,
+		color: colors.gray900,
+	},
+	filledDefault: {
+		borderColor: colors.gray50,
+		color: colors.gray900,
+	},
+	filledActive: {
+		borderColor: colors.green500,
+		color: colors.gray900,
+	},
+	emptyError: {
+		borderColor: colors.red400,
+		color: colors.red400,
+	},
+	filledError: {
+		borderColor: colors.red400,
+		color: colors.gray900,
 	},
 });

@@ -17,7 +17,6 @@ export const styles = StyleSheet.create({
 	},
 	emptyDefault: {
 		borderColor: colors.gray50,
-		color: colors.gray300,
 	},
 	emptyActive: {
 		borderColor: colors.green500,
@@ -32,10 +31,12 @@ export const styles = StyleSheet.create({
 		color: colors.gray900,
 	},
 	emptyError: {
+		backgroundColor: colors.danger,
 		borderColor: colors.red400,
 		color: colors.red400,
 	},
 	filledError: {
+		backgroundColor: colors.danger,
 		borderColor: colors.red400,
 		color: colors.gray900,
 	},

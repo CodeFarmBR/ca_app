@@ -46,9 +46,9 @@ export function Input({
 			{secure && (
 				<Pressable onPress={() => setShowPassword((prev) => !prev)}>
 					{showPassword ? (
-						<EyeOff color={colors.gray500} />
+						<EyeOff color={colors.gray300} strokeWidth={1} />
 					) : (
-						<Eye color={colors.gray500} />
+						<Eye color={colors.gray300} strokeWidth={1} />
 					)}
 				</Pressable>
 			)}

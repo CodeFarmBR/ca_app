@@ -1,7 +1,6 @@
-import { View, Text, StyleSheet, Button } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AppWindow } from "lucide-react-native";
 
 import { loginSchema, type LoginFormData } from "@/schemas/loginSchema";
 import { Input } from "@/components/input";
@@ -9,8 +8,25 @@ import { MyButton } from "@/components/button";
 import { colors } from "@/theme/colors";
 import { typography } from "@/theme/typography";
 import { MsIcon } from "../../assets/MsIcon";
+import { useMutation } from "@tanstack/react-query";
+import { login } from "@/http/auth/login";
+import { useRouter } from "expo-router";
 
-export default function LoginScreen() {
+export default function Login() {
+	const router = useRouter();
+
+	const { mutate, error, isPending } = useMutation({
+		mutationFn: login,
+		onSuccess: (tokens) => {
+			// Salvar tokens no cliente
+			console.log("Tokens recebidos:", tokens);
+			router.replace("/dashboard");
+		},
+		onError: (error: Error) => {
+			alert(error?.message);
+		},
+	});
+
 	const {
 		control,
 		handleSubmit,
@@ -19,8 +35,11 @@ export default function LoginScreen() {
 		resolver: zodResolver(loginSchema),
 	});
 
-	function handleLogin(data: LoginFormData) {
-		console.log("Dados do formulário:", data);
+	function handleLogin({
+		email,
+		password,
+	}: { email: string; password: string }) {
+		mutate({ email, password });
 	}
 
 	return (
@@ -32,11 +51,15 @@ export default function LoginScreen() {
 			<View style={{ width: "100%", gap: 8 }}>
 				<View style={styles.container}>
 					<View style={styles.login}>
-						<Controller
-							control={control}
-							name="email"
-							render={({ field: { onChange, value, onBlur } }) => (
-								<View style={{ gap: 4 }}>
+						{/* Input Email */}
+						<View style={styles.input}>
+							<Controller
+								control={control}
+								rules={{
+									required: true,
+								}}
+								name="email"
+								render={({ field: { onChange, value, onBlur } }) => (
 									<Input
 										placeholder="E-mail"
 										placeholderTextColor={colors.gray300}
@@ -46,25 +69,26 @@ export default function LoginScreen() {
 										onBlur={onBlur}
 										error={!!errors.email}
 									/>
-									{errors.email && (
-										<Text
-											style={[
-												typography.bodyMd,
-												{ color: colors.red400, fontWeight: "700" },
-											]}
-										>
-											{errors.email.message}
-										</Text>
-									)}
-								</View>
+								)}
+							/>
+							{errors.email && (
+								<Text
+									style={[
+										typography.bodyMd,
+										{ color: colors.red400, fontWeight: "700" },
+									]}
+								>
+									{errors.email.message}
+								</Text>
 							)}
-						/>
+						</View>
 
-						<Controller
-							control={control}
-							name="password"
-							render={({ field: { onChange, value, onBlur } }) => (
-								<View style={{ gap: 4 }}>
+						{/* Input Senha */}
+						<View style={styles.input}>
+							<Controller
+								control={control}
+								name="password"
+								render={({ field: { onChange, value, onBlur } }) => (
 									<Input
 										placeholder="Senha"
 										placeholderTextColor={colors.gray300}
@@ -74,19 +98,20 @@ export default function LoginScreen() {
 										onBlur={onBlur}
 										error={!!errors.password}
 									/>
-									{errors.password && (
-										<Text
-											style={[
-												typography.bodyMd,
-												{ color: colors.red400, fontWeight: "700" },
-											]}
-										>
-											{errors.password.message}
-										</Text>
-									)}
-								</View>
+								)}
+							/>
+							{errors.password && (
+								<Text
+									style={[
+										typography.bodyMd,
+										{ color: colors.red400, fontWeight: "700" },
+									]}
+								>
+									{errors.password.message}
+								</Text>
 							)}
-						/>
+						</View>
+
 						<MyButton
 							primary
 							onPress={handleSubmit(handleLogin)}
@@ -141,6 +166,9 @@ const styles = StyleSheet.create({
 	login: {
 		width: "100%",
 		gap: 12,
+	},
+	input: {
+		gap: 4,
 	},
 	titleBtn: {
 		fontSize: 16,

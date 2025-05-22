@@ -1,10 +1,9 @@
 import { useFonts } from "expo-font";
-import { Slot } from "expo-router";
+import { Slot, Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import { useEffect, useCallback } from "react";
-import { View, Text } from "react-native";
-import { typography } from "@/theme/typography";
-import { colors } from "@/theme/colors";
+import { useCallback } from "react";
+import { View } from "react-native";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -22,9 +21,5 @@ export default function App() {
 
 	if (!fontsLoaded) return null;
 
-	return (
-		<View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-			<Slot />
-		</View>
-	);
+	return <Stack />;
 }

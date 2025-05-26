@@ -9,16 +9,21 @@ import { colors } from "@/theme/colors";
 import { typography } from "@/theme/typography";
 import { MsIcon } from "../../assets/MsIcon";
 import { useMutation } from "@tanstack/react-query";
-import { login } from "@/http/auth/login";
+import { login, type TokenResponse } from "@/http/auth/login";
 import { useRouter } from "expo-router";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useAuth } from "@/context/AuthContext";
 
 export default function Login() {
 	const router = useRouter();
 
+	const auth = useAuth();
+
 	const { mutate, error, isPending } = useMutation({
 		mutationFn: login,
-		onSuccess: (tokens) => {
-			// Salvar tokens no cliente
+		onSuccess: async (tokens) => {
+			// Salva tokens no cliente
+			await auth.login(tokens);
 			console.log("Tokens recebidos:", tokens);
 			router.replace("/dashboard");
 		},
@@ -35,11 +40,8 @@ export default function Login() {
 		resolver: zodResolver(loginSchema),
 	});
 
-	function handleLogin({
-		email,
-		password,
-	}: { email: string; password: string }) {
-		mutate({ email, password });
+	function handleLogin({ email, senha }: { email: string; senha: string }) {
+		mutate({ email, senha });
 	}
 
 	return (
@@ -87,7 +89,7 @@ export default function Login() {
 						<View style={styles.input}>
 							<Controller
 								control={control}
-								name="password"
+								name="senha"
 								render={({ field: { onChange, value, onBlur } }) => (
 									<Input
 										placeholder="Senha"
@@ -96,18 +98,18 @@ export default function Login() {
 										value={value}
 										onChangeText={onChange}
 										onBlur={onBlur}
-										error={!!errors.password}
+										error={!!errors.senha}
 									/>
 								)}
 							/>
-							{errors.password && (
+							{errors.senha && (
 								<Text
 									style={[
 										typography.bodyMd,
 										{ color: colors.red400, fontWeight: "700" },
 									]}
 								>
-									{errors.password.message}
+									{errors.senha.message}
 								</Text>
 							)}
 						</View>

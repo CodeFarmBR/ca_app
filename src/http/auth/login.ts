@@ -1,9 +1,9 @@
 interface loginRequest {
 	email: string;
-	password: string;
+	senha: string;
 }
 
-interface TokenResponse {
+export interface TokenResponse {
 	access_token: string;
 	refresh_token: string;
 }
@@ -12,7 +12,7 @@ const apiURL = process.env.EXPO_PUBLIC_API_URL;
 
 export async function login({
 	email,
-	password,
+	senha,
 }: loginRequest): Promise<TokenResponse> {
 	const response = await fetch(`${apiURL}/auth/login`, {
 		method: "POST",
@@ -21,25 +21,23 @@ export async function login({
 		},
 		body: JSON.stringify({
 			email,
-			password,
+			senha,
 		}),
 	});
 
 	if (response.status === 401) {
-		console.log("erro 1");
 		throw new Error("Senha incorreta");
 	}
 
 	if (response.status === 404) {
-		console.log("erro 2");
 		throw new Error("Usuário não encontrado");
 	}
 
 	if (!response.ok) {
-		console.log("erro 3");
-		throw new Error("Erro ao fazer login");
+		const errorText = await response.json(); // ou response.json(), se o erro vier como JSON
+		throw new Error(`Erro ${response.status}: ${errorText}`);
 	}
 
-	console.log(response.json());
-	return await response.json();
+	const tokensResponse = await response.json();
+	return tokensResponse;
 }

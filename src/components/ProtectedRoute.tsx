@@ -18,7 +18,7 @@ export const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 
 	if (!isAuthenticated) {
 		console.log("Isn't authenticated");
-		return <Redirect href="/" />; // Redireciona para login (index.tsx)
+		return <Redirect href="/" />;
 	}
 
 	return <>{children}</>;

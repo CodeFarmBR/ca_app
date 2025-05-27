@@ -45,6 +45,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
 	const logout = async () => {
 		await AsyncStorage.removeItem("access_token");
+		await AsyncStorage.removeItem("refresh_token");
 		console.log("Fiz o logout!");
 		setIsAuthenticated(false);
 	};

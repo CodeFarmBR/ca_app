@@ -1,8 +1,8 @@
 // app/_layout.tsx
-import { Slot } from "expo-router";
-import { View } from "react-native";
+import { Redirect, Slot } from "expo-router";
+import { ActivityIndicator, View } from "react-native";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { AuthProvider } from "@/context/AuthContext";
+import { AuthProvider, useAuth } from "@/context/AuthContext";
 
 const queryClient = new QueryClient();
 

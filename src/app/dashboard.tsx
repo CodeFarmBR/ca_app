@@ -12,7 +12,7 @@ export default function Dashboard() {
 
 				<MyButton primary onPress={() => router.back()}>
 					<Text style={[styles.titleBtn, { color: colors.background }]}>
-						Back
+						Voltar
 					</Text>
 				</MyButton>
 			</View>

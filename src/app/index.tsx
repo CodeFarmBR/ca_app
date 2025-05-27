@@ -13,6 +13,7 @@ import { login, type TokenResponse } from "@/http/auth/login";
 import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useAuth } from "@/context/AuthContext";
+import { getRedirectUri } from "@/auth/microsoftLogin";
 
 export default function Login() {
 	const router = useRouter();
@@ -43,6 +44,11 @@ export default function Login() {
 	function handleLogin({ email, senha }: { email: string; senha: string }) {
 		mutate({ email, senha });
 	}
+
+	const handleMicrosoftLogin = () => {
+		const redirectUri = getRedirectUri();
+		// aqui você inicia o fluxo OAuth com o redirectUri
+	};
 
 	return (
 		<View style={styles.base}>
@@ -129,7 +135,11 @@ export default function Login() {
 						Ou entre com:
 					</Text>
 
-					<MyButton secundary activeOpacity={0.8}>
+					<MyButton
+						secundary
+						activeOpacity={0.8}
+						onPress={handleMicrosoftLogin}
+					>
 						<Text style={[styles.titleBtn, { color: colors.green500 }]}>
 							Microsoft
 						</Text>

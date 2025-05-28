@@ -32,13 +32,15 @@ export function Input({
 		!isEmpty && !error && !isFocused && styles.filledDefault,
 	];
 
+	console.log(isFocused);
+
 	return (
 		<View style={containerStyle}>
 			<TextInput
 				style={[styles.input, typography.bodyLg]}
 				value={value}
 				onFocus={() => setIsFocused(true)}
-				onBlur={() => setIsFocused(false)}
+				onEndEditing={() => setIsFocused(false)}
 				secureTextEntry={secure && !showPassword}
 				{...rest}
 			/>

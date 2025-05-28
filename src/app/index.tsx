@@ -9,9 +9,8 @@ import { colors } from "@/theme/colors";
 import { typography } from "@/theme/typography";
 import { MsIcon } from "../../assets/MsIcon";
 import { useMutation } from "@tanstack/react-query";
-import { login, type TokenResponse } from "@/http/auth/login";
+import { login } from "@/http/auth/login";
 import { useRouter } from "expo-router";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useAuth } from "@/context/AuthContext";
 import { getRedirectUri } from "@/auth/microsoftLogin";
 
@@ -20,16 +19,18 @@ export default function Login() {
 
 	const auth = useAuth();
 
-	const { mutate, error, isPending } = useMutation({
+	const { mutate } = useMutation({
 		mutationFn: login,
 		onSuccess: async (tokens) => {
 			// Salva tokens no cliente
 			await auth.login(tokens);
 			console.log("Tokens recebidos:", tokens);
-			router.replace("/dashboard");
+			router.navigate("./home");
 		},
 		onError: (error: Error) => {
-			alert(error?.message);
+			console.log("Erro de login");
+
+			alert(`Erro de login: ${error?.message}`);
 		},
 	});
 
@@ -45,9 +46,13 @@ export default function Login() {
 		mutate({ email, senha });
 	}
 
+	function tempHandleLogin() {
+		return router.navigate("./home");
+	}
+
 	const handleMicrosoftLogin = () => {
 		const redirectUri = getRedirectUri();
-		// aqui você inicia o fluxo OAuth com o redirectUri
+		// @todo - inicia o fluxo OAuth com o redirectUri
 	};
 
 	return (
@@ -123,6 +128,7 @@ export default function Login() {
 						<MyButton
 							primary
 							onPress={handleSubmit(handleLogin)}
+							// onPress={tempHandleLogin}
 							activeOpacity={0.8}
 						>
 							<Text style={[styles.titleBtn, { color: colors.background }]}>

@@ -1,18 +1,24 @@
 import { MyButton } from "@/components/button";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
+import { useAuth } from "@/context/AuthContext";
 import { colors } from "@/theme/colors";
-import { router } from "expo-router";
+import { useRouter } from "expo-router";
 import { StyleSheet, Text, View } from "react-native";
 
-export default function Dashboard() {
+export default function Home() {
+	const auth = useAuth();
+	const router = useRouter();
+
+	const name = auth.profile?.nome;
+
 	return (
 		<ProtectedRoute>
 			<View style={styles.container}>
-				<Text style={styles.title}>Dashboard</Text>
+				<Text style={styles.title}>Home</Text>
 
 				<MyButton primary onPress={() => router.back()}>
 					<Text style={[styles.titleBtn, { color: colors.background }]}>
-						Voltar
+						Voltar {name}
 					</Text>
 				</MyButton>
 			</View>
@@ -20,7 +26,7 @@ export default function Dashboard() {
 	);
 }
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		justifyContent: "center",

@@ -6,17 +6,17 @@ import { useRouter } from "expo-router";
 import { StyleSheet, Text, View } from "react-native";
 
 export default function Home() {
-	const auth = useAuth();
+	const { profile, logout } = useAuth();
 	const router = useRouter();
 
-	const name = auth.profile?.nome;
+	const name = profile?.nome;
 
 	return (
 		<ProtectedRoute>
 			<View style={styles.container}>
 				<Text style={styles.title}>Home</Text>
 
-				<MyButton primary onPress={() => router.back()}>
+				<MyButton primary activeOpacity={0.8} onPress={() => logout()}>
 					<Text style={[styles.titleBtn, { color: colors.background }]}>
 						Voltar {name}
 					</Text>

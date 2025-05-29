@@ -143,7 +143,7 @@ export default function Login() {
 
 					<MyButton
 						secundary
-						activeOpacity={0.8}
+						activeOpacity={0.6}
 						onPress={handleMicrosoftLogin}
 					>
 						<Text style={[styles.titleBtn, { color: colors.green500 }]}>
@@ -170,7 +170,8 @@ const styles = StyleSheet.create({
 	base: {
 		flex: 1,
 		width: "100%",
-		padding: 32,
+		paddingHorizontal: 32,
+		paddingVertical: 64,
 		backgroundColor: colors.background,
 		justifyContent: "flex-start",
 		alignItems: "center",

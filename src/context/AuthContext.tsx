@@ -36,9 +36,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 			const token = await AsyncStorage.getItem("access_token");
 			setIsAuthenticated(!!token);
 			setIsLoading(false);
-			console.log("Check token: ", token);
 
 			const storedProfile = await AsyncStorage.getItem("profile");
+
 			if (storedProfile) {
 				setProfile(JSON.parse(storedProfile));
 			}
@@ -64,8 +64,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
 			const profileData = decoded as ProfileProps;
 			setProfile(profileData);
-
-			console.log("Token decodificado:", profileData);
 		} catch (error) {
 			console.warn("Erro ao decodificar token:", error);
 		}
@@ -76,7 +74,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 		await AsyncStorage.removeItem("access_token");
 		await AsyncStorage.removeItem("refresh_token");
 		await AsyncStorage.removeItem("profile");
-		console.log("Fiz o logout!");
 		setIsAuthenticated(false);
 	};
 

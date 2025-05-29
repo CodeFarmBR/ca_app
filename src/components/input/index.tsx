@@ -32,8 +32,6 @@ export function Input({
 		!isEmpty && !error && !isFocused && styles.filledDefault,
 	];
 
-	console.log(isFocused);
-
 	return (
 		<View style={containerStyle}>
 			<TextInput

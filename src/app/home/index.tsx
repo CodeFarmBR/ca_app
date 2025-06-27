@@ -1,4 +1,5 @@
 import { MyButton } from "@/components/button";
+import Header from "@/components/home/header";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { useAuth } from "@/context/AuthContext";
 import { colors } from "@/theme/colors";
@@ -14,6 +15,7 @@ export default function Home() {
 	return (
 		<ProtectedRoute>
 			<View style={styles.container}>
+				<Header />
 				<Text style={styles.title}>Home</Text>
 
 				<MyButton primary activeOpacity={0.8} onPress={() => logout()}>
@@ -29,10 +31,11 @@ export default function Home() {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		justifyContent: "center",
+		justifyContent: "flex-start",
 		alignItems: "center",
 		gap: 16,
-		padding: 32,
+		paddingHorizontal: 16,
+		paddingVertical: 44,
 	},
 	title: {
 		fontSize: 18,

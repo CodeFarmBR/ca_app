@@ -40,6 +40,10 @@ export default function Login() {
 		formState: { errors },
 	} = useForm<LoginFormData>({
 		resolver: zodResolver(loginSchema),
+		defaultValues: {
+			email: "",
+			senha: "",
+		},
 	});
 
 	function handleLogin({ email, senha }: { email: string; senha: string }) {
@@ -68,10 +72,10 @@ export default function Login() {
 						<View style={styles.input}>
 							<Controller
 								control={control}
+								name="email"
 								rules={{
 									required: true,
 								}}
-								name="email"
 								render={({ field: { onChange, value, onBlur } }) => (
 									<Input
 										placeholder="E-mail"

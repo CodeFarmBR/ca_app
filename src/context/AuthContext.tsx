@@ -1,6 +1,6 @@
-import { createContext, useContext, useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import JWT from "expo-jwt";
+import { createContext, useContext, useEffect, useState } from "react";
 
 interface TokenResponse {
 	access_token: string;
@@ -28,7 +28,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
 	const [isLoading, setIsLoading] = useState(true);
-
 	const [profile, setProfile] = useState<ProfileProps | null>(null);
 
 	useEffect(() => {
@@ -38,7 +37,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 			setIsLoading(false);
 
 			const storedProfile = await AsyncStorage.getItem("profile");
-
 			if (storedProfile) {
 				setProfile(JSON.parse(storedProfile));
 			}
@@ -46,24 +44,17 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 		checkToken();
 	}, []);
 
-	useEffect(() => {
-		const setProfileData = async () => {
-			if (profile) {
-				await AsyncStorage.setItem("profile", JSON.stringify(profile));
-			}
-		};
-		setProfileData();
-	}, [profile]);
-
 	const login = async (tokens: TokenResponse) => {
-		await AsyncStorage.setItem("access_token", tokens.access_token);
-		await AsyncStorage.setItem("refresh_token", tokens.refresh_token);
+		await Promise.all([
+			AsyncStorage.setItem("access_token", tokens.access_token),
+			AsyncStorage.setItem("refresh_token", tokens.refresh_token),
+		]);
 
 		try {
 			const decoded = JWT.decode(tokens.access_token, secret_key || "");
-
 			const profileData = decoded as ProfileProps;
 			setProfile(profileData);
+			await AsyncStorage.setItem("profile", JSON.stringify(profileData));
 		} catch (error) {
 			console.warn("Erro ao decodificar token:", error);
 		}
@@ -71,10 +62,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	};
 
 	const logout = async () => {
-		await AsyncStorage.removeItem("access_token");
-		await AsyncStorage.removeItem("refresh_token");
-		await AsyncStorage.removeItem("profile");
+		await AsyncStorage.multiRemove([
+			"access_token",
+			"refresh_token",
+			"profile",
+		]);
 		setIsAuthenticated(false);
+		setProfile(null);
 	};
 
 	return (

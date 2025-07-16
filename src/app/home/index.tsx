@@ -1,10 +1,10 @@
+import { useRouter } from "expo-router";
+import { StyleSheet, Text, View } from "react-native";
 import { MyButton } from "@/components/button";
 import Header from "@/components/home/header";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { useAuth } from "@/context/AuthContext";
 import { colors } from "@/theme/colors";
-import { useRouter } from "expo-router";
-import { StyleSheet, Text, View } from "react-native";
 
 export default function Home() {
 	const { profile, logout } = useAuth();

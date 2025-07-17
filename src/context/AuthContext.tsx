@@ -56,6 +56,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 			setProfile(profileData);
 			await AsyncStorage.setItem("profile", JSON.stringify(profileData));
 		} catch (error) {
+			// biome-ignore lint/suspicious/noConsole: only for dev
 			console.warn("Erro ao decodificar token:", error);
 		}
 		setIsAuthenticated(true);

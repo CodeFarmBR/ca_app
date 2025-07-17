@@ -1,18 +1,17 @@
-import { View, Text, StyleSheet } from "react-native";
-import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-
-import { loginSchema, type LoginFormData } from "@/schemas/loginSchema";
-import { Input } from "@/components/input";
+import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "expo-router";
+import { Controller, useForm } from "react-hook-form";
+import { StyleSheet, Text, View } from "react-native";
+import { getRedirectUri } from "@/auth/microsoftLogin";
 import { MyButton } from "@/components/button";
+import { Input } from "@/components/input";
+import { useAuth } from "@/context/AuthContext";
+import { login } from "@/http/auth/login";
+import { type LoginFormData, loginSchema } from "@/schemas/loginSchema";
 import { colors } from "@/theme/colors";
 import { typography } from "@/theme/typography";
 import { MsIcon } from "../../assets/MsIcon";
-import { useMutation } from "@tanstack/react-query";
-import { login } from "@/http/auth/login";
-import { useRouter } from "expo-router";
-import { useAuth } from "@/context/AuthContext";
-import { getRedirectUri } from "@/auth/microsoftLogin";
 
 export default function Login() {
 	const router = useRouter();
@@ -24,12 +23,9 @@ export default function Login() {
 		onSuccess: async (tokens) => {
 			// Salva tokens no cliente
 			await auth.login(tokens);
-			console.log("Tokens recebidos:", tokens);
 			router.navigate("./home");
 		},
 		onError: (error: Error) => {
-			console.log("Erro de login");
-
 			alert(`Erro de login: ${error?.message}`);
 		},
 	});
@@ -48,10 +44,6 @@ export default function Login() {
 
 	function handleLogin({ email, senha }: { email: string; senha: string }) {
 		mutate({ email, senha });
-	}
-
-	function tempHandleLogin() {
-		return router.navigate("./home");
 	}
 
 	const handleMicrosoftLogin = () => {
@@ -73,20 +65,20 @@ export default function Login() {
 							<Controller
 								control={control}
 								name="email"
+								render={({ field: { onChange, value, onBlur } }) => (
+									<Input
+										error={!!errors.email}
+										keyboardType="email-address"
+										onBlur={onBlur}
+										onChangeText={onChange}
+										placeholder="E-mail"
+										placeholderTextColor={colors.gray300}
+										value={value}
+									/>
+								)}
 								rules={{
 									required: true,
 								}}
-								render={({ field: { onChange, value, onBlur } }) => (
-									<Input
-										placeholder="E-mail"
-										placeholderTextColor={colors.gray300}
-										keyboardType="email-address"
-										value={value}
-										onChangeText={onChange}
-										onBlur={onBlur}
-										error={!!errors.email}
-									/>
-								)}
 							/>
 							{errors.email && (
 								<Text
@@ -107,13 +99,13 @@ export default function Login() {
 								name="senha"
 								render={({ field: { onChange, value, onBlur } }) => (
 									<Input
+										error={!!errors.senha}
+										onBlur={onBlur}
+										onChangeText={onChange}
 										placeholder="Senha"
 										placeholderTextColor={colors.gray300}
 										secure
 										value={value}
-										onChangeText={onChange}
-										onBlur={onBlur}
-										error={!!errors.senha}
 									/>
 								)}
 							/>
@@ -130,10 +122,10 @@ export default function Login() {
 						</View>
 
 						<MyButton
-							primary
+							activeOpacity={0.8}
 							onPress={handleSubmit(handleLogin)}
 							// onPress={tempHandleLogin}
-							activeOpacity={0.8}
+							primary
 						>
 							<Text style={[styles.titleBtn, { color: colors.background }]}>
 								Entrar
@@ -146,9 +138,9 @@ export default function Login() {
 					</Text>
 
 					<MyButton
-						secundary
 						activeOpacity={0.6}
 						onPress={handleMicrosoftLogin}
+						secundary
 					>
 						<Text style={[styles.titleBtn, { color: colors.green500 }]}>
 							Microsoft

@@ -13,4 +13,11 @@ export const styles = StyleSheet.create({
 		alignItems: "center",
 		gap: 8,
 	},
+	configIcon: {
+		width: 32,
+		height: 32,
+		padding: 6,
+		backgroundColor: colors.green500,
+		borderRadius: "100%",
+	},
 });

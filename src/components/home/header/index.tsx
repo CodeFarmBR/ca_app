@@ -1,19 +1,23 @@
-import { useAuth } from "@/context/AuthContext";
 import { SettingsIcon, UserCircle2 } from "lucide-react-native";
-import { View, Text } from "react-native";
+import { Pressable, Text, View } from "react-native";
+import { useAuth } from "@/context/AuthContext";
+import { colors } from "@/theme/colors";
+import { typography } from "@/theme/typography";
 import { styles } from "./styles";
 
 export default function Header() {
-	const { profile } = useAuth();
+	const { logout } = useAuth();
 
 	return (
 		<View style={styles.header}>
 			<View style={styles.titleView}>
-				<UserCircle2 width={32} height={32} strokeWidth={1} />
-				<Text>Olá, {profile?.nome}</Text>
+				<Pressable onPress={() => logout()}>
+					<UserCircle2 size={32} strokeWidth={1} />
+				</Pressable>
+				<Text style={typography.headingMd}>Olá, Consultor</Text>
 			</View>
-			<View>
-				<SettingsIcon width={32} height={32} strokeWidth={1} />
+			<View style={styles.configIcon}>
+				<SettingsIcon color={colors.background} size={20} strokeWidth={1} />
 			</View>
 		</View>
 	);

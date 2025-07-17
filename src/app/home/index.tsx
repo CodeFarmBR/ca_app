@@ -1,28 +1,40 @@
-import { useRouter } from "expo-router";
+import { CirclePlus, UserRoundPlus } from "lucide-react-native";
 import { StyleSheet, Text, View } from "react-native";
-import { MyButton } from "@/components/button";
 import Header from "@/components/home/header";
+import Navbar from "@/components/home/navbar";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
-import { useAuth } from "@/context/AuthContext";
 import { colors } from "@/theme/colors";
+import { typography } from "@/theme/typography";
 
 export default function Home() {
-	const { profile, logout } = useAuth();
-	const router = useRouter();
-
-	const name = profile?.nome;
-
 	return (
 		<ProtectedRoute>
 			<View style={styles.container}>
 				<Header />
-				<Text style={styles.title}>Home</Text>
 
-				<MyButton primary activeOpacity={0.8} onPress={() => logout()}>
-					<Text style={[styles.titleBtn, { color: colors.background }]}>
-						Voltar {name}
-					</Text>
-				</MyButton>
+				<View style={styles.clientsContainer}>
+					<View style={styles.headerSecondary}>
+						<Text style={styles.title}>MEUS CLIENTES</Text>
+						<CirclePlus strokeWidth={1} />
+					</View>
+
+					<View style={styles.noClientsFound}>
+						<UserRoundPlus color={colors.gray500} size={64} strokeWidth={1} />
+						<Text
+							style={[
+								typography.bodyLg,
+								{ fontWeight: "700", color: colors.gray500 },
+							]}
+						>
+							Nenhum Cliente encontrado
+						</Text>
+						<Text style={[typography.bodyLg, { color: colors.gray500 }]}>
+							Toque no botão + para adicionar seu primeiro cliente
+						</Text>
+					</View>
+				</View>
+
+				<Navbar />
 			</View>
 		</ProtectedRoute>
 	);
@@ -30,12 +42,30 @@ export default function Home() {
 
 const styles = StyleSheet.create({
 	container: {
+		position: "relative",
 		flex: 1,
 		justifyContent: "flex-start",
 		alignItems: "center",
-		gap: 16,
+		gap: 20,
 		paddingHorizontal: 16,
-		paddingVertical: 44,
+		paddingVertical: 20,
+	},
+	clientsContainer: {
+		width: "100%",
+		gap: 12,
+		flex: 1, // Add this to make it take full height
+	},
+	headerSecondary: {
+		flexDirection: "row",
+		justifyContent: "space-between",
+	},
+	noClientsFound: {
+		alignItems: "center",
+		position: "absolute",
+		left: 0,
+		right: 0,
+		top: "50%",
+		transform: [{ translateY: -100 }], // Adjust this value as needed
 	},
 	title: {
 		fontSize: 18,

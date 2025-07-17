@@ -19,25 +19,45 @@ export default function Navbar() {
 
 	return (
 		<View style={styles.container}>
-			<View style={[styles.navbarItemSelected, styles.navbarItem]}>
+			<View
+				style={[
+					styles.navbarItem,
+					homeClientesScreen && styles.navbarItemSelected,
+				]}
+			>
 				<Pressable onPress={() => handleNavigate(setHomeClientesScreen)}>
 					<House color={colors.background} strokeWidth={1} />
 				</Pressable>
 			</View>
 
-			<View style={styles.navbarItem}>
+			<View
+				style={[
+					styles.navbarItem,
+					homeVisitasScreen && styles.navbarItemSelected,
+				]}
+			>
 				<Pressable onPress={() => handleNavigate(setHomeVisitasScreen)}>
 					<ClipboardPen color={colors.background} strokeWidth={1} />
 				</Pressable>
 			</View>
 
-			<View style={styles.navbarItem}>
+			<View
+				style={[
+					styles.navbarItem,
+					homeCulturasScreen && styles.navbarItemSelected,
+				]}
+			>
 				<Pressable onPress={() => handleNavigate(setHomeCulturasScreen)}>
 					<Wheat color={colors.background} strokeWidth={1} />
 				</Pressable>
 			</View>
 
-			<View style={styles.navbarItem}>
+			<View
+				style={[
+					styles.navbarItem,
+					homeCalendarioScreen && styles.navbarItemSelected,
+				]}
+			>
 				<Pressable onPress={() => handleNavigate(setHomeCalendarioScreen)}>
 					<Calendar1 color={colors.background} strokeWidth={1} />
 				</Pressable>

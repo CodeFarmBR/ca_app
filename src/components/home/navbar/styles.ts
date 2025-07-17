@@ -17,9 +17,9 @@ export const styles = StyleSheet.create({
 		justifyContent: "center",
 		paddingHorizontal: 16,
 		paddingVertical: 4,
-		borderRadius: 22,
 	},
 	navbarItemSelected: {
 		backgroundColor: colors.green200,
+		borderRadius: 22,
 	},
 });

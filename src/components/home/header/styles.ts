@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
 	},
 	titleView: {
 		flexDirection: "row",
-		alignItems: "center",
+		alignItems: "flex-start",
 		gap: 8,
 	},
 	configIcon: {

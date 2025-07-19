@@ -16,7 +16,9 @@ export const styles = StyleSheet.create({
 	configIcon: {
 		width: 32,
 		height: 32,
-		padding: 6,
+		padding: 3,
+		alignItems: "center",
+		justifyContent: "center",
 		backgroundColor: colors.green500,
 		borderRadius: "100%",
 	},

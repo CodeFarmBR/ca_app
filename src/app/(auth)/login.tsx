@@ -4,7 +4,6 @@ import { useRouter } from "expo-router";
 import { Controller, useForm } from "react-hook-form";
 import { StyleSheet, Text, View } from "react-native";
 import { MsIcon } from "@/../assets/MsIcon";
-// import { getRedirectUri } from "@/auth/microsoftLogin";
 import { MyButton } from "@/components/button";
 import { Input } from "@/components/input";
 import { useAuth } from "@/context/AuthContext";
@@ -23,7 +22,7 @@ export default function LoginScreen() {
 		onSuccess: async (tokens) => {
 			// Salva tokens no cliente
 			await auth.login(tokens);
-			router.replace("/tabs/home");
+			router.replace("/home");
 		},
 		onError: (error: Error) => {
 			alert(`Erro de login: ${error?.message}`);

@@ -1,7 +1,5 @@
 import { CirclePlus, UserRoundPlus } from "lucide-react-native";
 import { StyleSheet, Text, View } from "react-native";
-import Header from "@/components/home/header";
-// import Navbar from "@/components/home/navbar";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { colors } from "@/theme/colors";
 import { typography } from "@/theme/typography";
@@ -10,8 +8,6 @@ export default function Home() {
 	return (
 		<ProtectedRoute>
 			<View style={styles.container}>
-				<Header />
-
 				<View style={styles.clientsContainer}>
 					<View style={styles.headerSecondary}>
 						<Text style={styles.title}>MEUS CLIENTES</Text>
@@ -47,6 +43,7 @@ export default function Home() {
 
 const styles = StyleSheet.create({
 	container: {
+		backgroundColor: colors.background,
 		position: "relative",
 		flex: 1,
 		justifyContent: "flex-start",

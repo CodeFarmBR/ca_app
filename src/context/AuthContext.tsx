@@ -1,6 +1,12 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import JWT from "expo-jwt";
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+	createContext,
+	useCallback,
+	useContext,
+	useEffect,
+	useState,
+} from "react";
 
 interface TokenResponse {
 	access_token: string;
@@ -24,57 +30,73 @@ interface AuthContextProps {
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-	const secret_key = process.env.EXPO_PUBLIC_SECRET_KEY;
+	const secret_key = process.env.EXPO_PUBLIC_SECRET_KEY || "";
 
-	const [isAuthenticated, setIsAuthenticated] = useState(false);
 	const [isLoading, setIsLoading] = useState(true);
 	const [profile, setProfile] = useState<ProfileProps | null>(null);
 
-	useEffect(() => {
-		const checkToken = async () => {
-			const token = await AsyncStorage.getItem("access_token");
-			setIsAuthenticated(!!token);
-			setIsLoading(false);
+	// Deriva o estado de login diretamente do perfil. Menos estado para gerenciar!
+	const isAuthenticated = !!profile;
 
-			const storedProfile = await AsyncStorage.getItem("profile");
-			if (storedProfile) {
-				setProfile(JSON.parse(storedProfile));
-			}
-		};
-		checkToken();
-	}, []);
-
-	const login = async (tokens: TokenResponse) => {
-		await Promise.all([
-			AsyncStorage.setItem("access_token", tokens.access_token),
-			AsyncStorage.setItem("refresh_token", tokens.refresh_token),
-		]);
-
-		try {
-			const decoded = JWT.decode(tokens.access_token, secret_key || "");
-			const profileData = decoded as ProfileProps;
-			setProfile(profileData);
-			await AsyncStorage.setItem("profile", JSON.stringify(profileData));
-		} catch (error) {
-			// biome-ignore lint/suspicious/noConsole: only for dev
-			console.warn("Erro ao decodificar token:", error);
-		}
-		setIsAuthenticated(true);
-	};
-
-	const logout = async () => {
+	const logout = useCallback(async () => {
 		await AsyncStorage.multiRemove([
 			"access_token",
 			"refresh_token",
 			"profile",
 		]);
-		setIsAuthenticated(false);
 		setProfile(null);
+	}, []);
+
+	const validateToken = useCallback(
+		async (token: string) => {
+			const decoded = JWT.decode(token, secret_key) as ProfileProps & {
+				exp: number;
+			};
+			if (decoded.exp * 1000 <= Date.now()) {
+				return false;
+			}
+			const storedProfile = await AsyncStorage.getItem("profile");
+			if (storedProfile) {
+				setProfile(JSON.parse(storedProfile));
+			}
+			return true;
+		},
+		[secret_key]
+	);
+
+	useEffect(() => {
+		const checkToken = async () => {
+			try {
+				const token = await AsyncStorage.getItem("access_token");
+				if (token && !(await validateToken(token))) {
+					await logout();
+				}
+			} catch (_e) {
+				await logout();
+			} finally {
+				setIsLoading(false);
+			}
+		};
+		checkToken();
+	}, [logout, validateToken]);
+
+	const _login = async (tokens: TokenResponse) => {
+		const decoded = JWT.decode(tokens.access_token, secret_key);
+		const profileData = decoded as ProfileProps;
+
+		// Salva tudo de uma vez para garantir consistência
+		await Promise.all([
+			AsyncStorage.setItem("access_token", tokens.access_token),
+			AsyncStorage.setItem("refresh_token", tokens.refresh_token),
+			AsyncStorage.setItem("profile", JSON.stringify(profileData)),
+		]);
+
+		setProfile(profileData);
 	};
 
 	return (
 		<AuthContext.Provider
-			value={{ isAuthenticated, isLoading, profile, login, logout }}
+			value={{ isAuthenticated, isLoading, profile, login: _login, logout }}
 		>
 			{children}
 		</AuthContext.Provider>

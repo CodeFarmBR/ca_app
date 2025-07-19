@@ -1,6 +1,7 @@
 {
   "expo": {
-    "name": "consultoria-agricola",
+    "owner": "code_farm",
+    "name": "Consultoria Agrícola",
     "slug": "consultoria-agricola",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -21,7 +22,7 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.dudobs08.consultoriaagricola"
+      "package": "com.code_farm.consultoriaagricola"
     },
     "web": {
       "bundler": "metro",
@@ -39,7 +40,7 @@
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "860f1b88-8144-4d73-829c-4513ca1cf7d6"
+        "projectId": "81c32b46-7895-4fa5-badf-2fdc0a0a8b4d"
       }
     }
   }

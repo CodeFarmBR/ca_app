@@ -1,7 +1,7 @@
 import { CirclePlus, UserRoundPlus } from "lucide-react-native";
 import { StyleSheet, Text, View } from "react-native";
 import Header from "@/components/home/header";
-import Navbar from "@/components/home/navbar";
+// import Navbar from "@/components/home/navbar";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { colors } from "@/theme/colors";
 import { typography } from "@/theme/typography";
@@ -28,13 +28,18 @@ export default function Home() {
 						>
 							Nenhum Cliente encontrado
 						</Text>
-						<Text style={[typography.bodyLg, { color: colors.gray500 }]}>
+						<Text
+							style={[
+								typography.bodyLg,
+								{ color: colors.gray500, textAlign: "center" },
+							]}
+						>
 							Toque no botão + para adicionar seu primeiro cliente
 						</Text>
 					</View>
 				</View>
 
-				<Navbar />
+				{/* <Navbar /> */}
 			</View>
 		</ProtectedRoute>
 	);
@@ -66,6 +71,7 @@ const styles = StyleSheet.create({
 		right: 0,
 		top: "50%",
 		transform: [{ translateY: -100 }], // Adjust this value as needed
+		paddingHorizontal: 16,
 	},
 	title: {
 		fontSize: 18,

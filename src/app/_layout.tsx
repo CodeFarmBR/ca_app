@@ -31,7 +31,10 @@ function RootLayoutNav() {
 			// Cenário: Usuário está LOGADO, mas NÃO está na área das abas.
 			// Ação: Mande-o para a tela inicial do app.
 			router.replace("/home");
-		} else if (!isAuthenticated && inTabsGroup) {
+		} else if (
+			(!isAuthenticated && inTabsGroup) ||
+			!(isAuthenticated || inTabsGroup)
+		) {
 			// Cenário: Usuário NÃO está LOGADO, mas está tentando acessar uma rota protegida (dentro de /tabs).
 			// Ação: Mande-o para a tela de login.
 			router.replace("/login");
@@ -43,7 +46,13 @@ function RootLayoutNav() {
 
 	// Se o carregamento terminou, renderiza a rota atual.
 	return (
-		<Stack>
+		<Stack
+			screenOptions={{
+				contentStyle: {
+					backgroundColor: colors.background,
+				},
+			}}
+		>
 			<Stack.Screen name="index" options={{ headerShown: false }} />
 			<Stack.Screen name="(auth)" options={{ headerShown: false }} />
 			<Stack.Screen

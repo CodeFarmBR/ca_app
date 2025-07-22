@@ -1,10 +1,18 @@
-import { CirclePlus, UserRoundPlus } from "lucide-react-native";
-import { StyleSheet, Text, View } from "react-native";
-import { ProtectedRoute } from "@/components/ProtectedRoute";
-import { colors } from "@/theme/colors";
-import { typography } from "@/theme/typography";
+import { CirclePlus, UserRoundPlus } from "lucide-react-native"
+import { Button, StyleSheet, Text, View } from "react-native"
+import { ProtectedRoute } from "@/components/ProtectedRoute"
+import database from "@/db/index"
+import { colors } from "@/themes/colors"
+import { typography } from "@/themes/typography"
 
 export default function Home() {
+	const clientesCollection = database.get("clientes")
+
+	async function onRead() {
+		const allClientes = await database.get("clientes").query().fetch()
+		console.log(allClientes)
+	}
+
 	return (
 		<ProtectedRoute>
 			<View style={styles.container}>
@@ -32,13 +40,12 @@ export default function Home() {
 						>
 							Toque no botão + para adicionar seu primeiro cliente
 						</Text>
+						<Button onPress={() => onRead()} title="Read" />
 					</View>
 				</View>
-
-				{/* <Navbar /> */}
 			</View>
 		</ProtectedRoute>
-	);
+	)
 }
 
 const styles = StyleSheet.create({
@@ -78,4 +85,4 @@ const styles = StyleSheet.create({
 		fontSize: 16,
 		fontWeight: "bold",
 	},
-});
+})

@@ -1,7 +1,7 @@
 export const colors = {
 	// Accent
-	green500: "#2F7A4F",
 	green200: "#A4D4AE",
+	green500: "#2F7A4F",
 	white: "#FFFFFF",
 
 	// Feedback

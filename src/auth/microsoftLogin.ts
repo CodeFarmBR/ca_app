@@ -1,8 +1,7 @@
-import * as AuthSession from "expo-auth-session";
+import { makeRedirectUri } from "expo-auth-session";
 
 export const getRedirectUri = () => {
-	const redirectUri = AuthSession.makeRedirectUri();
+	const redirectUri = makeRedirectUri();
 
-	console.log("Redirect URI:", redirectUri);
 	return redirectUri;
 };

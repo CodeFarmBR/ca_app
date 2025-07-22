@@ -1,10 +1,9 @@
-import { TextInput, type TextInputProps, View, Pressable } from "react-native";
-import { useState } from "react";
-
-import { styles } from "./styles";
-import { typography } from "@/theme/typography";
-import { colors } from "@/theme/colors";
 import { Eye, EyeOff } from "lucide-react-native";
+import { useState } from "react";
+import { Pressable, TextInput, type TextInputProps, View } from "react-native";
+import { colors } from "@/theme/colors";
+import { typography } from "@/theme/typography";
+import { styles } from "./styles";
 
 type Props = TextInputProps & {
 	secure?: boolean;
@@ -28,18 +27,18 @@ export function Input({
 		isEmpty && !error && isFocused && styles.emptyActive,
 		isEmpty && !error && !isFocused && styles.emptyDefault,
 		!isEmpty && error && styles.filledError,
-		!isEmpty && !error && isFocused && styles.filledActive,
-		!isEmpty && !error && !isFocused && styles.filledDefault,
+		!(isEmpty || error) && isFocused && styles.filledActive,
+		!(isEmpty || error || isFocused) && styles.filledDefault,
 	];
 
 	return (
 		<View style={containerStyle}>
 			<TextInput
+				onEndEditing={() => setIsFocused(false)}
+				onFocus={() => setIsFocused(true)}
+				secureTextEntry={secure && !showPassword}
 				style={[styles.input, typography.bodyLg]}
 				value={value}
-				onFocus={() => setIsFocused(true)}
-				onEndEditing={() => setIsFocused(false)}
-				secureTextEntry={secure && !showPassword}
 				{...rest}
 			/>
 

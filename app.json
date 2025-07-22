@@ -1,11 +1,12 @@
 {
   "expo": {
-    "name": "demo-app",
-    "slug": "demo-app",
+    "owner": "code_farm",
+    "name": "Consultoria Agrícola",
+    "slug": "consultoria-agricola",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
+    "scheme": "consultoria-agricola-app",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "splash": {
@@ -20,7 +21,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.code_farm.consultoriaagricola"
     },
     "web": {
       "bundler": "metro",
@@ -30,10 +32,31 @@
     "plugins": [
       "expo-router",
       "expo-font",
-      "expo-web-browser"
+      "expo-web-browser",
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "extraPods": [
+              {
+                "name": "simdjson",
+                "configuration": ["Debug", "Release"],
+                "path": "../node_modules/@nozbe/simdjson",
+                "modular_headers": true
+              }
+            ]
+          }
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "81c32b46-7895-4fa5-badf-2fdc0a0a8b4d"
+      }
     }
   }
 }

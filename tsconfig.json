@@ -3,15 +3,10 @@
   "compilerOptions": {
     "strict": true,
     "paths": {
-      "@/*": [
-        "./src/*"
-      ]
-    }
+      "@/*": ["./src/*"]
+    },
+    "strictNullChecks": true,
+    "experimentalDecorators": true
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    ".expo/types/**/*.ts",
-    "expo-env.d.ts"
-  ]
+  "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]
 }

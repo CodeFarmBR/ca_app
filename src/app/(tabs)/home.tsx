@@ -1,17 +1,23 @@
 import { CirclePlus, UserRoundPlus } from "lucide-react-native"
-import { Button, StyleSheet, Text, View } from "react-native"
+import { StyleSheet, Text, View } from "react-native"
 import { ProtectedRoute } from "@/components/ProtectedRoute"
-import database from "@/db/index"
 import { colors } from "@/themes/colors"
 import { typography } from "@/themes/typography"
 
 export default function Home() {
-	const clientesCollection = database.get("clientes")
+	// Exemplo de criação de dado com watermellonDB
+	// async function onTest() {
+	// 	const clientesCollection = await database.get<Cliente>("clientes")
 
-	async function onRead() {
-		const allClientes = await database.get("clientes").query().fetch()
-		console.log(allClientes)
-	}
+	// 	await database.write(async () => {
+	// 		await clientesCollection.create((cliente: Cliente) => {
+	// 			cliente.nome = "João"
+	// 			cliente.email = "joao@gmail.com"
+	// 			cliente.nomeEmpresa = "Empresa"
+	// 			cliente.consultoria = "Consultoria"
+	// 		})
+	// 	})
+	// }
 
 	return (
 		<ProtectedRoute>
@@ -40,7 +46,6 @@ export default function Home() {
 						>
 							Toque no botão + para adicionar seu primeiro cliente
 						</Text>
-						<Button onPress={() => onRead()} title="Read" />
 					</View>
 				</View>
 			</View>

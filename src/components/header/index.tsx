@@ -1,12 +1,12 @@
-import { SettingsIcon, UserCircle2 } from "lucide-react-native";
-import { Pressable, Text, View } from "react-native";
-import { useAuth } from "@/context/AuthContext";
-import { colors } from "@/theme/colors";
-import { typography } from "@/theme/typography";
-import { styles } from "./styles";
+import { SettingsIcon, UserCircle2 } from "lucide-react-native"
+import { Pressable, Text, View } from "react-native"
+import { useAuth } from "@/context/AuthContext"
+import { colors } from "@/themes/colors"
+import { typography } from "@/themes/typography"
+import { styles } from "./styles"
 
 export default function Header() {
-	const { logout } = useAuth();
+	const { logout } = useAuth()
 
 	return (
 		<View style={styles.header}>
@@ -20,5 +20,5 @@ export default function Header() {
 				<SettingsIcon color={colors.background} size={20} strokeWidth={1} />
 			</View>
 		</View>
-	);
+	)
 }

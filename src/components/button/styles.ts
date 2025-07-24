@@ -1,5 +1,5 @@
-import { StyleSheet } from "react-native";
-import { colors } from "@/theme/colors";
+import { StyleSheet } from "react-native"
+import { colors } from "@/themes/colors"
 
 export const Styles = StyleSheet.create({
 	base: {
@@ -22,4 +22,4 @@ export const Styles = StyleSheet.create({
 	disabled: {
 		backgroundColor: colors.gray50,
 	},
-});
+})

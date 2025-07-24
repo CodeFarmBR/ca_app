@@ -1,48 +1,48 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Stack, useRouter, useSegments } from "expo-router";
-import { useEffect } from "react";
-import { View } from "react-native";
-import UserIcon from "@/components/header/profileIcon";
-import SettingsIcon from "@/components/header/settingsIcon";
-import { AuthProvider, useAuth } from "@/context/AuthContext";
-import { colors } from "@/theme/colors";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import { Stack, useRouter, useSegments } from "expo-router"
+import { useEffect } from "react"
+import { View } from "react-native"
+import UserIcon from "@/components/header/profileIcon"
+import SettingsIcon from "@/components/header/settingsIcon"
+import { AuthProvider, useAuth } from "@/context/AuthContext"
+import { colors } from "@/themes/colors"
 
 // Previne que a tela inicial pisque antes da decisão de rota ser tomada
-export { ErrorBoundary } from "expo-router";
+export { ErrorBoundary } from "expo-router"
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient()
 
 // Componente separado para a lógica de roteamento
 function RootLayoutNav() {
-	const { isAuthenticated, isLoading } = useAuth();
-	const segments = useSegments();
-	const router = useRouter();
+	const { isAuthenticated, isLoading } = useAuth()
+	const segments = useSegments()
+	const router = useRouter()
 
 	useEffect(() => {
 		// Se o estado de autenticação ainda está carregando, não faça nada.
 		if (isLoading) {
-			return;
+			return
 		}
 
-		const inTabsGroup = segments[0] === "(tabs)";
+		const inTabsGroup = segments[0] === "(tabs)"
 
 		// 3. Lógica de redirecionamento
 		if (isAuthenticated && !inTabsGroup) {
 			// Cenário: Usuário está LOGADO, mas NÃO está na área das abas.
 			// Ação: Mande-o para a tela inicial do app.
-			router.replace("/home");
+			router.replace("/home")
 		} else if (
 			(!isAuthenticated && inTabsGroup) ||
 			!(isAuthenticated || inTabsGroup)
 		) {
 			// Cenário: Usuário NÃO está LOGADO, mas está tentando acessar uma rota protegida (dentro de /tabs).
 			// Ação: Mande-o para a tela de login.
-			router.replace("/login");
+			router.replace("/login")
 		}
 		// Se nenhuma dessas condições for atendida, significa que o usuário
 		// já está onde deveria estar (logado e nas abas, ou deslogado e no login),
 		// então não fazemos nada.
-	}, [isAuthenticated, isLoading, segments, router]); // Executa o efeito quando o estado de auth ou a rota mudam
+	}, [isAuthenticated, isLoading, segments, router]) // Executa o efeito quando o estado de auth ou a rota mudam
 
 	// Se o carregamento terminou, renderiza a rota atual.
 	return (
@@ -95,7 +95,7 @@ function RootLayoutNav() {
 				options={{ title: "Configurações", presentation: "modal" }}
 			/> */}
 		</Stack>
-	);
+	)
 }
 
 export default function Layout() {
@@ -105,5 +105,5 @@ export default function Layout() {
 				<RootLayoutNav />
 			</QueryClientProvider>
 		</AuthProvider>
-	);
+	)
 }

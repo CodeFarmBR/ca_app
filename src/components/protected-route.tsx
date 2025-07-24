@@ -1,11 +1,11 @@
 // components/ProtectedRoute.tsx
 
-import { Redirect } from "expo-router";
-import { ActivityIndicator, View } from "react-native";
-import { useAuth } from "@/context/AuthContext";
+import { Redirect } from "expo-router"
+import { ActivityIndicator, View } from "react-native"
+import { useAuth } from "@/context/auth-context"
 
 export const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-	const { isAuthenticated, isLoading } = useAuth();
+	const { isAuthenticated, isLoading } = useAuth()
 
 	if (isLoading) {
 		return (
@@ -18,12 +18,12 @@ export const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 			>
 				<ActivityIndicator size="large" />
 			</View>
-		);
+		)
 	}
 
 	if (!isAuthenticated) {
-		return <Redirect href="/" />;
+		return <Redirect href="/" />
 	}
 
-	return <>{children}</>;
-};
+	return <>{children}</>
+}

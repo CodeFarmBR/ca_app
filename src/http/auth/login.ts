@@ -1,14 +1,14 @@
 interface loginRequest {
-	email: string;
-	senha: string;
+	email: string
+	senha: string
 }
 
 export interface TokenResponse {
-	access_token: string;
-	refresh_token: string;
+	access_token: string
+	refresh_token: string
 }
 
-const apiURL = process.env.EXPO_PUBLIC_API_URL;
+const apiURL = process.env.EXPO_PUBLIC_API_URL
 
 export async function login({
 	email,
@@ -23,21 +23,21 @@ export async function login({
 			email,
 			senha,
 		}),
-	});
+	})
 
 	if (response.status === 401) {
-		throw new Error("Senha incorreta");
+		throw new Error("Senha incorreta")
 	}
 
 	if (response.status === 404) {
-		throw new Error("Usuário não encontrado");
+		throw new Error("Usuário não encontrado")
 	}
 
 	if (!response.ok) {
-		const errorText = await response.json(); // ou response.json(), se o erro vier como JSON
-		throw new Error(`Erro ${response.status}: ${errorText}`);
+		const errorText = await response.json() // ou response.json(), se o erro vier como JSON
+		throw new Error(`Erro ${response.status}: ${errorText}`)
 	}
 
-	const tokensResponse = await response.json();
-	return tokensResponse;
+	const tokensResponse = await response.json()
+	return tokensResponse
 }

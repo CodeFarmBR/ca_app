@@ -1,5 +1,5 @@
-import { Text, View } from "react-native";
-import { ProtectedRoute } from "@/components/ProtectedRoute";
+import { Text, View } from "react-native"
+import { ProtectedRoute } from "@/components/protected-route"
 
 export default function HomeCulturas() {
 	return (
@@ -8,5 +8,5 @@ export default function HomeCulturas() {
 				<Text>Home Culturas</Text>
 			</View>
 		</ProtectedRoute>
-	);
+	)
 }

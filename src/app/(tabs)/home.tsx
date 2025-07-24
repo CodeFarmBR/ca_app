@@ -1,8 +1,11 @@
-import { CirclePlus, UserRoundPlus } from "lucide-react-native"
-import { StyleSheet, Text, View } from "react-native"
-import { ProtectedRoute } from "@/components/ProtectedRoute"
+import { CirclePlus } from "lucide-react-native"
+import { FlatList, StyleSheet, Text, View } from "react-native"
+import { SafeAreaView } from "react-native-safe-area-context"
+import ClientesListEmpty from "@/components/homeClientes/Cliente-list-empty"
+import { ClienteListItem } from "@/components/homeClientes/cliente-list-item"
+import { ProtectedRoute } from "@/components/protected-route"
+import { UseCliente } from "@/http/use-cliente"
 import { colors } from "@/themes/colors"
-import { typography } from "@/themes/typography"
 
 export default function Home() {
 	// Exemplo de criação de dado com watermellonDB
@@ -19,36 +22,40 @@ export default function Home() {
 	// 	})
 	// }
 
+	const { data, isLoading, refetch, isFetching } = UseCliente()
+
 	return (
 		<ProtectedRoute>
-			<View style={styles.container}>
+			<SafeAreaView style={styles.container}>
 				<View style={styles.clientsContainer}>
 					<View style={styles.headerSecondary}>
 						<Text style={styles.title}>MEUS CLIENTES</Text>
 						<CirclePlus strokeWidth={1} />
 					</View>
 
-					<View style={styles.noClientsFound}>
-						<UserRoundPlus color={colors.gray500} size={64} strokeWidth={1} />
-						<Text
-							style={[
-								typography.bodyLg,
-								{ fontWeight: "700", color: colors.gray500 },
-							]}
-						>
-							Nenhum Cliente encontrado
-						</Text>
-						<Text
-							style={[
-								typography.bodyLg,
-								{ color: colors.gray500, textAlign: "center" },
-							]}
-						>
-							Toque no botão + para adicionar seu primeiro cliente
-						</Text>
-					</View>
+					{isLoading ? (
+						<Text>Carregando...</Text>
+					) : (
+						<FlatList
+							data={data?.items}
+							ItemSeparatorComponent={() => (
+								<View style={styles.listItemSeparator} />
+							)}
+							keyExtractor={(item) => String(item.usuario.usuario_id)}
+							ListEmptyComponent={() => <ClientesListEmpty />}
+							onRefresh={refetch}
+							refreshing={isFetching}
+							renderItem={({ item }) => (
+								<ClienteListItem
+									empresa={item.nome_empresa}
+									id={item.usuario.usuario_id}
+									nome={item.usuario.nome}
+								/>
+							)}
+						/>
+					)}
 				</View>
-			</View>
+			</SafeAreaView>
 		</ProtectedRoute>
 	)
 }
@@ -73,7 +80,7 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		justifyContent: "space-between",
 	},
-	noClientsFound: {
+	containerB: {
 		alignItems: "center",
 		position: "absolute",
 		left: 0,
@@ -89,5 +96,9 @@ const styles = StyleSheet.create({
 	titleBtn: {
 		fontSize: 16,
 		fontWeight: "bold",
+	},
+	listItemSeparator: {
+		borderWidth: 0.8,
+		borderColor: colors.gray50,
 	},
 })

@@ -6,11 +6,11 @@ import { StyleSheet, Text, View } from "react-native"
 import { MsIcon } from "@/../assets/MsIcon"
 import { MyButton } from "@/components/button"
 import { Input } from "@/components/input"
-import { useAuth } from "@/context/AuthContext"
+import { useAuth } from "@/context/auth-context"
 import { login } from "@/http/auth/login"
+import { type LoginFormData, loginSchema } from "@/http/types/login-request"
 import { colors } from "@/themes/colors"
 import { typography } from "@/themes/typography"
-import { type LoginFormData, loginSchema } from "@/zodSchemas/loginSchema"
 
 export default function LoginScreen() {
 	const router = useRouter()

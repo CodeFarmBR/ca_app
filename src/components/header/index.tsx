@@ -1,6 +1,6 @@
 import { SettingsIcon, UserCircle2 } from "lucide-react-native"
 import { Pressable, Text, View } from "react-native"
-import { useAuth } from "@/context/AuthContext"
+import { useAuth } from "@/context/auth-context"
 import { colors } from "@/themes/colors"
 import { typography } from "@/themes/typography"
 import { styles } from "./styles"

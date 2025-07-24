@@ -8,7 +8,7 @@ function HomeIcon({ isFocused }: { isFocused: boolean }) {
 	return (
 		<Home
 			color={isFocused ? colors.green500 : colors.background}
-			size={24}
+			size={28}
 			strokeWidth={1}
 		/>
 	)
@@ -18,7 +18,7 @@ function VisitasIcon({ isFocused }: { isFocused: boolean }) {
 	return (
 		<ClipboardPen
 			color={isFocused ? colors.green500 : colors.background}
-			size={24}
+			size={28}
 			strokeWidth={1}
 		/>
 	)
@@ -28,7 +28,7 @@ function CulturasIcon({ isFocused }: { isFocused: boolean }) {
 	return (
 		<Wheat
 			color={isFocused ? colors.green500 : colors.background}
-			size={24}
+			size={28}
 			strokeWidth={1}
 		/>
 	)
@@ -38,7 +38,7 @@ function CalendarioIcon({ isFocused }: { isFocused: boolean }) {
 	return (
 		<Calendar1
 			color={isFocused ? colors.green500 : colors.background}
-			size={24}
+			size={28}
 			strokeWidth={1}
 		/>
 	)

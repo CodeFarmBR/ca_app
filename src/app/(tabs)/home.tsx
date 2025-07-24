@@ -4,10 +4,11 @@ import { SafeAreaView } from "react-native-safe-area-context"
 import ClientesListEmpty from "@/components/homeClientes/Cliente-list-empty"
 import { ClienteListItem } from "@/components/homeClientes/cliente-list-item"
 import { ProtectedRoute } from "@/components/protected-route"
+import { useAuth } from "@/context/auth-context"
 import { UseCliente } from "@/http/use-cliente"
 import { colors } from "@/themes/colors"
 
-export default function Home() {
+export default function HomeClientesScreen() {
 	// Exemplo de criação de dado com watermellonDB
 	// async function onTest() {
 	// 	const clientesCollection = await database.get<Cliente>("clientes")
@@ -22,7 +23,11 @@ export default function Home() {
 	// 	})
 	// }
 
-	const { data, isLoading, refetch, isFetching } = UseCliente()
+	const { profile, access_token } = useAuth()
+	const { data, isLoading, refetch, isFetching } = UseCliente(
+		access_token,
+		profile?.consultoria_id
+	)
 
 	return (
 		<ProtectedRoute>
@@ -37,7 +42,7 @@ export default function Home() {
 						<Text>Carregando...</Text>
 					) : (
 						<FlatList
-							data={data?.items}
+							data={data}
 							ItemSeparatorComponent={() => (
 								<View style={styles.listItemSeparator} />
 							)}

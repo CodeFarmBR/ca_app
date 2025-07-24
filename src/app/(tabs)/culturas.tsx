@@ -1,7 +1,7 @@
 import { Text, View } from "react-native"
 import { ProtectedRoute } from "@/components/protected-route"
 
-export default function HomeCulturas() {
+export default function HomeCulturasScreen() {
 	return (
 		<ProtectedRoute>
 			<View>

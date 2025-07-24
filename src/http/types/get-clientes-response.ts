@@ -1,32 +1,27 @@
-export type GetClientesAPIResponse = {
-	items: Array<{
+export type GetClientesAPIResponse = Array<{
+	usuario: {
+		usuario_id: string
+		nome: string
+		email: string
+		telefone: string
+		endereco: string
+		tipo_usuario: {
+			id_tipo_usuario: number
+			tipo_usuario: string
+		}
+		criado_em: string
+	}
+	consultor_cadastrou: {
 		usuario: {
-			usuario_id: string
-			nome: string
-			email: string
-			telefone: string
-			endereco: string
-			tipo_usuario: {
-				id_tipo_usuario: number
-				tipo_usuario: string
-			}
-			criado_em: string
-		}
-		consultor_cadastrou: {
-			usuario: {
-				nome: string
-			}
-		}
-		consultoria: {
-			consultoria_id: number
 			nome: string
 		}
-		nome_empresa: string
-		tipo_pessoa: string
-		inicio_consultoria: string
-		fim_consultoria: string
-	}>
-	total: number
-	page: number
-	per_page: number
-}
+	}
+	consultoria: {
+		consultoria_id: number
+		nome: string
+	}
+	nome_empresa: string
+	tipo_pessoa: string
+	inicio_consultoria: string
+	fim_consultoria: string
+}>

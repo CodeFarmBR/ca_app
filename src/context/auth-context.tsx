@@ -17,21 +17,28 @@ interface ProfileProps {
 	id: string
 	nome: string
 	sub: string
+	consultoria_id: number
 }
 
 interface AuthContextProps {
 	isAuthenticated: boolean
 	isLoading: boolean
 	profile?: ProfileProps | null
+	access_token: string | null
 	login: (tokens: TokenResponse) => Promise<void>
 	logout: () => Promise<void>
 }
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined)
 
-export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+export const AuthProvider = async ({
+	children,
+}: {
+	children: React.ReactNode
+}) => {
 	const secret_key = process.env.EXPO_PUBLIC_SECRET_KEY || ""
 
+	const access_token = await AsyncStorage.getItem("access_token")
 	const [isLoading, setIsLoading] = useState(true)
 	const [profile, setProfile] = useState<ProfileProps | null>(null)
 
@@ -93,7 +100,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
 	return (
 		<AuthContext.Provider
-			value={{ isAuthenticated, isLoading, profile, login: _login, logout }}
+			value={{
+				isAuthenticated,
+				isLoading,
+				profile,
+				access_token,
+				login: _login,
+				logout,
+			}}
 		>
 			{children}
 		</AuthContext.Provider>

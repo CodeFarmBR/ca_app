@@ -7,6 +7,7 @@ import {
 	useEffect,
 	useState,
 } from "react"
+import { authManager } from "@/http/api-client"
 
 interface TokenResponse {
 	access_token: string
@@ -24,21 +25,17 @@ interface AuthContextProps {
 	isAuthenticated: boolean
 	isLoading: boolean
 	profile?: ProfileProps | null
-	access_token: string | null
+	accessToken: string | null
 	login: (tokens: TokenResponse) => Promise<void>
 	logout: () => Promise<void>
 }
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined)
 
-export const AuthProvider = async ({
-	children,
-}: {
-	children: React.ReactNode
-}) => {
+export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	const secret_key = process.env.EXPO_PUBLIC_SECRET_KEY || ""
 
-	const access_token = await AsyncStorage.getItem("access_token")
+	const [accessToken, setAccessToken] = useState<string | null>(null)
 	const [isLoading, setIsLoading] = useState(true)
 	const [profile, setProfile] = useState<ProfileProps | null>(null)
 
@@ -49,6 +46,10 @@ export const AuthProvider = async ({
 		await AsyncStorage.multiRemove(["access_token", "refresh_token", "profile"])
 		setProfile(null)
 	}, [])
+
+	useEffect(() => {
+		authManager.logout = logout
+	}, [logout])
 
 	const validateToken = useCallback(
 		async (token: string) => {
@@ -94,7 +95,7 @@ export const AuthProvider = async ({
 			AsyncStorage.setItem("refresh_token", tokens.refresh_token),
 			AsyncStorage.setItem("profile", JSON.stringify(profileData)),
 		])
-
+		setAccessToken(tokens.access_token)
 		setProfile(profileData)
 	}
 
@@ -104,7 +105,7 @@ export const AuthProvider = async ({
 				isAuthenticated,
 				isLoading,
 				profile,
-				access_token,
+				accessToken,
 				login: _login,
 				logout,
 			}}

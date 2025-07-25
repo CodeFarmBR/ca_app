@@ -1,30 +1,26 @@
 import { useQuery } from "@tanstack/react-query"
+import { apiFetch } from "@/http/api-client" // 1. Importe sua nova função
 import type { GetClientesAPIResponse } from "./types/get-clientes-response"
 
-export function UseCliente(
-	access_token: string | null,
-	consultoria_id?: number
-) {
-	const apiURL = process.env.EXPO_PUBLIC_API_URL
-
+export function useClientes(consultoria_id?: number) {
 	return useQuery({
-		queryKey: ["get-clientes"],
-		queryFn: async () => {
-			const response = await fetch(
-				`${apiURL}/consultorias/${consultoria_id}/clientes`,
-				{
-					method: "GET",
-					headers: {
-						Authorization: `Bearer ${access_token}`,
-					},
-				}
-			)
-			if (!response.ok) {
-				throw new Error("Falha ao buscar clientes")
-			}
-			const result: GetClientesAPIResponse = await response.json()
+		queryKey: ["get-clientes", consultoria_id],
 
-			return result
+		queryFn: async () => {
+			const response = await apiFetch(
+				`/consultorias/${consultoria_id}/clientes`
+			)
+
+			if (!response.ok) {
+				const errorData = await response.json().catch(() => null)
+				throw new Error(errorData?.error || "Falha ao buscar clientes")
+			}
+
+			return response.json() as Promise<GetClientesAPIResponse>
 		},
+
+		// Desabilita a query se não houver um ID.
+		// Isso evita uma chamada de API desnecessária para uma URL inválida.
+		enabled: !!consultoria_id,
 	})
 }

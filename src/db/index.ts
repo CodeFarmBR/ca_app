@@ -18,7 +18,7 @@ const adapter = new SQLiteAdapter({
 	// additional installation steps have to be taken - disable if you run into issues...)
 	jsi: Platform.OS === "ios",
 	// (optional, but you should implement this method)
-	onSetUpError: (error) => {
+	onSetUpError: (_error) => {
 		// Database failed to load -- offer the user to reload the app or log out
 	},
 })

@@ -1,4 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage"
+import { Alert } from "react-native"
 
 export const authManager = {
 	// biome-ignore lint/suspicious/noEmptyBlockStatements: a função vazia chama a verdadeira função de logout do auth-context através de um UseEffect que escuta quando essa função e chamada
@@ -10,6 +11,7 @@ const BASE_URL = process.env.EXPO_PUBLIC_API_URL
 async function UpdateTokens(): Promise<string | null> {
 	const refreshToken = await AsyncStorage.getItem("refresh_token")
 	if (!refreshToken) {
+		Alert.alert("Sua sessão expirou. Por favor, faça o login novamente.")
 		authManager.logout()
 		return null
 	}
@@ -24,6 +26,7 @@ async function UpdateTokens(): Promise<string | null> {
 		})
 
 		if (!response.ok) {
+			Alert.alert("Sua sessão expirou. Por favor, faça o login novamente.")
 			authManager.logout()
 			return null
 		}
@@ -35,6 +38,7 @@ async function UpdateTokens(): Promise<string | null> {
 
 		return newTokens.access_token
 	} catch (_error) {
+		Alert.alert("Sua sessão expirou. Por favor, faça o login novamente.")
 		authManager.logout()
 		return null
 	}
@@ -53,13 +57,9 @@ export async function apiFetch(endpoint: string, options: RequestInit = {}) {
 	})
 
 	if (response.status === 401) {
-		console.log("Primeira request. Token expirado: ", accessToken)
-
 		const newAccessToken = await UpdateTokens()
 
 		if (newAccessToken) {
-			console.log("Segunda request. Token novo: ", newAccessToken)
-
 			response = await fetch(`${BASE_URL}${endpoint}`, {
 				...options,
 				headers: {

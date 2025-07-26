@@ -102,7 +102,8 @@ const styles = StyleSheet.create({
 		fontWeight: "bold",
 	},
 	listItemSeparator: {
-		borderWidth: 0.8,
+		borderWidth: 1,
 		borderColor: colors.gray50,
+		backgroundColor: colors.gray50,
 	},
 })

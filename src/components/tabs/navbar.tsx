@@ -1,47 +1,47 @@
-import type { BottomTabBarProps } from "@react-navigation/bottom-tabs";
-import { Calendar1, ClipboardPen, Home, Wheat } from "lucide-react-native";
-import { Pressable, View } from "react-native";
-import { colors } from "@/theme/colors";
-import { styles } from "./styles";
+import type { BottomTabBarProps } from "@react-navigation/bottom-tabs"
+import { Calendar1, ClipboardPen, Home, Wheat } from "lucide-react-native"
+import { Pressable, View } from "react-native"
+import { colors } from "@/themes/colors"
+import { styles } from "./styles"
 
 function HomeIcon({ isFocused }: { isFocused: boolean }) {
 	return (
 		<Home
 			color={isFocused ? colors.green500 : colors.background}
-			size={24}
+			size={28}
 			strokeWidth={1}
 		/>
-	);
+	)
 }
 
 function VisitasIcon({ isFocused }: { isFocused: boolean }) {
 	return (
 		<ClipboardPen
 			color={isFocused ? colors.green500 : colors.background}
-			size={24}
+			size={28}
 			strokeWidth={1}
 		/>
-	);
+	)
 }
 
 function CulturasIcon({ isFocused }: { isFocused: boolean }) {
 	return (
 		<Wheat
 			color={isFocused ? colors.green500 : colors.background}
-			size={24}
+			size={28}
 			strokeWidth={1}
 		/>
-	);
+	)
 }
 
 function CalendarioIcon({ isFocused }: { isFocused: boolean }) {
 	return (
 		<Calendar1
 			color={isFocused ? colors.green500 : colors.background}
-			size={24}
+			size={28}
 			strokeWidth={1}
 		/>
-	);
+	)
 }
 
 export function CustomTabBar({
@@ -54,20 +54,20 @@ export function CustomTabBar({
 			<View style={styles.tabBar}>
 				{state.routes.map((route, index) => {
 					// biome-ignore lint/correctness/noUnusedVariables: I think may e useful for some reason
-					const { options } = descriptors[route.key];
-					const isFocused = state.index === index; // Verifica se a aba está ativa
+					const { options } = descriptors[route.key]
+					const isFocused = state.index === index // Verifica se a aba está ativa
 
 					const onPress = () => {
 						const event = navigation.emit({
 							type: "tabPress",
 							target: route.key,
 							canPreventDefault: true,
-						});
+						})
 
 						if (!(isFocused || event.defaultPrevented)) {
-							navigation.navigate(route.name, route.params);
+							navigation.navigate(route.name, route.params)
 						}
-					};
+					}
 
 					return (
 						<Pressable
@@ -88,9 +88,9 @@ export function CustomTabBar({
 								<CalendarioIcon isFocused={isFocused} />
 							)}
 						</Pressable>
-					);
+					)
 				})}
 			</View>
 		</View>
-	);
+	)
 }

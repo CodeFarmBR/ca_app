@@ -1,5 +1,5 @@
-import { StyleSheet } from "react-native";
-import { colors } from "@/theme/colors";
+import { StyleSheet } from "react-native"
+import { colors } from "@/themes/colors"
 
 export const styles = StyleSheet.create({
 	tabBarContainer: {
@@ -10,9 +10,9 @@ export const styles = StyleSheet.create({
 		alignItems: "center",
 	},
 	tabBar: {
-		width: 244,
+		width: 288,
 		// height: 40,
-		height: 40, // Padding não está sendo aplicado verticalmente, por isso a altura foi diminuida em 4
+		height: 60, // Padding não está sendo aplicado verticalmente, por isso a altura foi diminuida em 4
 		padding: 2,
 		backgroundColor: colors.green500,
 		borderRadius: 22,
@@ -27,11 +27,12 @@ export const styles = StyleSheet.create({
 	tabItem: {
 		flex: 1,
 		alignItems: "center",
+		justifyContent: "center",
 		paddingHorizontal: 16,
 		paddingVertical: 4,
-		borderRadius: 22,
+		borderRadius: 20,
 	},
 	tabItemFocused: {
 		backgroundColor: colors.success,
 	},
-});
+})

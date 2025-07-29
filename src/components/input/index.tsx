@@ -1,14 +1,14 @@
-import { Eye, EyeOff } from "lucide-react-native";
-import { useState } from "react";
-import { Pressable, TextInput, type TextInputProps, View } from "react-native";
-import { colors } from "@/theme/colors";
-import { typography } from "@/theme/typography";
-import { styles } from "./styles";
+import { Eye, EyeOff } from "lucide-react-native"
+import { useState } from "react"
+import { Pressable, TextInput, type TextInputProps, View } from "react-native"
+import { colors } from "@/themes/colors"
+import { typography } from "@/themes/typography"
+import { styles } from "./styles"
 
 type Props = TextInputProps & {
-	secure?: boolean;
-	error?: boolean;
-};
+	secure?: boolean
+	error?: boolean
+}
 
 export function Input({
 	secure = false,
@@ -16,10 +16,10 @@ export function Input({
 	value = "",
 	...rest
 }: Props) {
-	const [isFocused, setIsFocused] = useState(false);
-	const [showPassword, setShowPassword] = useState(false);
+	const [isFocused, setIsFocused] = useState(false)
+	const [showPassword, setShowPassword] = useState(false)
 
-	const isEmpty = String(value).trim().length === 0;
+	const isEmpty = String(value).trim().length === 0
 
 	const containerStyle = [
 		styles.container,
@@ -29,7 +29,7 @@ export function Input({
 		!isEmpty && error && styles.filledError,
 		!(isEmpty || error) && isFocused && styles.filledActive,
 		!(isEmpty || error || isFocused) && styles.filledDefault,
-	];
+	]
 
 	return (
 		<View style={containerStyle}>
@@ -52,5 +52,5 @@ export function Input({
 				</Pressable>
 			)}
 		</View>
-	);
+	)
 }

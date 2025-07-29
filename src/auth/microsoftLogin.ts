@@ -1,7 +1,7 @@
-import { makeRedirectUri } from "expo-auth-session";
+import { makeRedirectUri } from "expo-auth-session"
 
 export const getRedirectUri = () => {
-	const redirectUri = makeRedirectUri();
+	const redirectUri = makeRedirectUri()
 
-	return redirectUri;
-};
+	return redirectUri
+}

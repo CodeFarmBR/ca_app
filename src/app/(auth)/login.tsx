@@ -1,33 +1,33 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
-import { useRouter } from "expo-router";
-import { Controller, useForm } from "react-hook-form";
-import { StyleSheet, Text, View } from "react-native";
-import { MsIcon } from "@/../assets/MsIcon";
-import { MyButton } from "@/components/button";
-import { Input } from "@/components/input";
-import { useAuth } from "@/context/AuthContext";
-import { login } from "@/http/auth/login";
-import { type LoginFormData, loginSchema } from "@/schemas/loginSchema";
-import { colors } from "@/theme/colors";
-import { typography } from "@/theme/typography";
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useMutation } from "@tanstack/react-query"
+import { useRouter } from "expo-router"
+import { Controller, useForm } from "react-hook-form"
+import { StyleSheet, Text, View } from "react-native"
+import { MsIcon } from "@/../assets/MsIcon"
+import { MyButton } from "@/components/button"
+import { Input } from "@/components/input"
+import { useAuth } from "@/context/auth-context"
+import { login } from "@/http/auth/login"
+import { type LoginFormData, loginSchema } from "@/http/types/login-request"
+import { colors } from "@/themes/colors"
+import { typography } from "@/themes/typography"
 
 export default function LoginScreen() {
-	const router = useRouter();
+	const router = useRouter()
 
-	const auth = useAuth();
+	const auth = useAuth()
 
 	const { mutate } = useMutation({
 		mutationFn: login,
 		onSuccess: async (tokens) => {
 			// Salva tokens no cliente
-			await auth.login(tokens);
-			router.replace("/home");
+			await auth.login(tokens)
+			router.replace("/home")
 		},
 		onError: (error: Error) => {
-			alert(`Erro de login: ${error?.message}`);
+			alert(`Erro de login: ${error?.message}`)
 		},
-	});
+	})
 
 	const {
 		control,
@@ -39,16 +39,16 @@ export default function LoginScreen() {
 			email: "",
 			senha: "",
 		},
-	});
+	})
 
 	function handleLogin({ email, senha }: { email: string; senha: string }) {
-		mutate({ email, senha });
+		mutate({ email, senha })
 	}
 
 	const handleMicrosoftLogin = () => {
 		// const redirectUri = getRedirectUri();
 		// @todo - inicia o fluxo OAuth com o redirectUri
-	};
+	}
 
 	return (
 		<View style={styles.base}>
@@ -158,7 +158,7 @@ export default function LoginScreen() {
 				</Text>
 			</View>
 		</View>
-	);
+	)
 }
 
 const styles = StyleSheet.create({
@@ -188,4 +188,4 @@ const styles = StyleSheet.create({
 		fontSize: 16,
 		fontWeight: "bold",
 	},
-});
+})

@@ -1,25 +1,15 @@
-import { Stack } from "expo-router";
+import { Redirect, Stack } from "expo-router"
+import { useAuth } from "@/context/auth-context"
 
 export default function AuthLayout() {
-	return (
-		// Este Stack só controla as telas dentro do grupo (auth)
-		<Stack>
-			<Stack.Screen
-				name="login" // Corresponde ao arquivo login.tsx
-				options={{
-					headerShown: false, // Exemplo: não mostrar o cabeçalho na tela de login
-				}}
-			/>
-			{/* Se você tivesse uma tela de cadastro (app/(auth)/register.tsx),
-        você a declararia aqui também.
-        <Stack.Screen 
-          name="register" 
-          options={{ 
-            title: 'Crie sua Conta', 
-            headerBackTitle: 'Voltar' 
-          }} 
-        />
-      */}
-		</Stack>
-	);
+	const { isAuthenticated } = useAuth()
+
+	if (isAuthenticated) {
+		// Se o usuário já está autenticado, não o deixe ver as telas de auth.
+		// Redirecione-o para a home.
+		return <Redirect href="/home" />
+	}
+
+	// Se não estiver autenticado, mostre as telas de autenticação normalmente.
+	return <Stack screenOptions={{ headerShown: false }} />
 }

@@ -1,5 +1,5 @@
-import { StyleSheet } from "react-native";
-import { colors } from "@/theme/colors";
+import { StyleSheet } from "react-native"
+import { colors } from "@/themes/colors"
 
 export const styles = StyleSheet.create({
 	container: {
@@ -40,4 +40,4 @@ export const styles = StyleSheet.create({
 		borderColor: colors.red400,
 		color: colors.gray900,
 	},
-});
+})

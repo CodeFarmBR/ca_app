@@ -1,3 +1,4 @@
+import { Link } from "expo-router"
 import { CirclePlus } from "lucide-react-native"
 import { FlatList, StyleSheet, Text, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
@@ -34,7 +35,9 @@ export default function HomeClientesScreen() {
 				<View style={styles.clientsContainer}>
 					<View style={styles.headerSecondary}>
 						<Text style={styles.title}>MEUS CLIENTES</Text>
-						<CirclePlus strokeWidth={1} />
+						<Link href={"/(cliente)/add-cliente"}>
+							<CirclePlus strokeWidth={1} />
+						</Link>
 					</View>
 
 					{isLoading ? (

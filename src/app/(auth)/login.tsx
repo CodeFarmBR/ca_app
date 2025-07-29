@@ -52,7 +52,7 @@ export default function LoginScreen() {
 
 	return (
 		<View style={styles.base}>
-			<Text style={[typography.headingLg, { color: colors.gray900 }]}>
+			<Text style={[typography.headingXl, { color: colors.gray900 }]}>
 				App Consultoria Agrícola
 			</Text>
 

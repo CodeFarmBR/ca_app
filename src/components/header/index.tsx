@@ -14,7 +14,7 @@ export default function Header() {
 				<Pressable onPress={() => logout()}>
 					<UserCircle2 size={32} strokeWidth={1} />
 				</Pressable>
-				<Text style={typography.headingMd}>Olá, Consultor</Text>
+				<Text style={typography.headingLg}>Olá, Consultor</Text>
 			</View>
 			<View style={styles.configIcon}>
 				<SettingsIcon color={colors.background} size={20} strokeWidth={1} />

@@ -3,6 +3,7 @@ import { colors } from "@/themes/colors"
 
 export const styles = StyleSheet.create({
 	container: {
+		width: "100%",
 		flexDirection: "row",
 		alignItems: "center",
 		borderRadius: 6,

@@ -21,5 +21,5 @@ export function MyButton({
 		disabled && Styles.disabled,
 	]
 
-	return <TouchableOpacity {...rest} style={BtnStyle} />
+	return <TouchableOpacity activeOpacity={0.8} {...rest} style={BtnStyle} />
 }

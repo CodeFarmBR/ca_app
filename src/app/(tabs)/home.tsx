@@ -35,7 +35,7 @@ export default function HomeClientesScreen() {
 				<View style={styles.clientsContainer}>
 					<View style={styles.headerSecondary}>
 						<Text style={styles.title}>MEUS CLIENTES</Text>
-						<Link href={"/(cliente)/add-cliente"}>
+						<Link href={"/(cliente)/client-registration"}>
 							<CirclePlus strokeWidth={1} />
 						</Link>
 					</View>

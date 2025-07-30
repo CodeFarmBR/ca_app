@@ -120,12 +120,7 @@ export default function LoginScreen() {
 							)}
 						</View>
 
-						<MyButton
-							activeOpacity={0.8}
-							onPress={handleSubmit(handleLogin)}
-							// onPress={tempHandleLogin}
-							primary
-						>
+						<MyButton onPress={handleSubmit(handleLogin)} primary>
 							<Text style={[styles.titleBtn, { color: colors.background }]}>
 								Entrar
 							</Text>

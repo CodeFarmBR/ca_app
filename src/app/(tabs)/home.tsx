@@ -6,7 +6,7 @@ import ClientesListEmpty from "@/components/homeClientes/Cliente-list-empty"
 import { ClienteListItem } from "@/components/homeClientes/cliente-list-item"
 import { ProtectedRoute } from "@/components/protected-route"
 import { useAuth } from "@/context/auth-context"
-import { useClientes } from "@/http/use-cliente"
+import { useClient } from "@/http/use-client"
 import { colors } from "@/themes/colors"
 
 export default function HomeClientesScreen() {
@@ -25,7 +25,7 @@ export default function HomeClientesScreen() {
 	// }
 
 	const { profile } = useAuth()
-	const { data, isLoading, refetch, isFetching } = useClientes(
+	const { data, isLoading, refetch, isFetching } = useClient(
 		profile?.consultoria_id
 	)
 

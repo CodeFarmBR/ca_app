@@ -1,0 +1,8 @@
+export type CreateClientAPIRequest = {
+	nome: string
+	email: string
+	telefone: string
+	endereco: string
+	consultor_cadastrou_id: string
+	consultoria_id: number
+}

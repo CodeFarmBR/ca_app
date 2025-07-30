@@ -41,4 +41,10 @@ export const styles = StyleSheet.create({
 		borderColor: colors.red400,
 		color: colors.gray900,
 	},
+	required: {
+		position: "absolute",
+		right: 8,
+		top: 0,
+		color: colors.red400,
+	},
 })

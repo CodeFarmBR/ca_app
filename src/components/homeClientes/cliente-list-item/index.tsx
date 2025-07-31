@@ -13,7 +13,7 @@ export type ItemProps = {
 
 export function ClienteListItem({ id, nome, empresa }: ItemProps) {
 	return (
-		<Link asChild href={{ pathname: "/cliente/[id]", params: { id } }}>
+		<Link asChild href={{ pathname: "/(cliente)/[id]", params: { id } }}>
 			<Pressable>
 				<View style={styles.container}>
 					<View>

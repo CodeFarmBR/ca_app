@@ -1,20 +1,20 @@
 import { StyleSheet } from "react-native"
 
 export const typography = StyleSheet.create({
-	headingLg: {
+	headingXl: {
 		fontSize: 28,
 		fontFamily: "RalewayBold",
 		fontWeight: "700",
 	},
-	headingMd: {
+	headingLg: {
 		fontSize: 24,
 		fontFamily: "RalewayBold",
 		fontWeight: "700",
 	},
-	headingSm: {
-		fontSize: 18,
+	headingMd: {
+		fontSize: 20,
 		fontFamily: "RalewayRegular",
-		fontWeight: "500",
+		fontWeight: "700",
 	},
 	bodyLg: {
 		fontSize: 16,

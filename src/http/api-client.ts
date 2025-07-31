@@ -7,11 +7,13 @@ export const authManager = {
 }
 
 const BASE_URL = process.env.EXPO_PUBLIC_API_URL
+const SESSION_EXPIRED_MESSAGE =
+	"Sua sessão expirou. Por favor, faça o login novamente."
 
 async function UpdateTokens(): Promise<string | null> {
 	const refreshToken = await AsyncStorage.getItem("refresh_token")
 	if (!refreshToken) {
-		Alert.alert("Sua sessão expirou. Por favor, faça o login novamente.")
+		Alert.alert(SESSION_EXPIRED_MESSAGE)
 		authManager.logout()
 		return null
 	}
@@ -26,7 +28,7 @@ async function UpdateTokens(): Promise<string | null> {
 		})
 
 		if (!response.ok) {
-			Alert.alert("Sua sessão expirou. Por favor, faça o login novamente.")
+			Alert.alert(SESSION_EXPIRED_MESSAGE)
 			authManager.logout()
 			return null
 		}
@@ -38,7 +40,7 @@ async function UpdateTokens(): Promise<string | null> {
 
 		return newTokens.access_token
 	} catch (_error) {
-		Alert.alert("Sua sessão expirou. Por favor, faça o login novamente.")
+		Alert.alert(SESSION_EXPIRED_MESSAGE)
 		authManager.logout()
 		return null
 	}
@@ -69,7 +71,7 @@ export async function apiFetch(endpoint: string, options: RequestInit = {}) {
 				},
 			})
 		} else {
-			throw new Error("Sessão expirada. Por favor, faça login novamente.")
+			throw new Error(SESSION_EXPIRED_MESSAGE)
 		}
 	}
 

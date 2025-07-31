@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
 import { apiFetch } from "@/http/api-client" // 1. Importe sua nova função
-import type { GetClientesAPIResponse } from "./types/get-clients-response"
+import type { GetClientsAPIResponse } from "./types/get-clients-response"
 
 export function useClient(consultoria_id?: number) {
 	return useQuery({
@@ -16,7 +16,7 @@ export function useClient(consultoria_id?: number) {
 				throw new Error(errorData?.error || "Falha ao buscar clientes")
 			}
 
-			return response.json() as Promise<GetClientesAPIResponse>
+			return response.json() as Promise<GetClientsAPIResponse>
 		},
 
 		// Desabilita a query se não houver um ID.

@@ -15,10 +15,11 @@ const createClienteSchema = z.object({
 		.string()
 		.min(3, "O nome é obrigatório e deve conter 3 ou mais caracteres"),
 	email: z.string().min(1, "O e-mail é obrigatório").email("E-mail inválido"),
-	telefone: z.string(),
-	endereco: z.string(),
-	consultor_cadastrou_id: z.string(),
-	consultoria_id: z.number(),
+	nome_empresa: z.string().optional(),
+	telefone: z.string().optional(),
+	endereco: z.string().optional(),
+	consultor_cadastrou_id: z.string().optional(),
+	consultoria_id: z.number().optional(),
 })
 
 type CreateClienteFormData = z.infer<typeof createClienteSchema>
@@ -40,15 +41,19 @@ export default function CreateClientForm() {
 		defaultValues: {
 			nome: "",
 			email: "",
+			nome_empresa: "",
+			endereco: "",
+			telefone: "",
 		},
 	})
 
-	setValue("consultor_cadastrou_id", "")
-	setValue("consultoria_id", 0)
+	setValue("consultor_cadastrou_id", profile?.id)
+	setValue("consultoria_id", profile?.consultoria_id)
 
 	async function handleCreateClient({
 		nome,
 		email,
+		nome_empresa,
 		telefone,
 		endereco,
 		consultor_cadastrou_id,
@@ -57,6 +62,7 @@ export default function CreateClientForm() {
 		await createClient({
 			nome,
 			email,
+			nome_empresa,
 			telefone,
 			endereco,
 			consultor_cadastrou_id,
@@ -118,6 +124,28 @@ export default function CreateClientForm() {
 					)}
 				</View>
 
+				{/* Input Nome Empresa */}
+				<View style={styles.input}>
+					<Controller
+						control={control}
+						name="nome_empresa"
+						render={({ field: { onChange, value, onBlur } }) => (
+							<Input
+								error={!!errors.nome_empresa}
+								inputMode="text"
+								onBlur={onBlur}
+								onChangeText={onChange}
+								placeholder="Nome da Empresa (opcional)"
+								placeholderTextColor={colors.gray300}
+								value={value}
+							/>
+						)}
+					/>
+					{errors.nome_empresa && (
+						<Text style={inputErrorStyle}>{errors.nome_empresa?.message}</Text>
+					)}
+				</View>
+
 				{/* Input Telefone */}
 				<View style={styles.input}>
 					<Controller
@@ -132,12 +160,9 @@ export default function CreateClientForm() {
 								onChangeText={onChange}
 								placeholder="Telefone (opcional)"
 								placeholderTextColor={colors.gray300}
-								value={value ? String(value) : ""}
+								value={value ? String(value) : ""} // Para campos do tipo números que devem ser convertidos em string
 							/>
 						)}
-						rules={{
-							required: false,
-						}}
 					/>
 					{errors.telefone && (
 						<Text style={inputErrorStyle}>{errors.telefone.message}</Text>
@@ -158,7 +183,7 @@ export default function CreateClientForm() {
 								onChangeText={onChange}
 								placeholder="Endereço (opcional)"
 								placeholderTextColor={colors.gray300}
-								value={value ? String(value) : ""}
+								value={value}
 							/>
 						)}
 					/>

@@ -16,6 +16,11 @@ export const typography = StyleSheet.create({
 		fontFamily: "RalewayRegular",
 		fontWeight: "700",
 	},
+	headingSmBold: {
+		fontSize: 18,
+		fontFamily: "RalewayRegular",
+		fontWeight: "700",
+	},
 	bodyLg: {
 		fontSize: 16,
 		fontFamily: "NotoSans",
@@ -29,7 +34,7 @@ export const typography = StyleSheet.create({
 	bodyMd: {
 		fontSize: 13,
 		fontFamily: "NotoSans",
-		fontWeight: "300",
+		fontWeight: "500",
 	},
 	button: {
 		fontSize: 16,

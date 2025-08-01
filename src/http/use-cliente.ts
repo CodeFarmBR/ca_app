@@ -18,6 +18,7 @@ export function useClientes(consultoria_id?: number) {
 
 			return response.json() as Promise<GetClientesAPIResponse>
 		},
+		staleTime: 1000 * 60 * 5, // 5 minutos
 
 		// Desabilita a query se não houver um ID.
 		// Isso evita uma chamada de API desnecessária para uma URL inválida.

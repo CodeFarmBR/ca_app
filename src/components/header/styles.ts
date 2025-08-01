@@ -13,13 +13,17 @@ export const styles = StyleSheet.create({
 		alignItems: "flex-start",
 		gap: 8,
 	},
-	configIcon: {
+	icons: {
 		width: 32,
 		height: 32,
-		padding: 3,
+		borderRadius: "100%",
 		alignItems: "center",
 		justifyContent: "center",
-		backgroundColor: colors.green500,
-		borderRadius: "100%",
+		borderWidth: 1,
 	},
+	configIcon: {
+		backgroundColor: colors.green500,
+		borderWidth: 0,
+	},
+	houseIcon: {},
 })

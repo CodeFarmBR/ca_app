@@ -1,24 +1,57 @@
-import { SettingsIcon, UserCircle2 } from "lucide-react-native"
-import { Pressable, Text, View } from "react-native"
+import { useRouter } from "expo-router"
+import { ArrowLeft, Home, SettingsIcon, UserCircle2 } from "lucide-react-native"
+import { Pressable, Text, View, type ViewProps } from "react-native"
 import { useAuth } from "@/context/auth-context"
 import { colors } from "@/themes/colors"
 import { typography } from "@/themes/typography"
 import { styles } from "./styles"
 
-export default function Header() {
+type Props = ViewProps & {
+	profileSetings?: boolean
+	backToHomeIcon?: boolean
+	backToLastPageIcon?: boolean
+	headerTitle?: string
+}
+
+export default function Header({
+	profileSetings = false,
+	backToHomeIcon = false,
+	backToLastPageIcon = false,
+	headerTitle = "",
+	...rest
+}: Props) {
 	const { logout } = useAuth()
+	const router = useRouter()
 
 	return (
-		<View style={styles.header}>
+		<View style={styles.header} {...rest}>
 			<View style={styles.titleView}>
-				<Pressable onPress={() => logout()}>
-					<UserCircle2 size={32} strokeWidth={1} />
-				</Pressable>
-				<Text style={typography.headingLg}>Olá, Consultor</Text>
+				{profileSetings && (
+					<Pressable onPress={() => logout()}>
+						<UserCircle2 size={32} strokeWidth={1} />
+					</Pressable>
+				)}
+
+				{backToHomeIcon && (
+					<Pressable
+						onPress={() => router.push("/(tabs)/home")}
+						style={styles.icons}
+					>
+						<Home size={20} strokeWidth={1} />
+					</Pressable>
+				)}
+
+				{backToLastPageIcon && (
+					<Pressable onPress={() => router.back()} style={styles.icons}>
+						<ArrowLeft size={20} strokeWidth={1} />
+					</Pressable>
+				)}
+
+				{headerTitle && <Text style={typography.headingMd}>{headerTitle}</Text>}
 			</View>
-			<View style={styles.configIcon}>
-				<SettingsIcon color={colors.background} size={20} strokeWidth={1} />
-			</View>
+			<Pressable style={[styles.icons, styles.configIcon]}>
+				<SettingsIcon color={colors.background} size={24} strokeWidth={1} />
+			</Pressable>
 		</View>
 	)
 }

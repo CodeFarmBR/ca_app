@@ -8,6 +8,7 @@ import { ProtectedRoute } from "@/components/protected-route"
 import { useAuth } from "@/context/auth-context"
 import { useClient } from "@/http/use-client"
 import { colors } from "@/themes/colors"
+import { globalStyles } from "@/themes/global-styles"
 
 export default function HomeClientesScreen() {
 	// Exemplo de criação de dado com watermellonDB
@@ -31,7 +32,7 @@ export default function HomeClientesScreen() {
 
 	return (
 		<ProtectedRoute>
-			<SafeAreaView style={styles.container}>
+			<SafeAreaView style={[globalStyles.screenContainer, styles.container]}>
 				<View style={styles.clientsContainer}>
 					<View style={styles.headerSecondary}>
 						<Text style={styles.title}>MEUS CLIENTES</Text>
@@ -69,14 +70,8 @@ export default function HomeClientesScreen() {
 
 const styles = StyleSheet.create({
 	container: {
-		backgroundColor: colors.background,
 		position: "relative",
-		flex: 1,
 		justifyContent: "flex-start",
-		alignItems: "center",
-		gap: 20,
-		paddingHorizontal: 16,
-		paddingVertical: 20,
 	},
 	clientsContainer: {
 		width: "100%",

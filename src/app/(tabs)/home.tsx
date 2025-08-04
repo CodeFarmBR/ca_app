@@ -8,6 +8,7 @@ import { useAuth } from "@/context/auth-context"
 import { useClientes } from "@/http/use-cliente"
 import { colors } from "@/themes/colors"
 import { globalStyles } from "@/themes/global-styles"
+import { typography } from "@/themes/typography"
 
 export default function HomeClientesScreen() {
 	// Exemplo de criação de dado com watermellonDB
@@ -34,7 +35,7 @@ export default function HomeClientesScreen() {
 			<SafeAreaView style={[globalStyles.screenContainer, styles.container]}>
 				<View style={styles.clientsContainer}>
 					<View style={styles.headerSecondary}>
-						<Text style={styles.title}>MEUS CLIENTES</Text>
+						<Text style={typography.headingSmBold}>MEUS CLIENTES</Text>
 						<CirclePlus strokeWidth={1} />
 					</View>
 
@@ -78,23 +79,6 @@ const styles = StyleSheet.create({
 	headerSecondary: {
 		flexDirection: "row",
 		justifyContent: "space-between",
-	},
-	containerB: {
-		alignItems: "center",
-		position: "absolute",
-		left: 0,
-		right: 0,
-		top: "50%",
-		transform: [{ translateY: -100 }], // Adjust this value as needed
-		paddingHorizontal: 16,
-	},
-	title: {
-		fontSize: 18,
-		fontWeight: "bold",
-	},
-	titleBtn: {
-		fontSize: 16,
-		fontWeight: "bold",
 	},
 	listItemSeparator: {
 		borderWidth: 1,

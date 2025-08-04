@@ -1,4 +1,4 @@
-import { Wheat } from "lucide-react-native"
+import { WheatOff } from "lucide-react-native"
 import { Text, View } from "react-native"
 import { colors } from "@/themes/colors"
 import { typography } from "@/themes/typography"
@@ -7,7 +7,7 @@ import { styles } from "./styles"
 export default function CulturasListEmpty() {
     return (
         <View style={styles.container}>
-            <Wheat color={colors.gray500} size={64} strokeWidth={1} />
+            <WheatOff color={colors.gray500} size={64} strokeWidth={1} />
             <Text
                 style={[
                     typography.bodyLg,

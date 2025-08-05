@@ -52,7 +52,7 @@ export default function LoginScreen() {
 
 	return (
 		<View style={styles.base}>
-			<Text style={[typography.headingLg, { color: colors.gray900 }]}>
+			<Text style={[typography.headingXl, { color: colors.gray900 }]}>
 				App Consultoria Agrícola
 			</Text>
 
@@ -120,12 +120,7 @@ export default function LoginScreen() {
 							)}
 						</View>
 
-						<MyButton
-							activeOpacity={0.8}
-							onPress={handleSubmit(handleLogin)}
-							// onPress={tempHandleLogin}
-							primary
-						>
+						<MyButton onPress={handleSubmit(handleLogin)} primary>
 							<Text style={[styles.titleBtn, { color: colors.background }]}>
 								Entrar
 							</Text>

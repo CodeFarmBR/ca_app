@@ -3,6 +3,7 @@ import { colors } from "@/themes/colors"
 
 export const styles = StyleSheet.create({
 	container: {
+		width: "100%",
 		flexDirection: "row",
 		alignItems: "center",
 		borderRadius: 6,
@@ -39,5 +40,11 @@ export const styles = StyleSheet.create({
 		backgroundColor: colors.danger,
 		borderColor: colors.red400,
 		color: colors.gray900,
+	},
+	required: {
+		position: "absolute",
+		right: 8,
+		top: 0,
+		color: colors.red400,
 	},
 })

@@ -1,3 +1,4 @@
+import { Link } from "expo-router"
 import { CirclePlus } from "lucide-react-native"
 import { FlatList, StyleSheet, Text, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
@@ -5,7 +6,7 @@ import ClientesListEmpty from "@/components/homeClientes/Cliente-list-empty"
 import { ClienteListItem } from "@/components/homeClientes/cliente-list-item"
 import { ProtectedRoute } from "@/components/protected-route"
 import { useAuth } from "@/context/auth-context"
-import { useClientes } from "@/http/use-cliente"
+import { useClient } from "@/http/use-client"
 import { colors } from "@/themes/colors"
 
 export default function HomeClientesScreen() {
@@ -24,7 +25,7 @@ export default function HomeClientesScreen() {
 	// }
 
 	const { profile } = useAuth()
-	const { data, isLoading, refetch, isFetching } = useClientes(
+	const { data, isLoading, refetch, isFetching } = useClient(
 		profile?.consultoria_id
 	)
 
@@ -34,7 +35,9 @@ export default function HomeClientesScreen() {
 				<View style={styles.clientsContainer}>
 					<View style={styles.headerSecondary}>
 						<Text style={styles.title}>MEUS CLIENTES</Text>
-						<CirclePlus strokeWidth={1} />
+						<Link href={"/(cliente)/client-registration"}>
+							<CirclePlus strokeWidth={1} />
+						</Link>
 					</View>
 
 					{isLoading ? (

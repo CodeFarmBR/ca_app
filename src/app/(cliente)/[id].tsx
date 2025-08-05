@@ -1,10 +1,10 @@
 import { useLocalSearchParams } from "expo-router"
-import { CirclePlus } from "lucide-react-native"
-import { Pressable, StyleSheet, Text, View } from "react-native"
+import { StyleSheet, Text, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { CulturasListEmpty } from "@/components/client-details/culturas-list-empty"
 import { FazendasListEmpty } from "@/components/client-details/fazendas-list-empty"
 import Header from "@/components/header"
+import { ListsHeader } from "@/components/lists-header"
 import { ProtectedRoute } from "@/components/protected-route"
 import { colors } from "@/themes/colors"
 import { globalStyles } from "@/themes/global-styles"
@@ -29,14 +29,12 @@ export default function ClienteDetalhesScreen() {
 						</View>
 
 						<View style={styles.listsContainer}>
-							<View style={styles.headerList}>
-								<Text style={[typography.headingXs, styles.titleHeaderList]}>
-									FAZENDAS
-								</Text>
-								<Pressable>
-									<CirclePlus strokeWidth={1} />
-								</Pressable>
-							</View>
+							<ListsHeader
+								onAddPress={() => {
+									return
+								}}
+								titleHeader="FAZENDAS"
+							/>
 
 							<View style={styles.fazendaListItem}>
 								<View style={styles.fazendaListItemImage}>
@@ -53,16 +51,12 @@ export default function ClienteDetalhesScreen() {
 						</View>
 
 						<View style={styles.listsContainer}>
-							<View style={styles.headerList}>
-								<Text
-									style={[typography.headingXs, styles.titleHeaderList, {}]}
-								>
-									CULTURAS
-								</Text>
-								<Pressable>
-									<CirclePlus strokeWidth={1} />
-								</Pressable>
-							</View>
+							<ListsHeader
+								onAddPress={() => {
+									return
+								}}
+								titleHeader="CULTURAS"
+							/>
 
 							<CulturasListEmpty />
 						</View>
@@ -91,15 +85,6 @@ const styles = StyleSheet.create({
 		width: "100%",
 		alignItems: "center",
 		gap: 12,
-	},
-	headerList: {
-		width: "100%",
-		flexDirection: "row",
-		justifyContent: "space-between",
-		alignItems: "center",
-	},
-	titleHeaderList: {
-		color: colors.gray900,
 	},
 	fazendaListItem: {
 		width: 140,

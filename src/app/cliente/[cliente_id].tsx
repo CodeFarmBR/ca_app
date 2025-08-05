@@ -1,18 +1,25 @@
 import { useLocalSearchParams } from "expo-router"
-import { StyleSheet, Text, View } from "react-native"
+import { FlatList, StyleSheet, Text, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { CulturasListEmpty } from "@/components/client-details/culturas-list-empty"
+import { FazendaListItem } from "@/components/client-details/fazenda-list-item"
 import { FazendasListEmpty } from "@/components/client-details/fazendas-list-empty"
 import Header from "@/components/header"
 import { ListsHeader } from "@/components/lists-header"
 import { ProtectedRoute } from "@/components/protected-route"
+import { useFazendas } from "@/http/use-fazendas"
 import { colors } from "@/themes/colors"
 import { globalStyles } from "@/themes/global-styles"
 import { typography } from "@/themes/typography"
-import { FarmIcon } from "../../../assets/farm-icon"
 
 export default function ClienteDetalhesScreen() {
-	const { id } = useLocalSearchParams<{ id: string }>()
+	const { cliente_id } = useLocalSearchParams<{ cliente_id: string }>()
+	const {
+		data: fazendas,
+		isLoading,
+		refetch,
+		isFetching,
+	} = useFazendas(cliente_id)
 
 	return (
 		<ProtectedRoute>
@@ -36,18 +43,25 @@ export default function ClienteDetalhesScreen() {
 								titleHeader="FAZENDAS"
 							/>
 
-							<View style={styles.fazendaListItem}>
-								<View style={styles.fazendaListItemImage}>
-									<FarmIcon />
-								</View>
-								<View style={styles.fazendaListItemInfo}>
-									<Text style={[typography.bodyMd]}>Fazenda xyz</Text>
-									<Text style={[typography.bodySm, { color: colors.gray500 }]}>
-										Luziânia, Goiás
-									</Text>
-								</View>
-							</View>
-							{/* <FazendasListEmpty /> */}
+							{isLoading ? (
+								<Text>Carregando...</Text>
+							) : (
+								<FlatList
+									data={fazendas}
+									horizontal
+									keyExtractor={(item) => String(item.fazenda_id)}
+									ListEmptyComponent={() => <FazendasListEmpty />}
+									onRefresh={refetch}
+									refreshing={isFetching}
+									renderItem={({ item }) => (
+										<FazendaListItem
+											fazenda_id={item.fazenda_id}
+											localizacao={item.localizacao}
+											nome={item.nome}
+										/>
+									)}
+								/>
+							)}
 						</View>
 
 						<View style={styles.listsContainer}>
@@ -85,26 +99,5 @@ const styles = StyleSheet.create({
 		width: "100%",
 		alignItems: "center",
 		gap: 12,
-	},
-	fazendaListItem: {
-		width: 140,
-		height: 140,
-		borderWidth: 1,
-		borderColor: colors.gray500,
-		borderRadius: 8,
-	},
-	fazendaListItemImage: {
-		height: 90,
-		alignItems: "center",
-		justifyContent: "center",
-		backgroundColor: colors.gray50,
-		borderBottomWidth: 1,
-		borderColor: colors.gray500,
-		borderTopEndRadius: 8,
-		borderTopStartRadius: 8,
-	},
-	fazendaListItemInfo: {
-		paddingHorizontal: 4,
-		gap: 4,
 	},
 })

@@ -56,8 +56,8 @@ export default function HomeClientesScreen() {
 							refreshing={isFetching}
 							renderItem={({ item }) => (
 								<ClienteListItem
+									cliente_id={item.usuario.usuario_id}
 									empresa={item.nome_empresa}
-									id={item.usuario.usuario_id}
 									nome={item.usuario.nome}
 								/>
 							)}

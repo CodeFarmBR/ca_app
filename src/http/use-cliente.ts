@@ -1,6 +1,7 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { apiFetch } from "./api-client"
 import type { GetClienteAPIResponse } from "./types/get-cliente-response"
+import type { GetClientesAPIResponse } from "./types/get-clientes-response"
 
 export function useCliente(cliente_id: string) {
 	const queryClient = useQueryClient()
@@ -20,7 +21,7 @@ export function useCliente(cliente_id: string) {
 		},
 		initialData: () => {
 			return queryClient
-				.getQueryData<GetClienteAPIResponse[]>(["get-clientes"])
+				.getQueryData<GetClientesAPIResponse>(["get-clientes"])
 				?.find((cliente) => cliente.usuario.usuario_id === cliente_id)
 		},
 

@@ -1,7 +1,7 @@
 import { Text, View } from "react-native"
-import { FarmIcon } from "@/../assets/farm-icon"
 import { colors } from "@/themes/colors"
 import { typography } from "@/themes/typography"
+import { FarmIcon } from "../../../../assets/farm-icon"
 import { styles } from "./styles"
 
 export function FazendasListEmpty() {

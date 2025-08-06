@@ -1,12 +1,15 @@
 import { useLocalSearchParams } from "expo-router"
 import { FlatList, StyleSheet, Text, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
+import { CulturaListItem } from "@/components/client-details/cultura-list-item"
 import { CulturasListEmpty } from "@/components/client-details/culturas-list-empty"
 import { FazendaListItem } from "@/components/client-details/fazenda-list-item"
 import { FazendasListEmpty } from "@/components/client-details/fazendas-list-empty"
 import Header from "@/components/header"
+import { ListItemSeparator } from "@/components/listItemSeparator"
 import { ListsHeader } from "@/components/lists-header"
 import { ProtectedRoute } from "@/components/protected-route"
+import { useClienteCulturas } from "@/http/use-cliente-culturas"
 import { useFazendas } from "@/http/use-fazendas"
 import { colors } from "@/themes/colors"
 import { globalStyles } from "@/themes/global-styles"
@@ -16,10 +19,17 @@ export default function ClienteDetalhesScreen() {
 	const { cliente_id } = useLocalSearchParams<{ cliente_id: string }>()
 	const {
 		data: fazendas,
-		isLoading,
-		refetch,
-		isFetching,
+		isLoading: fazendasIsLoading,
+		refetch: fazendasRefetch,
+		isFetching: fazendasIsFetching,
 	} = useFazendas(cliente_id)
+
+	const {
+		data: culturas,
+		isLoading: culturasIsLoading,
+		refetch: culturasRefetch,
+		isFetching: culturasIsFetching,
+	} = useClienteCulturas(cliente_id)
 
 	return (
 		<ProtectedRoute>
@@ -43,7 +53,7 @@ export default function ClienteDetalhesScreen() {
 								titleHeader="FAZENDAS"
 							/>
 
-							{isLoading ? (
+							{fazendasIsLoading ? (
 								<Text>Carregando...</Text>
 							) : (
 								<FlatList
@@ -52,8 +62,8 @@ export default function ClienteDetalhesScreen() {
 									horizontal
 									keyExtractor={(item) => String(item.fazenda_id)}
 									ListEmptyComponent={() => <FazendasListEmpty />}
-									onRefresh={refetch}
-									refreshing={isFetching}
+									onRefresh={fazendasRefetch}
+									refreshing={fazendasIsFetching}
 									renderItem={({ item }) => (
 										<FazendaListItem
 											fazenda_id={item.fazenda_id}
@@ -73,7 +83,27 @@ export default function ClienteDetalhesScreen() {
 								titleHeader="CULTURAS"
 							/>
 
-							<CulturasListEmpty />
+							{culturasIsLoading ? (
+								<Text>Carregando...</Text>
+							) : (
+								<FlatList
+									contentContainerStyle={[styles.flatList, { flexGrow: 1 }]}
+									data={culturas}
+									ItemSeparatorComponent={() => <ListItemSeparator />}
+									keyExtractor={(item) => String(item.cliente_cultura_id)}
+									ListEmptyComponent={() => <CulturasListEmpty />}
+									onRefresh={culturasRefetch}
+									refreshing={culturasIsFetching}
+									renderItem={({ item }) => (
+										<CulturaListItem
+											dataFim={item.data_fim}
+											dataInicio={item.data_inicio}
+											nome={item.cultura.nome}
+											variedade={item.cultura.variedade}
+										/>
+									)}
+								/>
+							)}
 						</View>
 					</View>
 				</View>
@@ -98,11 +128,12 @@ const styles = StyleSheet.create({
 	},
 	listsContainer: {
 		width: "100%",
-		alignItems: "center",
+		alignItems: "stretch",
 		gap: 12,
 	},
 	flatList: {
-		marginTop: 8,
-		marginHorizontal: "auto",
+		flexGrow: 1,
+		width: "100%",
+		paddingHorizontal: 0, // remova margens se não quiser espaço nas laterais
 	},
 })

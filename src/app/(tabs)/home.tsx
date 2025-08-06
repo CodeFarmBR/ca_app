@@ -1,12 +1,12 @@
 import { CirclePlus } from "lucide-react-native"
 import { FlatList, StyleSheet, Text, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
-import ClientesListEmpty from "@/components/homeClientes/Cliente-list-empty"
+import ClientesListEmpty from "@/components/homeClientes/cliente-list-empty"
 import { ClienteListItem } from "@/components/homeClientes/cliente-list-item"
+import { ListItemSeparator } from "@/components/listItemSeparator"
 import { ProtectedRoute } from "@/components/protected-route"
 import { useAuth } from "@/context/auth-context"
 import { useClientes } from "@/http/use-cliente"
-import { colors } from "@/themes/colors"
 import { globalStyles } from "@/themes/global-styles"
 import { typography } from "@/themes/typography"
 
@@ -44,9 +44,7 @@ export default function HomeClientesScreen() {
 					) : (
 						<FlatList
 							data={data}
-							ItemSeparatorComponent={() => (
-								<View style={styles.listItemSeparator} />
-							)}
+							ItemSeparatorComponent={() => <ListItemSeparator />}
 							keyExtractor={(item) => String(item.usuario.usuario_id)}
 							ListEmptyComponent={() => <ClientesListEmpty />}
 							onRefresh={refetch}
@@ -79,10 +77,5 @@ const styles = StyleSheet.create({
 	headerSecondary: {
 		flexDirection: "row",
 		justifyContent: "space-between",
-	},
-	listItemSeparator: {
-		borderWidth: 1,
-		borderColor: colors.gray50,
-		backgroundColor: colors.gray50,
 	},
 })

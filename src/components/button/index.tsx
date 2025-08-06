@@ -1,8 +1,8 @@
 import { TouchableOpacity, type TouchableOpacityProps } from "react-native"
 
-import { Styles } from "./styles"
+import { styles } from "./styles"
 
-type MyButtonProps = TouchableOpacityProps & {
+type ButtonProps = TouchableOpacityProps & {
 	primary?: boolean
 	secundary?: boolean
 	disabled?: boolean
@@ -13,12 +13,12 @@ export function MyButton({
 	secundary,
 	disabled,
 	...rest
-}: MyButtonProps) {
+}: ButtonProps) {
 	const BtnStyle = [
-		Styles.base,
-		primary && Styles.primary,
-		secundary && Styles.secundary,
-		disabled && Styles.disabled,
+		styles.base,
+		primary && styles.primary,
+		secundary && styles.secundary,
+		disabled && styles.disabled,
 	]
 
 	return <TouchableOpacity activeOpacity={0.8} {...rest} style={BtnStyle} />

@@ -1,5 +1,3 @@
-// components/ProtectedRoute.tsx
-
 import { Redirect } from "expo-router"
 import { ActivityIndicator, View } from "react-native"
 import { useAuth } from "@/context/auth-context"

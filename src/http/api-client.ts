@@ -10,7 +10,7 @@ const BASE_URL = process.env.EXPO_PUBLIC_API_URL
 const SESSION_EXPIRED_MESSAGE =
 	"Sua sessão expirou. Por favor, faça o login novamente."
 
-async function UpdateTokens(): Promise<string | null> {
+async function updateTokens(): Promise<string | null> {
 	const refreshToken = await AsyncStorage.getItem("refresh_token")
 	if (!refreshToken) {
 		Alert.alert(SESSION_EXPIRED_MESSAGE)
@@ -59,7 +59,7 @@ export async function apiFetch(endpoint: string, options: RequestInit = {}) {
 	})
 
 	if (response.status === 401) {
-		const newAccessToken = await UpdateTokens()
+		const newAccessToken = await updateTokens()
 
 		if (newAccessToken) {
 			response = await fetch(`${BASE_URL}${endpoint}`, {

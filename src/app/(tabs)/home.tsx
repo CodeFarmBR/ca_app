@@ -2,12 +2,12 @@ import { Link } from "expo-router"
 import { CirclePlus } from "lucide-react-native"
 import { FlatList, StyleSheet, Text, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
-import ClientesListEmpty from "@/components/homeClientes/cliente-list-empty"
-import { ClienteListItem } from "@/components/homeClientes/cliente-list-item"
-import { ListItemSeparator } from "@/components/listItemSeparator"
+import { ClientesListEmpty } from "@/components/home-clientes/clientes-list-empty"
+import { ClientesListItem } from "@/components/home-clientes/clientes-list-item"
+import { ListItemSeparator } from "@/components/list-item-separator"
 import { ProtectedRoute } from "@/components/protected-route"
 import { useAuth } from "@/context/auth-context"
-import { useClientes } from "@/http/use-cliente"
+import { useClientes } from "@/http/use-clientes"
 import { globalStyles } from "@/themes/global-styles"
 import { typography } from "@/themes/typography"
 
@@ -53,7 +53,7 @@ export default function HomeClientesScreen() {
 							onRefresh={refetch}
 							refreshing={isFetching}
 							renderItem={({ item }) => (
-								<ClienteListItem
+								<ClientesListItem
 									cliente_id={item.usuario.usuario_id}
 									empresa={item.nome_empresa}
 									nome={item.usuario.nome}

@@ -3,7 +3,7 @@ import { View } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import UserIcon from "@/components/header/profile-icon"
 import SettingsIcon from "@/components/header/settings-icon"
-import { CustomTabBar } from "@/components/tabs/navbar"
+import { CustomTabBar } from "@/components/tabs"
 import { useAuth } from "@/context/auth-context"
 import { colors } from "@/themes/colors"
 

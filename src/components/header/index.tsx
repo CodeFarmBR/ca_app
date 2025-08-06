@@ -6,20 +6,20 @@ import { colors } from "@/themes/colors"
 import { typography } from "@/themes/typography"
 import { styles } from "./styles"
 
-type Props = ViewProps & {
+type HeaderProps = ViewProps & {
 	profileSetings?: boolean
 	backToHomeIcon?: boolean
 	backToLastPageIcon?: boolean
 	headerTitle?: string
 }
 
-export default function Header({
+export function Header({
 	profileSetings = false,
 	backToHomeIcon = false,
 	backToLastPageIcon = false,
 	headerTitle = "",
 	...rest
-}: Props) {
+}: HeaderProps) {
 	const { logout } = useAuth()
 	const router = useRouter()
 

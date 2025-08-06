@@ -47,6 +47,7 @@ export default function ClienteDetalhesScreen() {
 								<Text>Carregando...</Text>
 							) : (
 								<FlatList
+									contentContainerStyle={styles.flatList}
 									data={fazendas}
 									horizontal
 									keyExtractor={(item) => String(item.fazenda_id)}
@@ -99,5 +100,9 @@ const styles = StyleSheet.create({
 		width: "100%",
 		alignItems: "center",
 		gap: 12,
+	},
+	flatList: {
+		marginTop: 8,
+		marginHorizontal: "auto",
 	},
 })

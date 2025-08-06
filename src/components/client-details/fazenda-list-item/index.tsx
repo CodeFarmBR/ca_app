@@ -26,8 +26,13 @@ export function FazendaListItem({
 					<FarmIcon />
 				</View>
 				<View style={styles.fazendaListItemInfo}>
-					<Text style={[typography.bodyMd]}>{nome}</Text>
-					<Text style={[typography.bodySm, { color: colors.gray500 }]}>
+					<Text numberOfLines={2} style={[typography.bodyMd]}>
+						{nome}
+					</Text>
+					<Text
+						numberOfLines={1}
+						style={[typography.bodySm, { color: colors.gray500 }]}
+					>
 						{localizacao}
 					</Text>
 				</View>

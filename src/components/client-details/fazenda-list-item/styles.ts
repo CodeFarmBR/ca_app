@@ -4,7 +4,7 @@ import { colors } from "@/themes/colors"
 export const styles = StyleSheet.create({
 	fazendaListItem: {
 		width: 140,
-		height: 140,
+		height: 150,
 		marginRight: 12,
 		borderWidth: 1,
 		borderColor: colors.gray500,
@@ -22,6 +22,6 @@ export const styles = StyleSheet.create({
 	},
 	fazendaListItemInfo: {
 		paddingHorizontal: 4,
-		gap: 4,
+		gap: 2,
 	},
 })

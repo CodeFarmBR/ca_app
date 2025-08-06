@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import { apiFetch } from "@/http/api-client" // 1. Importe sua nova função
+import { apiFetch } from "@/http/api-client"
 import type { GetClientesAPIResponse } from "./types/get-clientes-response"
 
 export function useClientes(consultoria_id?: number) {

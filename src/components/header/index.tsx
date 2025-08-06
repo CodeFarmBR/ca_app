@@ -7,6 +7,7 @@ import { typography } from "@/themes/typography"
 import { styles } from "./styles"
 
 type HeaderProps = ViewProps & {
+	homeHeader?: boolean
 	profileSetings?: boolean
 	backToHomeIcon?: boolean
 	backToLastPageIcon?: boolean
@@ -14,6 +15,7 @@ type HeaderProps = ViewProps & {
 }
 
 export function Header({
+	homeHeader = false,
 	profileSetings = false,
 	backToHomeIcon = false,
 	backToLastPageIcon = false,
@@ -23,8 +25,10 @@ export function Header({
 	const { logout } = useAuth()
 	const router = useRouter()
 
+	const headerStyle = [styles.header, homeHeader && styles.homeHeader]
+
 	return (
-		<View style={styles.header} {...rest}>
+		<View style={headerStyle} {...rest}>
 			<View style={styles.titleView}>
 				{profileSetings && (
 					<Pressable onPress={() => logout()}>

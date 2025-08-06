@@ -5,10 +5,11 @@ import { CulturasListEmpty } from "@/components/cliente-details/culturas-list-em
 import { CulturasListItem } from "@/components/cliente-details/culturas-list-item"
 import { FazendasListEmpty } from "@/components/cliente-details/fazendas-list-empty"
 import { FazendasListItem } from "@/components/cliente-details/fazendas-list-item"
-import Header from "@/components/header"
+import { Header } from "@/components/header"
 import { ListItemSeparator } from "@/components/list-item-separator"
 import { ListsHeader } from "@/components/lists-header"
 import { ProtectedRoute } from "@/components/protected-route"
+import { useCliente } from "@/http/use-cliente"
 import { useClienteCulturas } from "@/http/use-cliente-culturas"
 import { useFazendas } from "@/http/use-fazendas"
 import { dayjs } from "@/lib/dayjs"
@@ -18,6 +19,8 @@ import { typography } from "@/themes/typography"
 
 export default function ClienteDetailsScreen() {
 	const { cliente_id } = useLocalSearchParams<{ cliente_id: string }>()
+	const { data: cliente } = useCliente(cliente_id)
+
 	const {
 		data: fazendas,
 		isLoading: fazendasIsLoading,
@@ -40,9 +43,11 @@ export default function ClienteDetailsScreen() {
 
 					<View style={styles.mainContainer}>
 						<View style={styles.consultorInfo}>
-							<Text style={typography.headingSmBold}>Consultor</Text>
+							<Text style={typography.headingSmBold}>
+								{cliente?.usuario.nome}
+							</Text>
 							<Text style={[typography.bodyMd, { color: colors.gray500 }]}>
-								Empresa
+								{cliente?.nome_empresa}
 							</Text>
 						</View>
 

@@ -3,12 +3,12 @@ import { Pressable, Text, View } from "react-native"
 import { typography } from "@/themes/typography"
 import { styles } from "./styles"
 
-type Props = {
+type ListHeaderProps = {
 	titleHeader: string
 	onAddPress: () => void
 }
 
-export function ListsHeader({ titleHeader, onAddPress }: Props) {
+export function ListsHeader({ titleHeader, onAddPress }: ListHeaderProps) {
 	return (
 		<View style={styles.headerList}>
 			<Text style={[typography.headingXs, styles.titleHeaderList, {}]}>

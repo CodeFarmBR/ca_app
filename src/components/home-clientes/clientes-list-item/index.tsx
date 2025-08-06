@@ -11,7 +11,7 @@ export type ItemProps = {
 	empresa: string
 }
 
-export function ClienteListItem({ cliente_id, nome, empresa }: ItemProps) {
+export function ClientesListItem({ cliente_id, nome, empresa }: ItemProps) {
 	return (
 		<Link
 			asChild

@@ -11,7 +11,7 @@ type FazendaProps = {
 	localizacao: string
 }
 
-export function FazendaListItem({
+export function FazendasListItem({
 	fazenda_id,
 	nome,
 	localizacao,

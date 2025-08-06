@@ -11,7 +11,7 @@ type CulturaProps = {
 	dataFim: string
 }
 
-export function CulturaListItem({
+export function CulturasListItem({
 	nome,
 	variedade,
 	dataInicio,

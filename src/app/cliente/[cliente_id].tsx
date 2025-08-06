@@ -1,12 +1,12 @@
 import { useLocalSearchParams } from "expo-router"
 import { FlatList, StyleSheet, Text, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
-import { CulturaListItem } from "@/components/client-details/cultura-list-item"
-import { CulturasListEmpty } from "@/components/client-details/culturas-list-empty"
-import { FazendaListItem } from "@/components/client-details/fazenda-list-item"
-import { FazendasListEmpty } from "@/components/client-details/fazendas-list-empty"
+import { CulturasListEmpty } from "@/components/cliente-details/culturas-list-empty"
+import { CulturasListItem } from "@/components/cliente-details/culturas-list-item"
+import { FazendasListEmpty } from "@/components/cliente-details/fazendas-list-empty"
+import { FazendasListItem } from "@/components/cliente-details/fazendas-list-item"
 import Header from "@/components/header"
-import { ListItemSeparator } from "@/components/listItemSeparator"
+import { ListItemSeparator } from "@/components/list-item-separator"
 import { ListsHeader } from "@/components/lists-header"
 import { ProtectedRoute } from "@/components/protected-route"
 import { useClienteCulturas } from "@/http/use-cliente-culturas"
@@ -16,7 +16,7 @@ import { colors } from "@/themes/colors"
 import { globalStyles } from "@/themes/global-styles"
 import { typography } from "@/themes/typography"
 
-export default function ClienteDetalhesScreen() {
+export default function ClienteDetailsScreen() {
 	const { cliente_id } = useLocalSearchParams<{ cliente_id: string }>()
 	const {
 		data: fazendas,
@@ -66,7 +66,7 @@ export default function ClienteDetalhesScreen() {
 									onRefresh={fazendasRefetch}
 									refreshing={fazendasIsFetching}
 									renderItem={({ item }) => (
-										<FazendaListItem
+										<FazendasListItem
 											fazenda_id={item.fazenda_id}
 											localizacao={item.localizacao}
 											nome={item.nome}
@@ -97,14 +97,12 @@ export default function ClienteDetalhesScreen() {
 									refreshing={culturasIsFetching}
 									renderItem={({ item }) => {
 										const dataInicioCultura = dayjs(item.data_inicio).format(
-											"DD/MM/YY"
+											"DD/MM"
 										)
-										const dataFimCultura = dayjs(item.data_fim).format(
-											"DD/MM/YY"
-										)
+										const dataFimCultura = dayjs(item.data_fim).format("DD/MM")
 
 										return (
-											<CulturaListItem
+											<CulturasListItem
 												dataFim={dataFimCultura}
 												dataInicio={dataInicioCultura}
 												nome={item.cultura.nome}
@@ -142,8 +140,6 @@ const styles = StyleSheet.create({
 		gap: 12,
 	},
 	flatList: {
-		flexGrow: 1,
-		width: "100%",
-		paddingHorizontal: 0, // remova margens se não quiser espaço nas laterais
+		flexGrow: 1, // Faz com que o container ocupe toda a largura disponível
 	},
 })

@@ -11,7 +11,7 @@ type ListHeaderProps = {
 export function ListsHeader({ titleHeader, onAddPress }: ListHeaderProps) {
 	return (
 		<View style={styles.headerList}>
-			<Text style={[typography.headingXs, styles.titleHeaderList, {}]}>
+			<Text style={[typography.headingXs, styles.titleHeaderList]}>
 				{titleHeader}
 			</Text>
 			<Pressable onPress={onAddPress}>

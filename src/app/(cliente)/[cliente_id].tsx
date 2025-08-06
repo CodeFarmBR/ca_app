@@ -11,6 +11,7 @@ import { ListsHeader } from "@/components/lists-header"
 import { ProtectedRoute } from "@/components/protected-route"
 import { useClienteCulturas } from "@/http/use-cliente-culturas"
 import { useFazendas } from "@/http/use-fazendas"
+import { dayjs } from "@/lib/dayjs"
 import { colors } from "@/themes/colors"
 import { globalStyles } from "@/themes/global-styles"
 import { typography } from "@/themes/typography"
@@ -94,14 +95,23 @@ export default function ClienteDetalhesScreen() {
 									ListEmptyComponent={() => <CulturasListEmpty />}
 									onRefresh={culturasRefetch}
 									refreshing={culturasIsFetching}
-									renderItem={({ item }) => (
-										<CulturaListItem
-											dataFim={item.data_fim}
-											dataInicio={item.data_inicio}
-											nome={item.cultura.nome}
-											variedade={item.cultura.variedade}
-										/>
-									)}
+									renderItem={({ item }) => {
+										const dataInicioCultura = dayjs(item.data_inicio).format(
+											"DD/MM/YY"
+										)
+										const dataFimCultura = dayjs(item.data_fim).format(
+											"DD/MM/YY"
+										)
+
+										return (
+											<CulturaListItem
+												dataFim={dataFimCultura}
+												dataInicio={dataInicioCultura}
+												nome={item.cultura.nome}
+												variedade={item.cultura.variedade}
+											/>
+										)
+									}}
 								/>
 							)}
 						</View>

@@ -10,7 +10,7 @@ export default function CulturasListEmpty() {
             <WheatOff color={colors.gray500} size={64} strokeWidth={1} />
             <Text
                 style={[
-                    typography.bodyLg,
+                    typography.bodyLgBold,
                     { fontWeight: "700", color: colors.gray500 },
                 ]}
             >

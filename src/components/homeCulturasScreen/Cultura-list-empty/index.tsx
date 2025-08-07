@@ -11,7 +11,7 @@ export default function CulturasListEmpty() {
             <Text
                 style={[
                     typography.bodyLgBold,
-                    { fontWeight: "700", color: colors.gray500 },
+                    { color: colors.gray500 },
                 ]}
             >
                 Nenhuma cultura encontrada

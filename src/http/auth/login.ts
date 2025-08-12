@@ -1,4 +1,4 @@
-interface loginRequest {
+interface LoginRequest {
 	email: string
 	senha: string
 }
@@ -13,7 +13,7 @@ const apiURL = process.env.EXPO_PUBLIC_API_URL
 export async function login({
 	email,
 	senha,
-}: loginRequest): Promise<TokenResponse> {
+}: LoginRequest): Promise<TokenResponse> {
 	const response = await fetch(`${apiURL}/auth/login`, {
 		method: "POST",
 		headers: {

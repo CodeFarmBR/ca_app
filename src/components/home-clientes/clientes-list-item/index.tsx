@@ -6,14 +6,17 @@ import { typography } from "@/themes/typography"
 import { styles } from "./styles"
 
 export type ItemProps = {
-	id: string
+	cliente_id: string
 	nome: string
 	empresa: string
 }
 
-export function ClienteListItem({ id, nome, empresa }: ItemProps) {
+export function ClientesListItem({ cliente_id, nome, empresa }: ItemProps) {
 	return (
-		<Link asChild href={{ pathname: "/(cliente)/[id]", params: { id } }}>
+		<Link
+			asChild
+			href={{ pathname: "/(cliente)/[cliente_id]", params: { cliente_id } }}
+		>
 			<Pressable>
 				<View style={styles.container}>
 					<View>

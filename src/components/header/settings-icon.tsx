@@ -5,7 +5,7 @@ import { styles } from "./styles"
 
 export default function SettingsIcon() {
 	return (
-		<View style={styles.configIcon}>
+		<View style={[styles.icons, styles.configIcon]}>
 			<Pressable
 				onPress={() => {
 					return
@@ -13,7 +13,7 @@ export default function SettingsIcon() {
 			>
 				<LucideSettingsIcon
 					color={colors.background}
-					size={20}
+					size={24}
 					strokeWidth={1}
 				/>
 			</Pressable>

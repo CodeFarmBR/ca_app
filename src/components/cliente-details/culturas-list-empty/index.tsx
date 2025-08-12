@@ -9,7 +9,7 @@ export function CulturasListEmpty() {
 		<View style={styles.container}>
 			<WheatOff color={colors.gray500} size={64} strokeWidth={1} />
 			<Text style={[typography.bodyLgBold, { color: colors.gray500 }]}>
-				Nenhuma cultura encontrada
+				Nenhuma cultura atribuída
 			</Text>
 			<Text
 				style={[
@@ -17,7 +17,7 @@ export function CulturasListEmpty() {
 					{ color: colors.gray500, textAlign: "center" },
 				]}
 			>
-				Toque no botão + para adicionar sua primeira cultura
+				Toque no botão + para atribuir uma cultura a este cliente
 			</Text>
 		</View>
 	)

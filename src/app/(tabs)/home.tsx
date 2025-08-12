@@ -2,12 +2,14 @@ import { Link } from "expo-router"
 import { CirclePlus } from "lucide-react-native"
 import { FlatList, StyleSheet, Text, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
-import ClientesListEmpty from "@/components/homeClientes/Cliente-list-empty"
-import { ClienteListItem } from "@/components/homeClientes/cliente-list-item"
+import { ClientesListEmpty } from "@/components/home-clientes/clientes-list-empty"
+import { ClientesListItem } from "@/components/home-clientes/clientes-list-item"
+import { ListItemSeparator } from "@/components/list-item-separator"
 import { ProtectedRoute } from "@/components/protected-route"
 import { useAuth } from "@/context/auth-context"
-import { useClient } from "@/http/use-client"
-import { colors } from "@/themes/colors"
+import { useClientes } from "@/http/use-clientes"
+import { globalStyles } from "@/themes/global-styles"
+import { typography } from "@/themes/typography"
 
 export default function HomeClientesScreen() {
 	// Exemplo de criação de dado com watermellonDB
@@ -25,16 +27,16 @@ export default function HomeClientesScreen() {
 	// }
 
 	const { profile } = useAuth()
-	const { data, isLoading, refetch, isFetching } = useClient(
+	const { data, isLoading, refetch, isFetching } = useClientes(
 		profile?.consultoria_id
 	)
 
 	return (
 		<ProtectedRoute>
-			<SafeAreaView style={styles.container}>
+			<SafeAreaView style={[globalStyles.screenContainer, styles.container]}>
 				<View style={styles.clientsContainer}>
 					<View style={styles.headerSecondary}>
-						<Text style={styles.title}>MEUS CLIENTES</Text>
+						<Text style={typography.headingSmBold}>MEUS CLIENTES</Text>
 						<Link href={"/(cliente)/client-registration"}>
 							<CirclePlus strokeWidth={1} />
 						</Link>
@@ -44,18 +46,17 @@ export default function HomeClientesScreen() {
 						<Text>Carregando...</Text>
 					) : (
 						<FlatList
+							contentContainerStyle={{ flexGrow: 1 }}
 							data={data}
-							ItemSeparatorComponent={() => (
-								<View style={styles.listItemSeparator} />
-							)}
+							ItemSeparatorComponent={() => <ListItemSeparator />}
 							keyExtractor={(item) => String(item.usuario.usuario_id)}
 							ListEmptyComponent={() => <ClientesListEmpty />}
 							onRefresh={refetch}
 							refreshing={isFetching}
 							renderItem={({ item }) => (
-								<ClienteListItem
+								<ClientesListItem
+									cliente_id={item.usuario.usuario_id}
 									empresa={item.nome_empresa}
-									id={item.usuario.usuario_id}
 									nome={item.usuario.nome}
 								/>
 							)}
@@ -69,14 +70,8 @@ export default function HomeClientesScreen() {
 
 const styles = StyleSheet.create({
 	container: {
-		backgroundColor: colors.background,
 		position: "relative",
-		flex: 1,
 		justifyContent: "flex-start",
-		alignItems: "center",
-		gap: 20,
-		paddingHorizontal: 16,
-		paddingVertical: 20,
 	},
 	clientsContainer: {
 		width: "100%",
@@ -86,27 +81,5 @@ const styles = StyleSheet.create({
 	headerSecondary: {
 		flexDirection: "row",
 		justifyContent: "space-between",
-	},
-	containerB: {
-		alignItems: "center",
-		position: "absolute",
-		left: 0,
-		right: 0,
-		top: "50%",
-		transform: [{ translateY: -100 }], // Adjust this value as needed
-		paddingHorizontal: 16,
-	},
-	title: {
-		fontSize: 18,
-		fontWeight: "bold",
-	},
-	titleBtn: {
-		fontSize: 16,
-		fontWeight: "bold",
-	},
-	listItemSeparator: {
-		borderWidth: 1,
-		borderColor: colors.gray50,
-		backgroundColor: colors.gray50,
 	},
 })

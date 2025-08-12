@@ -5,7 +5,7 @@ import { colors } from "@/themes/colors"
 import { typography } from "@/themes/typography"
 import { styles } from "./styles"
 
-type Props = TextInputProps & {
+type InputProps = TextInputProps & {
 	secure?: boolean
 	error?: boolean
 }
@@ -15,7 +15,7 @@ export function Input({
 	error = false,
 	value = "",
 	...rest
-}: Props) {
+}: InputProps) {
 	const [isFocused, setIsFocused] = useState(false)
 	const [showPassword, setShowPassword] = useState(false)
 

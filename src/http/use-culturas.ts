@@ -19,6 +19,7 @@ export function useCulturas(consultoria_id?: number) {
 			return response.json() as Promise<GetCulturasAPIResponse>
 		},
 
+		retry: 1,
 		// Desabilita a query se não houver um ID.
 		// Isso evita uma chamada de API desnecessária para uma URL inválida.
 		enabled: !!consultoria_id,

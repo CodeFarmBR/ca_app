@@ -4,7 +4,7 @@ import { colors } from "@/themes/colors"
 import { typography } from "@/themes/typography"
 import { styles } from "./styles"
 
-export default function ClientesListEmpty() {
+export function ClientesListEmpty() {
 	return (
 		<View style={styles.container}>
 			<UserRoundPlus color={colors.gray500} size={64} strokeWidth={1} />

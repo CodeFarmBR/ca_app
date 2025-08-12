@@ -2,7 +2,7 @@ import { Database } from "@nozbe/watermelondb"
 import SQLiteAdapter from "@nozbe/watermelondb/adapters/sqlite"
 import { Platform } from "react-native"
 import migrations from "./migrations"
-import Cliente from "./models/Cliente"
+import cliente from "./models/Cliente"
 import schema from "./schema"
 
 // import Post from './model/Post' // ⬅️ You'll import your Models here
@@ -26,7 +26,7 @@ const adapter = new SQLiteAdapter({
 // Then, make a Watermelon database from it!
 const database = new Database({
 	adapter,
-	modelClasses: [Cliente],
+	modelClasses: [cliente],
 })
 
 export default database

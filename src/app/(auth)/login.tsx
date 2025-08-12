@@ -3,7 +3,6 @@ import { useMutation } from "@tanstack/react-query"
 import { useRouter } from "expo-router"
 import { Controller, useForm } from "react-hook-form"
 import { StyleSheet, Text, View } from "react-native"
-import { MsIcon } from "@/../assets/MsIcon"
 import { MyButton } from "@/components/button"
 import { Input } from "@/components/input"
 import { useAuth } from "@/context/auth-context"
@@ -11,6 +10,7 @@ import { login } from "@/http/auth/login"
 import { type LoginFormData, loginSchema } from "@/http/types/login-request"
 import { colors } from "@/themes/colors"
 import { typography } from "@/themes/typography"
+import { MsIcon } from "../../../assets/ms-icon"
 
 export default function LoginScreen() {
 	const router = useRouter()

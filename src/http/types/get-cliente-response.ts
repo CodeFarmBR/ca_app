@@ -1,4 +1,4 @@
-export type GetClientsAPIResponse = Array<{
+export type GetClienteAPIResponse = {
 	usuario: {
 		usuario_id: string
 		nome: string
@@ -24,4 +24,4 @@ export type GetClientsAPIResponse = Array<{
 	tipo_pessoa: string
 	inicio_consultoria: string
 	fim_consultoria: string
-}>
+}

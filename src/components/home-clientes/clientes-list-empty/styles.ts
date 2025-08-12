@@ -6,8 +6,7 @@ export const styles = StyleSheet.create({
 		position: "absolute",
 		left: 0,
 		right: 0,
-		top: "50%",
-		transform: [{ translateY: 160 }], // Adjust this value as needed
+		top: "35%",
 		paddingHorizontal: 16,
 	},
 })

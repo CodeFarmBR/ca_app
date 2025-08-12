@@ -1,7 +1,7 @@
 import { CirclePlus } from "lucide-react-native"
 import { FlatList, StyleSheet, Text, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
-import CulturasListEmpty from "@/components/homeCulturasScreen/Cultura-list-empty"
+import { CulturasListEmpty } from "@/components/homeCulturasScreen/Cultura-list-empty"
 import { CulturaListItem } from "@/components/homeCulturasScreen/cultura-list-item"
 import { ProtectedRoute } from "@/components/protected-route"
 import { useAuth } from "@/context/auth-context"
@@ -27,6 +27,7 @@ export default function HomeCulturasScreen() {
 						<Text>Carregando...</Text>
 					) : (
 						<FlatList
+							contentContainerStyle={{ flexGrow: 1 }}
 							data={data}
 							ItemSeparatorComponent={() => (
 								<View style={styles.listItemSeparator} />

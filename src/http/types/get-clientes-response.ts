@@ -1,4 +1,4 @@
-export type GetClientsAPIResponse = Array<{
+export type GetClientesAPIResponse = Array<{
 	usuario: {
 		usuario_id: string
 		nome: string

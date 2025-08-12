@@ -27,7 +27,7 @@ export default function HomeClientesScreen() {
 	// }
 
 	const { profile } = useAuth()
-	const { data, isLoading, refetch, isFetching } = useClient(
+	const { data, isLoading, refetch, isFetching } = useClientes(
 		profile?.consultoria_id
 	)
 
@@ -46,6 +46,7 @@ export default function HomeClientesScreen() {
 						<Text>Carregando...</Text>
 					) : (
 						<FlatList
+							contentContainerStyle={{ flexGrow: 1 }}
 							data={data}
 							ItemSeparatorComponent={() => <ListItemSeparator />}
 							keyExtractor={(item) => String(item.usuario.usuario_id)}

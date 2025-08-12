@@ -16,8 +16,8 @@ export const typography = StyleSheet.create({
 	},
 	headingMd: {
 		fontSize: 20,
-		fontFamily: "RalewayRegular",
-		fontWeight: "500",
+		fontFamily: "RalewayBold",
+		fontWeight: "700",
 		color: colors.gray900,
 	},
 	headingSmBold: {

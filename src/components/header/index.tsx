@@ -51,7 +51,7 @@ export function Header({
 					</Pressable>
 				)}
 
-				{headerTitle && <Text style={typography.headingMd}>{headerTitle}</Text>}
+				{headerTitle && <Text style={typography.headingLg}>{headerTitle}</Text>}
 			</View>
 			<Pressable style={[styles.icons, styles.configIcon]}>
 				<SettingsIcon color={colors.background} size={24} strokeWidth={1} />

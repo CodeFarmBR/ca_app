@@ -1,12 +1,12 @@
 import { Text, View } from "react-native"
 import { colors } from "@/themes/colors"
+import { globalStyles } from "@/themes/global-styles"
 import { typography } from "@/themes/typography"
 import { FarmIcon } from "../../../../assets/farm-icon"
-import { styles } from "./styles"
 
 export function FazendasListEmpty() {
 	return (
-		<View style={styles.container}>
+		<View style={globalStyles.emptyLists}>
 			<FarmIcon />
 			<Text style={[typography.bodyLgBold, { color: colors.gray500 }]}>
 				Nenhuma fazenda encontrada

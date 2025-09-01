@@ -10,4 +10,10 @@ export const globalStyles = StyleSheet.create({
 		alignItems: "center",
 		backgroundColor: colors.background,
 	},
+	emptyLists: {
+		width: "100%",
+		marginTop: 8,
+		paddingHorizontal: 16,
+		alignItems: "center",
+	}
 })

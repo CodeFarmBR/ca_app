@@ -32,6 +32,12 @@ export const typography = StyleSheet.create({
 		fontWeight: "600",
 		color: colors.gray900,
 	},
+	headingXsBold: {
+		fontSize: 16,
+		fontFamily: "RalewayRegular",
+		fontWeight: "700",
+		color: colors.gray900,
+	},
 	bodyLg: {
 		fontSize: 16,
 		fontFamily: "NotoSans",

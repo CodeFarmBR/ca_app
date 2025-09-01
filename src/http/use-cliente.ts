@@ -16,7 +16,8 @@ export function useCliente(cliente_id: string) {
 				throw new Error(errorData?.error || "Falha ao buscar dados do cliente")
 			}
 
-			return response.json() as Promise<GetClienteAPIResponse>
+			const data: GetClienteAPIResponse = await response.json()
+			return data
 		},
 		initialData: () => {
 			return queryClient

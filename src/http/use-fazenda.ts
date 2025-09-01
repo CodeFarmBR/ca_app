@@ -11,7 +11,7 @@ export function useFazenda(fazenda_id: number) {
 
 			if (!response.ok) {
 				const errorData = await response.json().catch(() => null)
-				throw new Error(errorData?.error || "Falha ao buscar dados do cliente")
+				throw new Error(errorData?.error || "Falha ao buscar dados da fazenda")
 			}
 
 			const data: GetFazendaAPIResponse = await response.json()

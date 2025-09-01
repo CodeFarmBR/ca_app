@@ -1,15 +1,15 @@
-import { WheatOff } from "lucide-react-native"
 import { Text, View } from "react-native"
 import { colors } from "@/themes/colors"
 import { globalStyles } from "@/themes/global-styles"
 import { typography } from "@/themes/typography"
+import { BuildingOfficeIcon } from "../../../../assets/building-office-icon"
 
-export function CulturasListEmpty() {
+export function SedesListEmpty() {
 	return (
-		<View style={globalStyles.emptyLists}>
-			<WheatOff color={colors.gray500} size={64} strokeWidth={1} />
+		<View style={[globalStyles.emptyLists, { marginTop: 120 }]}>
+			<BuildingOfficeIcon />
 			<Text style={[typography.bodyLgBold, { color: colors.gray500 }]}>
-				Nenhuma cultura atribuída
+				Nenhuma sede encontrada
 			</Text>
 			<Text
 				style={[
@@ -17,7 +17,7 @@ export function CulturasListEmpty() {
 					{ color: colors.gray500, textAlign: "center" },
 				]}
 			>
-				Toque no botão + para atribuir uma cultura a este cliente
+				Toque no botão + para adicionar a primeira sede a esta fazenda
 			</Text>
 		</View>
 	)

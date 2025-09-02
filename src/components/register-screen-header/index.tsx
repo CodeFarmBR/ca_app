@@ -1,8 +1,9 @@
 import { useRouter } from "expo-router"
-import { CircleArrowLeft, House } from "lucide-react-native"
+import { House } from "lucide-react-native"
 import { Pressable, Text, type TextProps, View } from "react-native"
 import { colors } from "@/themes/colors"
 import { typography } from "@/themes/typography"
+import { BackToLastPageIcon } from "../../../assets/back-to-last-page-icon"
 import { styles } from "./styles"
 
 type Props = TextProps & {
@@ -27,7 +28,7 @@ export function RegisterScreenHeader({
 				{backToHomePage ? (
 					<House color={colors.gray900} size={32} strokeWidth={1} />
 				) : (
-					<CircleArrowLeft color={colors.gray900} size={32} strokeWidth={1} />
+					<BackToLastPageIcon />
 				)}
 			</Pressable>
 			<Text style={typography.headingMd} {...rest}>

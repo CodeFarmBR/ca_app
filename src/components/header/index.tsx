@@ -1,14 +1,10 @@
 import { useRouter } from "expo-router"
-import {
-	ArrowLeft,
-	House,
-	SettingsIcon,
-	UserCircle2,
-} from "lucide-react-native"
+import { House, SettingsIcon, UserCircle2 } from "lucide-react-native"
 import { Pressable, Text, View, type ViewProps } from "react-native"
 import { useAuth } from "@/context/auth-context"
 import { colors } from "@/themes/colors"
 import { typography } from "@/themes/typography"
+import { BackToLastPageIcon } from "../../../assets/back-to-last-page-icon"
 import { styles } from "./styles"
 
 type HeaderProps = ViewProps & {
@@ -48,8 +44,8 @@ export function Header({
 				)}
 
 				{backToLastPageIcon && (
-					<Pressable onPress={() => router.back()} style={styles.icons}>
-						<ArrowLeft size={20} strokeWidth={1} />
+					<Pressable onPress={() => router.back()}>
+						<BackToLastPageIcon />
 					</Pressable>
 				)}
 

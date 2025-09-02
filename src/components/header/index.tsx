@@ -1,5 +1,10 @@
 import { useRouter } from "expo-router"
-import { ArrowLeft, Home, SettingsIcon, UserCircle2 } from "lucide-react-native"
+import {
+	ArrowLeft,
+	House,
+	SettingsIcon,
+	UserCircle2,
+} from "lucide-react-native"
 import { Pressable, Text, View, type ViewProps } from "react-native"
 import { useAuth } from "@/context/auth-context"
 import { colors } from "@/themes/colors"
@@ -37,11 +42,8 @@ export function Header({
 				)}
 
 				{backToHomeIcon && (
-					<Pressable
-						onPress={() => router.push("/(tabs)/home")}
-						style={styles.icons}
-					>
-						<Home size={20} strokeWidth={1} />
+					<Pressable onPress={() => router.push("/(tabs)/home")}>
+						<House color={colors.gray900} size={32} strokeWidth={1} />
 					</Pressable>
 				)}
 

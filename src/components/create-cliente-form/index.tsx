@@ -5,7 +5,7 @@ import z from "zod"
 import { MyButton } from "@/components/button"
 import { Input } from "@/components/input"
 import { useAuth } from "@/context/auth-context"
-import { useCreateClient } from "@/http/use-create-clients"
+import { useCreateCliente } from "@/http/use-create-cliente"
 import { colors } from "@/themes/colors"
 import { typography } from "@/themes/typography"
 import { styles } from "./styles"
@@ -24,12 +24,12 @@ const createClienteSchema = z.object({
 
 type CreateClienteFormData = z.infer<typeof createClienteSchema>
 
-export default function CreateClientForm() {
+export function CreateClienteForm() {
 	const inputErrorStyle = [typography.bodyMd, styles.inputError]
 
 	const { profile } = useAuth()
 
-	const { mutateAsync: createClient } = useCreateClient()
+	const { mutateAsync: createCliente } = useCreateCliente()
 
 	const {
 		control,
@@ -59,7 +59,7 @@ export default function CreateClientForm() {
 		consultor_cadastrou_id,
 		consultoria_id,
 	}: CreateClienteFormData) {
-		await createClient({
+		await createCliente({
 			nome,
 			email,
 			nome_empresa,

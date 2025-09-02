@@ -53,9 +53,7 @@ export default function ClienteDetailsScreen() {
 
 						<View style={styles.listsContainer}>
 							<ListsHeader
-								onAddPress={() => {
-									return
-								}}
+								pagePath={`/fazenda/fazenda-registration?cliente_id=${cliente_id}`}
 								titleHeader="FAZENDAS"
 							/>
 
@@ -82,12 +80,7 @@ export default function ClienteDetailsScreen() {
 						</View>
 
 						<View style={styles.listsContainer}>
-							<ListsHeader
-								onAddPress={() => {
-									return
-								}}
-								titleHeader="CULTURAS"
-							/>
+							<ListsHeader pagePath="/" titleHeader="CULTURAS" />
 
 							{culturasIsLoading ? (
 								<Text>Carregando...</Text>

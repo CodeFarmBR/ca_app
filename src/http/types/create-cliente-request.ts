@@ -1,4 +1,4 @@
-export type CreateClientAPIRequest = {
+export type CreateClienteAPIRequest = {
 	nome: string
 	email: string
 	nome_empresa?: string

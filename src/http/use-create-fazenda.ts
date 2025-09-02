@@ -2,10 +2,10 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useRouter } from "expo-router"
 import Toast from "react-native-toast-message"
 import { apiFetch } from "./api-client"
-import type { CreateClientAPIRequest } from "./types/create-client-request"
+import type { CreateFazendaAPIRequest } from "./types/create-fazenda-request"
 
-const createClient = async (data: CreateClientAPIRequest) => {
-	const response = await apiFetch("/usuarios/clientes", {
+const createFazenda = async (data: CreateFazendaAPIRequest) => {
+	const response = await apiFetch("/fazendas", {
 		method: "POST",
 		body: JSON.stringify(data),
 	})
@@ -13,20 +13,20 @@ const createClient = async (data: CreateClientAPIRequest) => {
 	if (!response.ok) {
 		throw new Error(
 			response.status === 409
-				? "Cliente com o e-mail informado já existe"
-				: "Erro ao cadastrar cliente"
+				? "Dado(s) de cadastro não encontrado(s)"
+				: "Erro ao cadastrar fazenda"
 		)
 	}
 
 	return response.json()
 }
 
-export function useCreateClient() {
+export function useCreateFazenda() {
 	const queryClient = useQueryClient()
 	const router = useRouter()
 
 	return useMutation({
-		mutationFn: createClient,
+		mutationFn: createFazenda,
 		onError: (error: Error) => {
 			Toast.show({
 				type: "error",
@@ -35,18 +35,18 @@ export function useCreateClient() {
 				autoHide: true,
 				visibilityTime: 3000,
 			})
-			router.replace("/home")
+			router.back()
 		},
 		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ["get-clients"] })
+			queryClient.invalidateQueries({ queryKey: ["get-fazendas"] })
 			Toast.show({
 				type: "success",
 				text1: "Sucesso",
-				text2: "Cliente cadastrado",
+				text2: "Fazenda cadastrada",
 				autoHide: true,
 				visibilityTime: 3000,
 			})
-			router.replace("/home")
+			router.back()
 		},
 	})
 }

@@ -1,19 +1,36 @@
-import { Link } from "expo-router"
+import { useRouter } from "expo-router"
 import { House } from "lucide-react-native"
-import { Text, type TextProps, View } from "react-native"
+import { Pressable, Text, type TextProps, View } from "react-native"
+import { colors } from "@/themes/colors"
 import { typography } from "@/themes/typography"
+import { BackToLastPageIcon } from "../../../assets/back-to-last-page-icon"
 import { styles } from "./styles"
 
 type Props = TextProps & {
 	title: string
+	backToHomePage?: boolean
 }
 
-export function RegisterScreenHeader({ title = "", ...rest }: Props) {
+export function RegisterScreenHeader({
+	title = "",
+	backToHomePage = false,
+	...rest
+}: Props) {
+	const router = useRouter()
+
 	return (
 		<View style={styles.container}>
-			<Link href={"/(tabs)/home"}>
-				<House size={32} />
-			</Link>
+			<Pressable
+				onPress={() => {
+					router.back()
+				}}
+			>
+				{backToHomePage ? (
+					<House color={colors.gray900} size={32} strokeWidth={1} />
+				) : (
+					<BackToLastPageIcon />
+				)}
+			</Pressable>
 			<Text style={typography.headingMd} {...rest}>
 				Cadastrar {title}
 			</Text>

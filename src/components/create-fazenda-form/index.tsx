@@ -16,8 +16,8 @@ const createFazendaSchema = z.object({
 	localizacao: z
 		.string()
 		.min(3, "A localização é obrigatória  e deve conter 3 ou mais caracteres"),
-	latitude: z.number().min(1),
-	longitude: z.number().min(1),
+	latitude: z.number().min(-90).max(90),
+	longitude: z.number().min(-180).max(180),
 	tamanho: z.number().optional(),
 	clima_regiao: z.string().optional(),
 	cliente_id: z.string().optional(),

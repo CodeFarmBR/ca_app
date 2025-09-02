@@ -169,7 +169,7 @@ export function CreateFazendaForm({ clienteId }: CreateFazendaFormProps) {
 								onChangeText={onChange}
 								placeholder="Clima da região (opcional)"
 								placeholderTextColor={colors.gray300}
-								value={value} // Para campos do tipo números que devem ser convertidos em string
+								value={value}
 							/>
 						)}
 					/>

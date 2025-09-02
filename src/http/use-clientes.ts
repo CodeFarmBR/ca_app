@@ -4,7 +4,7 @@ import type { GetClientesAPIResponse } from "./types/get-clientes-response"
 
 export function useClientes(consultoria_id?: number) {
 	return useQuery({
-		queryKey: ["get-clients", consultoria_id],
+		queryKey: ["get-clientes", consultoria_id],
 
 		queryFn: async () => {
 			const response = await apiFetch(

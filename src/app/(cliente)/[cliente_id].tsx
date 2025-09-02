@@ -53,7 +53,7 @@ export default function ClienteDetailsScreen() {
 
 						<View style={styles.listsContainer}>
 							<ListsHeader
-								pagePath="/fazenda/fazenda-registration"
+								pagePath={`/fazenda/fazenda-registration?cliente_id=${cliente_id}`}
 								titleHeader="FAZENDAS"
 							/>
 

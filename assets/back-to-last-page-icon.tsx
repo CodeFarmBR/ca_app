@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
 	icons: {
 		width: 32,
 		height: 32,
-		borderRadius: "100%",
+		borderRadius: 16,
 		alignItems: "center",
 		justifyContent: "center",
 		borderWidth: 1,

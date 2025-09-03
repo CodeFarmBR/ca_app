@@ -1,3 +1,4 @@
+import { Link } from "expo-router"
 import { CirclePlus } from "lucide-react-native"
 import { FlatList, StyleSheet, Text, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
@@ -20,7 +21,9 @@ export default function HomeCulturasScreen() {
 				<View style={styles.culturasContainer}>
 					<View style={styles.headerSecondary}>
 						<Text style={styles.title}>MINHAS CULTURAS</Text>
-						<CirclePlus strokeWidth={1} />
+						<Link href={"/cultura/cultura-registration"}>
+							<CirclePlus strokeWidth={1} />
+						</Link>
 					</View>
 
 					{isLoading ? (

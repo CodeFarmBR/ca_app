@@ -15,7 +15,7 @@ export function ClientesListItem({ cliente_id, nome, empresa }: ItemProps) {
 	return (
 		<Link
 			asChild
-			href={{ pathname: "/(cliente)/[cliente_id]", params: { cliente_id } }}
+			href={{ pathname: "/cliente/[cliente_id]", params: { cliente_id } }}
 		>
 			<Pressable>
 				<View style={styles.container}>

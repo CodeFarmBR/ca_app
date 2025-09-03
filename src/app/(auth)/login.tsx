@@ -22,7 +22,7 @@ export default function LoginScreen() {
 		onSuccess: async (tokens) => {
 			// Salva tokens no cliente
 			await auth.login(tokens)
-			router.replace("/home")
+			router.replace("/(tabs)")
 		},
 		onError: (error: Error) => {
 			alert(`Erro de login: ${error?.message}`)

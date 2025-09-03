@@ -38,7 +38,7 @@ export function Header({
 				)}
 
 				{backToHomeIcon && (
-					<Pressable onPress={() => router.push("/(tabs)/")}>
+					<Pressable onPress={() => router.push("/(tabs)")}>
 						<House color={colors.gray900} size={32} strokeWidth={1} />
 					</Pressable>
 				)}

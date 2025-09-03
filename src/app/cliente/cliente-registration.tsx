@@ -1,18 +1,15 @@
 import { StyleSheet } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { CreateClienteForm } from "@/components/create-cliente-form"
-import { ProtectedRoute } from "@/components/protected-route"
 import { RegisterScreenHeader } from "@/components/register-screen-header"
 
 export default function ClientRegistrationScreen() {
 	return (
-		<ProtectedRoute>
-			<SafeAreaView style={styles.container}>
-				<RegisterScreenHeader backToHomePage title="Cliente" />
+		<SafeAreaView style={styles.container}>
+			<RegisterScreenHeader backToHomePage title="Cliente" />
 
-				<CreateClienteForm />
-			</SafeAreaView>
-		</ProtectedRoute>
+			<CreateClienteForm />
+		</SafeAreaView>
 	)
 }
 

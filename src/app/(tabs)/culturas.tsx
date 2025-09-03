@@ -4,7 +4,6 @@ import { FlatList, StyleSheet, Text, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { CulturasListEmpty } from "@/components/home-culturas-screen/cultura-list-empty"
 import { CulturaListItem } from "@/components/home-culturas-screen/cultura-list-item"
-import { ProtectedRoute } from "@/components/protected-route"
 import { useAuth } from "@/context/auth-context"
 import { useCulturas } from "@/http/use-culturas"
 import { colors } from "@/themes/colors"
@@ -16,41 +15,39 @@ export default function HomeCulturasScreen() {
 	)
 
 	return (
-		<ProtectedRoute>
-			<SafeAreaView style={styles.container}>
-				<View style={styles.culturasContainer}>
-					<View style={styles.headerSecondary}>
-						<Text style={styles.title}>MINHAS CULTURAS</Text>
-						<Link href={"/cultura/cultura-registration"}>
-							<CirclePlus strokeWidth={1} />
-						</Link>
-					</View>
-
-					{isLoading ? (
-						<Text>Carregando...</Text>
-					) : (
-						<FlatList
-							contentContainerStyle={{ flexGrow: 1 }}
-							data={data}
-							ItemSeparatorComponent={() => (
-								<View style={styles.listItemSeparator} />
-							)}
-							keyExtractor={(item) => String(item.cultura_id)}
-							ListEmptyComponent={() => <CulturasListEmpty />}
-							onRefresh={refetch}
-							refreshing={isFetching}
-							renderItem={({ item }) => (
-								<CulturaListItem
-									cultura_id={item.cultura_id}
-									nome={item.nome}
-									variedade={item.variedade}
-								/>
-							)}
-						/>
-					)}
+		<SafeAreaView style={styles.container}>
+			<View style={styles.culturasContainer}>
+				<View style={styles.headerSecondary}>
+					<Text style={styles.title}>MINHAS CULTURAS</Text>
+					<Link href={"/cultura/cultura-registration"}>
+						<CirclePlus strokeWidth={1} />
+					</Link>
 				</View>
-			</SafeAreaView>
-		</ProtectedRoute>
+
+				{isLoading ? (
+					<Text>Carregando...</Text>
+				) : (
+					<FlatList
+						contentContainerStyle={{ flexGrow: 1 }}
+						data={data}
+						ItemSeparatorComponent={() => (
+							<View style={styles.listItemSeparator} />
+						)}
+						keyExtractor={(item) => String(item.cultura_id)}
+						ListEmptyComponent={() => <CulturasListEmpty />}
+						onRefresh={refetch}
+						refreshing={isFetching}
+						renderItem={({ item }) => (
+							<CulturaListItem
+								cultura_id={item.cultura_id}
+								nome={item.nome}
+								variedade={item.variedade}
+							/>
+						)}
+					/>
+				)}
+			</View>
+		</SafeAreaView>
 	)
 }
 

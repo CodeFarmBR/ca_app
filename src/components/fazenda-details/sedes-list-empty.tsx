@@ -2,7 +2,7 @@ import { Text, View } from "react-native"
 import { colors } from "@/themes/colors"
 import { globalStyles } from "@/themes/global-styles"
 import { typography } from "@/themes/typography"
-import { BuildingOfficeIcon } from "../../../../assets/building-office-icon"
+import { BuildingOfficeIcon } from "../../../assets/building-office-icon"
 
 export function SedesListEmpty() {
 	return (

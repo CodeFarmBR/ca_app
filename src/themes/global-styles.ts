@@ -15,5 +15,26 @@ export const globalStyles = StyleSheet.create({
 		marginTop: 8,
 		paddingHorizontal: 16,
 		alignItems: "center",
-	}
+	},
+	form: {
+		width: "100%",
+		flex: 1,
+		alignItems: "center",
+		gap: 64,
+	},
+	inputsContainer: {
+		width: "100%",
+		gap: 16,
+	},
+	input: {
+		gap: 4,
+	},
+	inputError: {
+		color: colors.red400,
+		fontWeight: 700,
+	},
+	submitButtons: {
+		width: "100%",
+		gap: 16,
+	},
 })

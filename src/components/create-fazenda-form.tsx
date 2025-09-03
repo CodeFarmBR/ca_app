@@ -6,8 +6,8 @@ import { MyButton } from "@/components/button"
 import { Input } from "@/components/input"
 import { useCreateFazenda } from "@/http/use-create-fazenda"
 import { colors } from "@/themes/colors"
+import { globalStyles } from "@/themes/global-styles"
 import { typography } from "@/themes/typography"
-import { styles } from "./styles"
 
 const createFazendaSchema = z.object({
 	nome: z
@@ -30,7 +30,7 @@ type CreateFazendaFormProps = {
 }
 
 export function CreateFazendaForm({ clienteId }: CreateFazendaFormProps) {
-	const inputErrorStyle = [typography.bodyMd, styles.inputError]
+	const inputErrorStyle = [typography.bodyMd, globalStyles.inputError]
 
 	const { mutateAsync: createFazenda } = useCreateFazenda()
 
@@ -77,10 +77,10 @@ export function CreateFazendaForm({ clienteId }: CreateFazendaFormProps) {
 	}
 
 	return (
-		<View style={styles.form}>
-			<View style={styles.inputs}>
+		<View style={globalStyles.form}>
+			<View style={globalStyles.inputsContainer}>
 				{/* Input Nome */}
-				<View style={styles.input}>
+				<View style={globalStyles.input}>
 					<Controller
 						control={control}
 						name="nome"
@@ -106,7 +106,7 @@ export function CreateFazendaForm({ clienteId }: CreateFazendaFormProps) {
 				</View>
 
 				{/* Input Localização */}
-				<View style={styles.input}>
+				<View style={globalStyles.input}>
 					<Controller
 						control={control}
 						name="localizacao"
@@ -131,7 +131,7 @@ export function CreateFazendaForm({ clienteId }: CreateFazendaFormProps) {
 				</View>
 
 				{/* Input Tamanho */}
-				<View style={styles.input}>
+				<View style={globalStyles.input}>
 					<Controller
 						control={control}
 						name="tamanho"
@@ -157,7 +157,7 @@ export function CreateFazendaForm({ clienteId }: CreateFazendaFormProps) {
 				</View>
 
 				{/* Input Clima Região */}
-				<View style={styles.input}>
+				<View style={globalStyles.input}>
 					<Controller
 						control={control}
 						name="clima_regiao"
@@ -179,7 +179,7 @@ export function CreateFazendaForm({ clienteId }: CreateFazendaFormProps) {
 				</View>
 			</View>
 
-			<View style={styles.submitButtons}>
+			<View style={globalStyles.submitButtons}>
 				<MyButton onPress={handleSubmit(handleCreateFazenda)} primary>
 					<Text style={[typography.bodyLgBold, { color: colors.white }]}>
 						Salvar

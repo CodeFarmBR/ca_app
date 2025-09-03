@@ -2,7 +2,7 @@ import { Text, View } from "react-native"
 import { colors } from "@/themes/colors"
 import { globalStyles } from "@/themes/global-styles"
 import { typography } from "@/themes/typography"
-import { FarmIcon } from "../../../../assets/farm-icon"
+import { FarmIcon } from "../../../assets/farm-icon"
 
 export function FazendasListEmpty() {
 	return (

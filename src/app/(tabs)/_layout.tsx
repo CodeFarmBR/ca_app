@@ -25,7 +25,7 @@ export default function TabsLayout() {
 			}}
 			tabBar={(props) => <CustomTabBar {...props} />}
 		>
-			<Tabs.Screen name="home" />
+			<Tabs.Screen name="index" />
 			<Tabs.Screen name="visitas" />
 			<Tabs.Screen name="culturas" />
 			<Tabs.Screen name="calendario" />

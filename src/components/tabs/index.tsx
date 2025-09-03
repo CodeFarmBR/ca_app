@@ -77,7 +77,7 @@ export function CustomTabBar({
 							onPress={onPress}
 							style={[styles.tabItem, isFocused ? styles.tabItemFocused : null]}
 						>
-							{route.name === "home" && <HomeIcon isFocused={isFocused} />}
+							{route.name === "index" && <HomeIcon isFocused={isFocused} />}
 							{route.name === "visitas" && (
 								<VisitasIcon isFocused={isFocused} />
 							)}

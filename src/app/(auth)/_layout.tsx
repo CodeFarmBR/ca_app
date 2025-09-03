@@ -7,7 +7,7 @@ export default function AuthLayout() {
 	if (isAuthenticated) {
 		// Se o usuário já está autenticado, não o deixe ver as telas de auth.
 		// Redirecione-o para a home.
-		return <Redirect href="/home" />
+		return <Redirect href="/(tabs)" />
 	}
 
 	// Se não estiver autenticado, mostre as telas de autenticação normalmente.

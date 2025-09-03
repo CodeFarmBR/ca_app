@@ -35,7 +35,7 @@ export function useCreateCliente() {
 				autoHide: true,
 				visibilityTime: 3000,
 			})
-			router.replace("/home")
+			router.replace("/(tabs)")
 		},
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["get-clientes"] })
@@ -46,7 +46,7 @@ export function useCreateCliente() {
 				autoHide: true,
 				visibilityTime: 3000,
 			})
-			router.replace("/home")
+			router.replace("/(tabs)")
 		},
 	})
 }

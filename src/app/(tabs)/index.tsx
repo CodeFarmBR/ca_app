@@ -5,7 +5,6 @@ import { SafeAreaView } from "react-native-safe-area-context"
 import { ClientesListEmpty } from "@/components/home-clientes/clientes-list-empty"
 import { ClientesListItem } from "@/components/home-clientes/clientes-list-item"
 import { ListItemSeparator } from "@/components/list-item-separator"
-import { ProtectedRoute } from "@/components/protected-route"
 import { useAuth } from "@/context/auth-context"
 import { useClientes } from "@/http/use-clientes"
 import { globalStyles } from "@/themes/global-styles"
@@ -32,39 +31,37 @@ export default function HomeClientesScreen() {
 	)
 
 	return (
-		<ProtectedRoute>
-			<SafeAreaView style={[globalStyles.screenContainer, styles.container]}>
-				<View style={styles.clientsContainer}>
-					<View style={styles.headerSecondary}>
-						<Text style={typography.headingSmBold}>MEUS CLIENTES</Text>
-						<Link href={"/cliente/cliente-registration"}>
-							<CirclePlus strokeWidth={1} />
-						</Link>
-					</View>
-
-					{isLoading ? (
-						<Text>Carregando...</Text>
-					) : (
-						<FlatList
-							contentContainerStyle={{ flexGrow: 1 }}
-							data={data}
-							ItemSeparatorComponent={() => <ListItemSeparator />}
-							keyExtractor={(item) => String(item.usuario.usuario_id)}
-							ListEmptyComponent={() => <ClientesListEmpty />}
-							onRefresh={refetch}
-							refreshing={isFetching}
-							renderItem={({ item }) => (
-								<ClientesListItem
-									cliente_id={item.usuario.usuario_id}
-									empresa={item.nome_empresa}
-									nome={item.usuario.nome}
-								/>
-							)}
-						/>
-					)}
+		<SafeAreaView style={[globalStyles.screenContainer, styles.container]}>
+			<View style={styles.clientsContainer}>
+				<View style={styles.headerSecondary}>
+					<Text style={typography.headingSmBold}>MEUS CLIENTES</Text>
+					<Link href={"/cliente/cliente-registration"}>
+						<CirclePlus strokeWidth={1} />
+					</Link>
 				</View>
-			</SafeAreaView>
-		</ProtectedRoute>
+
+				{isLoading ? (
+					<Text>Carregando...</Text>
+				) : (
+					<FlatList
+						contentContainerStyle={{ flexGrow: 1 }}
+						data={data}
+						ItemSeparatorComponent={() => <ListItemSeparator />}
+						keyExtractor={(item) => String(item.usuario.usuario_id)}
+						ListEmptyComponent={() => <ClientesListEmpty />}
+						onRefresh={refetch}
+						refreshing={isFetching}
+						renderItem={({ item }) => (
+							<ClientesListItem
+								cliente_id={item.usuario.usuario_id}
+								empresa={item.nome_empresa}
+								nome={item.usuario.nome}
+							/>
+						)}
+					/>
+				)}
+			</View>
+		</SafeAreaView>
 	)
 }
 

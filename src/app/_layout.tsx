@@ -3,7 +3,7 @@ import { Stack } from "expo-router"
 import { ActivityIndicator } from "react-native"
 import Toast from "react-native-toast-message"
 import { AuthProvider, useAuth } from "@/context/auth-context"
-import { useProtectedRoute } from "./useProtectedRoute"
+import { useProtectedRoute } from "@/hooks/useProtectedRoute"
 
 // Previne que a tela inicial pisque antes da decisão de rota ser tomada
 export { ErrorBoundary } from "expo-router"

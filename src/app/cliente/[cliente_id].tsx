@@ -8,7 +8,6 @@ import { FazendasListItem } from "@/components/cliente-details/fazendas-list-ite
 import { Header } from "@/components/header"
 import { ListItemSeparator } from "@/components/list-item-separator"
 import { ListsHeader } from "@/components/lists-header"
-import { ProtectedRoute } from "@/components/protected-route"
 import { useCliente } from "@/http/use-cliente"
 import { useClienteCulturas } from "@/http/use-cliente-culturas"
 import { useFazendas } from "@/http/use-fazendas"
@@ -36,85 +35,83 @@ export default function ClienteDetailsScreen() {
 	} = useClienteCulturas(cliente_id)
 
 	return (
-		<ProtectedRoute>
-			<SafeAreaView style={globalStyles.screenContainer}>
-				<View style={styles.headerContainer}>
-					<Header backToHomeIcon />
+		<SafeAreaView style={globalStyles.screenContainer}>
+			<View style={styles.headerContainer}>
+				<Header backToHomeIcon />
 
-					<View style={styles.mainContainer}>
-						<View style={styles.consultorInfo}>
-							<Text style={typography.headingSmBold}>
-								{cliente?.usuario.nome}
-							</Text>
-							<Text style={[typography.bodyMd, { color: colors.gray500 }]}>
-								{cliente?.nome_empresa}
-							</Text>
-						</View>
+				<View style={styles.mainContainer}>
+					<View style={styles.consultorInfo}>
+						<Text style={typography.headingSmBold}>
+							{cliente?.usuario.nome}
+						</Text>
+						<Text style={[typography.bodyMd, { color: colors.gray500 }]}>
+							{cliente?.nome_empresa}
+						</Text>
+					</View>
 
-						<View style={styles.listsContainer}>
-							<ListsHeader
-								pagePath={`/fazenda/fazenda-registration?cliente_id=${cliente_id}`}
-								titleHeader="FAZENDAS"
+					<View style={styles.listsContainer}>
+						<ListsHeader
+							pagePath={`/fazenda/fazenda-registration?cliente_id=${cliente_id}`}
+							titleHeader="FAZENDAS"
+						/>
+
+						{fazendasIsLoading ? (
+							<Text>Carregando...</Text>
+						) : (
+							<FlatList
+								contentContainerStyle={styles.flatList}
+								data={fazendas}
+								horizontal
+								keyExtractor={(item) => String(item.fazenda_id)}
+								ListEmptyComponent={() => <FazendasListEmpty />}
+								onRefresh={fazendasRefetch}
+								refreshing={fazendasIsFetching}
+								renderItem={({ item }) => (
+									<FazendasListItem
+										fazenda_id={item.fazenda_id}
+										localizacao={item.localizacao}
+										nome={item.nome}
+									/>
+								)}
 							/>
+						)}
+					</View>
 
-							{fazendasIsLoading ? (
-								<Text>Carregando...</Text>
-							) : (
-								<FlatList
-									contentContainerStyle={styles.flatList}
-									data={fazendas}
-									horizontal
-									keyExtractor={(item) => String(item.fazenda_id)}
-									ListEmptyComponent={() => <FazendasListEmpty />}
-									onRefresh={fazendasRefetch}
-									refreshing={fazendasIsFetching}
-									renderItem={({ item }) => (
-										<FazendasListItem
-											fazenda_id={item.fazenda_id}
-											localizacao={item.localizacao}
-											nome={item.nome}
+					<View style={styles.listsContainer}>
+						<ListsHeader pagePath="/" titleHeader="CULTURAS" />
+
+						{culturasIsLoading ? (
+							<Text>Carregando...</Text>
+						) : (
+							<FlatList
+								contentContainerStyle={[styles.flatList, { flexGrow: 1 }]}
+								data={culturas}
+								ItemSeparatorComponent={() => <ListItemSeparator />}
+								keyExtractor={(item) => String(item.cliente_cultura_id)}
+								ListEmptyComponent={() => <CulturasListEmpty />}
+								onRefresh={culturasRefetch}
+								refreshing={culturasIsFetching}
+								renderItem={({ item }) => {
+									const dataInicioCultura = dayjs(item.data_inicio).format(
+										"DD/MM"
+									)
+									const dataFimCultura = dayjs(item.data_fim).format("DD/MM")
+
+									return (
+										<CulturasListItem
+											dataFim={dataFimCultura}
+											dataInicio={dataInicioCultura}
+											nome={item.cultura.nome}
+											variedade={item.cultura.variedade}
 										/>
-									)}
-								/>
-							)}
-						</View>
-
-						<View style={styles.listsContainer}>
-							<ListsHeader pagePath="/" titleHeader="CULTURAS" />
-
-							{culturasIsLoading ? (
-								<Text>Carregando...</Text>
-							) : (
-								<FlatList
-									contentContainerStyle={[styles.flatList, { flexGrow: 1 }]}
-									data={culturas}
-									ItemSeparatorComponent={() => <ListItemSeparator />}
-									keyExtractor={(item) => String(item.cliente_cultura_id)}
-									ListEmptyComponent={() => <CulturasListEmpty />}
-									onRefresh={culturasRefetch}
-									refreshing={culturasIsFetching}
-									renderItem={({ item }) => {
-										const dataInicioCultura = dayjs(item.data_inicio).format(
-											"DD/MM"
-										)
-										const dataFimCultura = dayjs(item.data_fim).format("DD/MM")
-
-										return (
-											<CulturasListItem
-												dataFim={dataFimCultura}
-												dataInicio={dataInicioCultura}
-												nome={item.cultura.nome}
-												variedade={item.cultura.variedade}
-											/>
-										)
-									}}
-								/>
-							)}
-						</View>
+									)
+								}}
+							/>
+						)}
 					</View>
 				</View>
-			</SafeAreaView>
-		</ProtectedRoute>
+			</View>
+		</SafeAreaView>
 	)
 }
 

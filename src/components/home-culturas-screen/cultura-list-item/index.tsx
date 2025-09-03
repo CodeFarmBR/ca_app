@@ -19,7 +19,7 @@ export function CulturaListItem({
 	return (
 		<Link
 			asChild
-			href={{ pathname: "/cultura/[cultura_id]", params: { id: cultura_id } }}
+			href={{ pathname: "/cultura/[cultura_id]", params: { cultura_id } }}
 		>
 			<Pressable>
 				<View style={styles.container}>

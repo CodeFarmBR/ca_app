@@ -22,6 +22,13 @@ export function CreateCulturaForm() {
 
 	const { mutateAsync: createCultura } = useCreateCultura()
 
+	const getCurrentSafraYear = () => {
+		const currentYear = new Date().getFullYear()
+		const currentYearShort = currentYear.toString().slice(-2)
+		const nextYearShort = (currentYear + 1).toString().slice(-2)
+		return `${currentYearShort}/${nextYearShort}`
+	}
+
 	const {
 		control,
 		handleSubmit,
@@ -31,7 +38,7 @@ export function CreateCulturaForm() {
 		defaultValues: {
 			nome: "",
 			variedade: "",
-			ano_safra: "25/26",
+			ano_safra: getCurrentSafraYear(),
 		},
 	})
 

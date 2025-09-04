@@ -19,6 +19,7 @@ export function CulturaListItem({
 	return (
 		<Link
 			asChild
+			disabled // funcionalidade não definida até o momento
 			href={{ pathname: "/cultura/[cultura_id]", params: { cultura_id } }}
 		>
 			<Pressable>

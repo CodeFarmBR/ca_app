@@ -7,8 +7,8 @@ import { Input } from "@/components/input"
 import { useAuth } from "@/context/auth-context"
 import { useCreateCliente } from "@/http/use-create-cliente"
 import { colors } from "@/themes/colors"
+import { globalStyles } from "@/themes/global-styles"
 import { typography } from "@/themes/typography"
-import { styles } from "./styles"
 
 const createClienteSchema = z.object({
 	nome: z
@@ -25,7 +25,7 @@ const createClienteSchema = z.object({
 type CreateClienteFormData = z.infer<typeof createClienteSchema>
 
 export function CreateClienteForm() {
-	const inputErrorStyle = [typography.bodyMd, styles.inputError]
+	const inputErrorStyle = [typography.bodyMd, globalStyles.inputError]
 
 	const { profile } = useAuth()
 
@@ -71,10 +71,10 @@ export function CreateClienteForm() {
 	}
 
 	return (
-		<View style={styles.form}>
-			<View style={styles.inputs}>
+		<View style={globalStyles.form}>
+			<View style={globalStyles.inputsContainer}>
 				{/* Input Nome */}
-				<View style={styles.input}>
+				<View style={globalStyles.input}>
 					<Controller
 						control={control}
 						name="nome"
@@ -100,7 +100,7 @@ export function CreateClienteForm() {
 				</View>
 
 				{/* Input Email */}
-				<View style={styles.input}>
+				<View style={globalStyles.input}>
 					<Controller
 						control={control}
 						name="email"
@@ -125,7 +125,7 @@ export function CreateClienteForm() {
 				</View>
 
 				{/* Input Nome Empresa */}
-				<View style={styles.input}>
+				<View style={globalStyles.input}>
 					<Controller
 						control={control}
 						name="nome_empresa"
@@ -147,7 +147,7 @@ export function CreateClienteForm() {
 				</View>
 
 				{/* Input Telefone */}
-				<View style={styles.input}>
+				<View style={globalStyles.input}>
 					<Controller
 						control={control}
 						name="telefone"
@@ -170,7 +170,7 @@ export function CreateClienteForm() {
 				</View>
 
 				{/* Input Endereço */}
-				<View style={styles.input}>
+				<View style={globalStyles.input}>
 					<Controller
 						control={control}
 						name="endereco"
@@ -193,7 +193,7 @@ export function CreateClienteForm() {
 				</View>
 			</View>
 
-			<View style={styles.submitButtons}>
+			<View style={globalStyles.submitButtons}>
 				<MyButton onPress={handleSubmit(handleCreateClient)} primary>
 					<Text style={[typography.bodyLgBold, { color: colors.white }]}>
 						Salvar

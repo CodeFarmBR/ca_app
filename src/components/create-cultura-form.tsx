@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Controller, useForm } from "react-hook-form"
 import { Text, View } from "react-native"
 import z from "zod"
-import { useAuth } from "@/context/auth-context"
+import { useCreateCultura } from "@/http/use-create-cultura"
 import { colors } from "@/themes/colors"
 import { globalStyles } from "@/themes/global-styles"
 import { typography } from "@/themes/typography"
@@ -20,7 +20,7 @@ type CreateCulturaFormData = z.infer<typeof createCulturaSchema>
 export function CreateCulturaForm() {
 	const inputErrorStyle = [typography.bodyMd, globalStyles.inputError]
 
-	const { profile } = useAuth()
+	const { mutateAsync: createCultura } = useCreateCultura()
 
 	const {
 		control,
@@ -31,9 +31,21 @@ export function CreateCulturaForm() {
 		defaultValues: {
 			nome: "",
 			variedade: "",
-			ano_safra: "",
+			ano_safra: "25/26",
 		},
 	})
+
+	async function handleCreateCultura({
+		nome,
+		variedade,
+		ano_safra,
+	}: CreateCulturaFormData) {
+		await createCultura({
+			nome,
+			variedade,
+			ano_safra,
+		})
+	}
 
 	return (
 		<View style={globalStyles.form}>
@@ -72,7 +84,7 @@ export function CreateCulturaForm() {
 						render={({ field: { onChange, value, onBlur } }) => (
 							<Input
 								autoCapitalize="words"
-								error={!!errors.nome}
+								error={!!errors.variedade}
 								inputMode="text"
 								onBlur={onBlur}
 								onChangeText={onChange}
@@ -85,8 +97,8 @@ export function CreateCulturaForm() {
 							required: true,
 						}}
 					/>
-					{errors.nome && (
-						<Text style={inputErrorStyle}>{errors.variedade?.message}</Text>
+					{errors.variedade && (
+						<Text style={inputErrorStyle}>{errors.variedade.message}</Text>
 					)}
 				</View>
 
@@ -98,8 +110,7 @@ export function CreateCulturaForm() {
 						render={({ field: { onChange, value, onBlur } }) => (
 							<Input
 								autoCapitalize="words"
-								defaultValue="25/26"
-								error={!!errors.nome}
+								error={!!errors.ano_safra}
 								inputMode="text"
 								onBlur={onBlur}
 								onChangeText={onChange}
@@ -112,14 +123,14 @@ export function CreateCulturaForm() {
 							required: true,
 						}}
 					/>
-					{errors.nome && (
-						<Text style={inputErrorStyle}>{errors.variedade?.message}</Text>
+					{errors.ano_safra && (
+						<Text style={inputErrorStyle}>{errors.ano_safra.message}</Text>
 					)}
 				</View>
 			</View>
 
 			<View style={globalStyles.submitButtons}>
-				<MyButton primary>
+				<MyButton onPress={handleSubmit(handleCreateCultura)} primary>
 					<Text style={[typography.bodyLgBold, { color: colors.white }]}>
 						Salvar
 					</Text>

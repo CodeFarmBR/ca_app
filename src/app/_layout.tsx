@@ -37,7 +37,11 @@ export function RootLayoutNav() {
 			/>
 			<Stack.Screen
 				name="cliente/cliente-registration"
-				options={{ headerShown: false }}
+				options={{
+					headerShown: false,
+					presentation: "modal",
+					animation: "slide_from_bottom",
+				}}
 			/>
 			<Stack.Screen
 				name="cultura/[cultura_id]"
@@ -45,7 +49,11 @@ export function RootLayoutNav() {
 			/>
 			<Stack.Screen
 				name="cultura/cultura-registration"
-				options={{ headerShown: false }}
+				options={{
+					headerShown: false,
+					presentation: "modal",
+					animation: "slide_from_bottom",
+				}}
 			/>
 			<Stack.Screen
 				name="fazenda/[fazenda_id]"

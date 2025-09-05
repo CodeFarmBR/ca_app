@@ -56,6 +56,14 @@ export function RootLayoutNav() {
 				}}
 			/>
 			<Stack.Screen
+				name="cliente/assign-cultura"
+				options={{
+					headerShown: false,
+					presentation: "modal",
+					animation: "slide_from_bottom",
+				}}
+			/>
+			<Stack.Screen
 				name="fazenda/[fazenda_id]"
 				options={{ headerShown: false }}
 			/>

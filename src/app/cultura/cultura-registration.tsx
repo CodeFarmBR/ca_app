@@ -6,7 +6,7 @@ import { globalStyles } from "@/themes/global-styles"
 export default function CulturaRegistration() {
 	return (
 		<SafeAreaView style={[globalStyles.screenContainer, { gap: 80 }]}>
-			<RegisterScreenHeader backToHomePage title="Cultura" />
+			<RegisterScreenHeader backToHomePage title="Cadastrar Cultura" />
 			<CreateCulturaForm />
 		</SafeAreaView>
 	)

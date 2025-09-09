@@ -78,7 +78,10 @@ export default function ClienteDetailsScreen() {
 					</View>
 
 					<View style={styles.listsContainer}>
-						<ListsHeader pagePath="/" titleHeader="CULTURAS" />
+						<ListsHeader
+							pagePath={`/cliente/assign-cultura-to-cliente?cliente_id=${cliente_id}`}
+							titleHeader="CULTURAS"
+						/>
 
 						{culturasIsLoading ? (
 							<Text>Carregando...</Text>

@@ -1,6 +1,7 @@
 import { Ellipsis, Wheat } from "lucide-react-native"
 import { Pressable, Text, View } from "react-native"
 import { colors } from "@/themes/colors"
+import { globalStyles } from "@/themes/global-styles"
 import { typography } from "@/themes/typography"
 import { styles } from "./styles"
 
@@ -19,7 +20,7 @@ export function CulturasListItem({
 }: CulturaProps) {
 	return (
 		<View style={styles.culturasListItem}>
-			<View style={styles.culturaDefaultImage}>
+			<View style={globalStyles.culturaDefaultImage}>
 				<Wheat color={colors.gray300} size={18} strokeWidth={1} />
 			</View>
 

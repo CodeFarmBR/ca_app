@@ -1,14 +1,12 @@
 import { useLocalSearchParams } from "expo-router"
-import { CirclePlus } from "lucide-react-native"
-import { FlatList, Pressable, StyleSheet, Text, View } from "react-native"
+import { FlatList, Text, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { SedesListEmpty } from "@/components/fazenda-details/sedes-list-empty"
 import { SedeListItem } from "@/components/fazenda-details/sedes-list-item"
 import { Header } from "@/components/header"
+import { PropertyInfo } from "@/components/property-info"
 import { useFazenda } from "@/http/use-fazenda"
-import { colors } from "@/themes/colors"
 import { globalStyles } from "@/themes/global-styles"
-import { typography } from "@/themes/typography"
 
 export default function FazendaDetailsScreen() {
 	const { fazenda_id } = useLocalSearchParams<{ fazenda_id: string }>()
@@ -22,13 +20,7 @@ export default function FazendaDetailsScreen() {
 			<Header backToLastPageIcon />
 
 			<View style={{ width: "100%", flex: 1, gap: 12 }}>
-				<View style={styles.fazendaInfo}>
-					<Text style={typography.headingMd}>{data?.nome}</Text>
-					<Text style={typography.headingXs}>SEDES</Text>
-					<Pressable style={styles.addSedeIcon}>
-						<CirclePlus color={colors.background} size={32} strokeWidth={1} />
-					</Pressable>
-				</View>
+				<PropertyInfo listHeader="SEDES" nome={data?.nome} />
 
 				{isLoading ? (
 					<Text>Carregando...</Text>
@@ -53,14 +45,3 @@ export default function FazendaDetailsScreen() {
 		</SafeAreaView>
 	)
 }
-
-const styles = StyleSheet.create({
-	fazendaInfo: {
-		gap: 4,
-		alignItems: "center",
-	},
-	addSedeIcon: {
-		backgroundColor: colors.green500,
-		borderRadius: 20,
-	},
-})

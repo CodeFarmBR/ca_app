@@ -4,15 +4,11 @@ import { FlatList, StyleSheet, Text, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { CulturasListEmpty } from "@/components/home-culturas-screen/cultura-list-empty"
 import { CulturaListItem } from "@/components/home-culturas-screen/cultura-list-item"
-import { useAuth } from "@/context/auth-context"
 import { useCulturas } from "@/http/use-culturas"
 import { colors } from "@/themes/colors"
 
 export default function HomeCulturasScreen() {
-	const { profile } = useAuth()
-	const { data, isLoading, refetch, isFetching } = useCulturas(
-		profile?.consultoria_id
-	)
+	const { data, isLoading, refetch, isFetching } = useCulturas()
 
 	return (
 		<SafeAreaView style={styles.container}>

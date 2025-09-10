@@ -1,3 +1,4 @@
+import { useLocalSearchParams } from "expo-router"
 import { FlatList, Text, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { AssignCulturaToClienteListItem } from "@/components/cliente-details/assign-cultura-to-cliente-list-item"
@@ -8,6 +9,7 @@ import { globalStyles } from "@/themes/global-styles"
 
 export default function AssignCulturaToClienteModal() {
 	const { data, isLoading, refetch, isFetching } = useCulturas()
+	const { cliente_id } = useLocalSearchParams<{ cliente_id: string }>()
 
 	return (
 		<SafeAreaView style={[globalStyles.screenContainer, { gap: 20 }]}>
@@ -25,6 +27,8 @@ export default function AssignCulturaToClienteModal() {
 					refreshing={isFetching}
 					renderItem={({ item }) => (
 						<AssignCulturaToClienteListItem
+							cliente_id={cliente_id}
+							cultura_id={item.cultura_id}
 							nome={item.nome}
 							variedade={item.variedade}
 						/>

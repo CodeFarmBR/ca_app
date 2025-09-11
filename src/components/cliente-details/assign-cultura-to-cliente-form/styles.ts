@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
 		width: "100%",
 		flexDirection: "row",
 		gap: 8,
-		alignItems: "center",
+		alignItems: "flex-start",
 	},
 	datePickerField: {
 		flex: 1,

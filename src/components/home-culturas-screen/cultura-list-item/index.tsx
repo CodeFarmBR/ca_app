@@ -6,7 +6,7 @@ import { typography } from "@/themes/typography"
 import { styles } from "./styles"
 
 export type CulturaItemProps = {
-	cultura_id: string
+	cultura_id: number
 	nome: string
 	variedade: string
 }

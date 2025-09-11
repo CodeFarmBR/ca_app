@@ -1,5 +1,5 @@
 export type GetCulturasAPIResponse = Array<{
-	cultura_id: string
+	cultura_id: number
 	nome: string
 	variedade: string
 	ano_safra: string

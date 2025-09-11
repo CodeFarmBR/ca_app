@@ -47,6 +47,7 @@ export default function SedeDetailsScreen() {
 							<LavourasListItem
 								dataFim={dataFim}
 								dataInicio={dataInicio}
+								lavouraId={item.lavoura_id}
 								nomeCultura={cultura?.cultura?.nome}
 								nomeLavoura={item.nome}
 							/>

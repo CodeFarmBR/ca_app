@@ -76,6 +76,10 @@ export function RootLayoutNav() {
 						options={{ headerShown: false }}
 					/> */}
 			<Stack.Screen name="sede/[sede_id]" options={{ headerShown: false }} />
+			<Stack.Screen
+				name="lavoura/[lavoura_id]"
+				options={{ headerShown: false }}
+			/>
 		</Stack>
 	)
 }

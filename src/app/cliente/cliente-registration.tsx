@@ -6,7 +6,7 @@ import { RegisterScreenHeader } from "@/components/register-screen-header"
 export default function ClienteRegistrationScreen() {
 	return (
 		<SafeAreaView style={styles.container}>
-			<RegisterScreenHeader backToHomePage title=" Cadastrar Cliente" />
+			<RegisterScreenHeader backToHomePage title="Cadastrar Cliente" />
 
 			<CreateClienteForm />
 		</SafeAreaView>

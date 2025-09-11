@@ -2,7 +2,6 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { CalendarIcon, CirclePlus } from "lucide-react-native"
 import { Controller, useForm } from "react-hook-form"
 import { Pressable, Text, TextInput, View } from "react-native"
-import Toast from "react-native-toast-message"
 import z from "zod"
 import { useAssignCulturaToCliente } from "@/http/use-assign-cultura-to-cliente"
 import { colors } from "@/themes/colors"
@@ -19,7 +18,7 @@ const isYearAtLeastCurrent = (dateString: string): boolean => {
 	if (parts.length !== 3) {
 		return true // Se não for uma data completa, deixa passar (outros validadores pegam)
 	}
-	
+
 	const year = Number(parts[2])
 	const currentYear = new Date().getFullYear()
 	return year >= currentYear
@@ -174,20 +173,12 @@ export function AssignCulturaToClienteForm({
 		data_inicio,
 		data_fim,
 	}: AssignCulturaToClienteFormData) {
-		try {
-			await assignCultura({
-				cliente_id,
-				data_inicio: formatDateForAPI(data_inicio),
-				data_fim: formatDateForAPI(data_fim),
-				cultura_id,
-			})
-		} catch (error) {
-			Toast.show({
-				type: "error",
-				text1: "Erro",
-				text2: "Erro ao atribuir cultura ao cliente",
-			})
-		}
+		await assignCultura({
+			cliente_id,
+			data_inicio: formatDateForAPI(data_inicio),
+			data_fim: formatDateForAPI(data_fim),
+			cultura_id,
+		})
 	}
 
 	return (

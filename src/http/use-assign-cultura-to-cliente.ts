@@ -44,7 +44,7 @@ export function useAssignCulturaToCliente() {
 			Toast.show({
 				type: "success",
 				text1: "Sucesso",
-				text2: "Cultura atribuida",
+				text2: "Cultura atribuída",
 				autoHide: true,
 				visibilityTime: 3000,
 			})

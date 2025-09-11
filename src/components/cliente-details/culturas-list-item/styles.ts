@@ -1,5 +1,4 @@
 import { StyleSheet } from "react-native"
-import { colors } from "@/themes/colors"
 
 export const styles = StyleSheet.create({
 	culturasListItem: {
@@ -10,14 +9,6 @@ export const styles = StyleSheet.create({
 		flexDirection: "row",
 		alignItems: "center",
 		gap: 8,
-	},
-	culturaDefaultImage: {
-		width: 32,
-		height: 32,
-		borderRadius: 16,
-		backgroundColor: colors.gray50,
-		alignItems: "center",
-		justifyContent: "center",
 	},
 	culturaInfo: {
 		flexDirection: "row",

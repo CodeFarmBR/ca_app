@@ -37,4 +37,12 @@ export const globalStyles = StyleSheet.create({
 		width: "100%",
 		gap: 16,
 	},
+	culturaDefaultImage: {
+		width: 32,
+		height: 32,
+		borderRadius: 16,
+		backgroundColor: colors.gray50,
+		alignItems: "center",
+		justifyContent: "center",
+	},
 })

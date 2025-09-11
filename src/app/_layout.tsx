@@ -44,6 +44,14 @@ export function RootLayoutNav() {
 				}}
 			/>
 			<Stack.Screen
+				name="cliente/assign-cultura-to-cliente"
+				options={{
+					headerShown: false,
+					presentation: "modal",
+					animation: "slide_from_bottom",
+				}}
+			/>
+			<Stack.Screen
 				name="cultura/[cultura_id]"
 				options={{ headerShown: false }}
 			/>

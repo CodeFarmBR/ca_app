@@ -32,7 +32,7 @@ export function RegisterScreenHeader({
 				)}
 			</Pressable>
 			<Text style={typography.headingMd} {...rest}>
-				Cadastrar {title}
+				{title}
 			</Text>
 		</View>
 	)

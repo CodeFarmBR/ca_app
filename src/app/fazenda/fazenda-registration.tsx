@@ -8,7 +8,7 @@ export default function FazendaRegistrationScreen() {
 
 	return (
 		<SafeAreaView style={styles.container}>
-			<RegisterScreenHeader title="Fazenda" />
+			<RegisterScreenHeader title="Cadastrar Fazenda" />
 
 			<CreateFazendaForm clienteId={cliente_id} />
 		</SafeAreaView>

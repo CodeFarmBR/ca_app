@@ -1,15 +1,16 @@
 import { useQuery } from "@tanstack/react-query"
+import { useAuth } from "@/context/auth-context"
 import { apiFetch } from "@/http/api-client"
 import type { GetCulturasAPIResponse } from "./types/get-culturas-response"
 
-export function useCulturas(consultoria_id?: number) {
+export function useCulturas() {
+	const { profile } = useAuth()
+	const consultoriaId = profile?.consultoria_id
 	return useQuery({
-		queryKey: ["get-culturas", consultoria_id],
+		queryKey: ["get-culturas", consultoriaId],
 
 		queryFn: async () => {
-			const response = await apiFetch(
-				`/consultorias/${consultoria_id}/culturas`
-			)
+			const response = await apiFetch(`/consultorias/${consultoriaId}/culturas`)
 
 			if (!response.ok) {
 				const errorData = await response.json().catch(() => null)
@@ -20,8 +21,9 @@ export function useCulturas(consultoria_id?: number) {
 		},
 
 		retry: 1,
+
 		// Desabilita a query se não houver um ID.
 		// Isso evita uma chamada de API desnecessária para uma URL inválida.
-		enabled: !!consultoria_id,
+		enabled: !!consultoriaId,
 	})
 }

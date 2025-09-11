@@ -7,7 +7,9 @@ export function useClienteCulturas(cliente_id: string) {
 		queryKey: ["get-cliente-culturas", cliente_id],
 
 		queryFn: async () => {
-			const response = await apiFetch(`/clientes/culturas/${cliente_id}`)
+			const response = await apiFetch(
+				`/usuarios/clientes/${cliente_id}/culturas`
+			)
 
 			if (!response.ok) {
 				const errorData = await response.json().catch(() => null)

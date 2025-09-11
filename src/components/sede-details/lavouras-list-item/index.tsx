@@ -1,6 +1,7 @@
 import { Link } from "expo-router"
 import { Wheat } from "lucide-react-native"
 import { Text, View } from "react-native"
+import { dayjs } from "@/lib/dayjs"
 import { colors } from "@/themes/colors"
 import { typography } from "@/themes/typography"
 import { AtribuirCulturaButton } from "../atribuir-cultura-button"
@@ -9,18 +10,27 @@ import { styles } from "./styles"
 type ItemProps = {
 	lavouraId: number
 	nomeLavoura: string
-	nomeCultura: string
-	dataInicio: string | null
-	dataFim: string | null
+	currentCultura:
+		| {
+				data_inicio: string
+				data_fim: string
+				cultura: {
+					nome: string
+					variedade: string
+				}
+		  }
+		| null
+		| undefined
 }
 
 export function LavourasListItem({
 	lavouraId,
-	nomeCultura,
 	nomeLavoura,
-	dataFim,
-	dataInicio,
+	currentCultura,
 }: ItemProps) {
+	const dataInicio = dayjs(currentCultura?.data_inicio).format("DD/MM/YYYY")
+	const dataFim = dayjs(currentCultura?.data_fim).format("DD/MM/YYYY")
+
 	return (
 		<Link
 			href={{
@@ -32,17 +42,16 @@ export function LavourasListItem({
 				<View>
 					<View style={styles.lavouraInfoContainer}>
 						<Text style={typography.headingXsBold}>{nomeLavoura}</Text>
-						{nomeCultura ? (
+
+						{currentCultura && (
 							<Text style={[typography.bodyMd, { color: colors.gray500 }]}>
 								{" "}
-								- {nomeCultura}
+								- {currentCultura?.cultura.nome}
 							</Text>
-						) : (
-							""
 						)}
 					</View>
 
-					{dataInicio && dataFim ? (
+					{currentCultura ? (
 						<View style={styles.lavouraInfoContainer}>
 							<Text style={[typography.bodyMd, { color: colors.gray500 }]}>
 								{dataInicio}
@@ -59,7 +68,7 @@ export function LavourasListItem({
 					)}
 				</View>
 
-				{nomeCultura ? (
+				{currentCultura ? (
 					<View style={styles.culturaDefaultImage}>
 						<Wheat color={colors.gray300} size={18} strokeWidth={1} />
 					</View>

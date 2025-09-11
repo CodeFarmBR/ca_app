@@ -6,13 +6,40 @@ import { PropertyInfo } from "@/components/property-info"
 import { LavourasListEmpty } from "@/components/sede-details/lavouras-list-empty"
 import { LavourasListItem } from "@/components/sede-details/lavouras-list-item"
 import { useLavouras } from "@/http/use-lavouras"
-import { dayjs } from "@/lib/dayjs"
 import { globalStyles } from "@/themes/global-styles"
+
+type CulturasByLavouraType = {
+	cliente_cultura: {
+		data_inicio: string
+		data_fim: string
+		cultura: {
+			nome: string
+			variedade: string
+		}
+	}
+}[]
 
 export default function SedeDetailsScreen() {
 	const { sede_id } = useLocalSearchParams<{ sede_id: string }>()
 
 	const { data, isLoading, refetch, isFetching } = useLavouras(Number(sede_id))
+
+	function getCurrentCultura(culturasByLavoura: CulturasByLavouraType) {
+		for (const cultura of culturasByLavoura) {
+			const actualDate = new Date()
+
+			const dataInicioCultura = new Date(cultura.cliente_cultura.data_inicio)
+			const dataFimCultura = new Date(cultura.cliente_cultura.data_fim)
+
+			if (
+				dataInicioCultura.getTime() <= actualDate.getTime() &&
+				dataFimCultura.getTime() >= actualDate.getTime()
+			) {
+				return cultura.cliente_cultura
+			}
+			return null
+		}
+	}
 
 	return (
 		<SafeAreaView style={[globalStyles.screenContainer, { gap: 20 }]}>
@@ -32,23 +59,13 @@ export default function SedeDetailsScreen() {
 					refreshing={isFetching}
 					renderItem={({ item }) => {
 						// Get the first cultura if available
-						const cultura = item.culturas[0]?.cliente_cultura
-
-						// Format dates if available
-						const dataInicio = cultura?.data_inicio
-							? dayjs(cultura.data_inicio).format("DD/MM/YYYY")
-							: null
-
-						const dataFim = cultura?.data_fim
-							? dayjs(cultura.data_fim).format("DD/MM/YYYY")
-							: null
+						const culturasByLavoura = item.culturas
+						const currentCultura = getCurrentCultura(culturasByLavoura)
 
 						return (
 							<LavourasListItem
-								dataFim={dataFim}
-								dataInicio={dataInicio}
+								currentCultura={currentCultura}
 								lavouraId={item.lavoura_id}
-								nomeCultura={cultura?.cultura?.nome}
 								nomeLavoura={item.nome}
 							/>
 						)

@@ -2,6 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { CalendarIcon, CirclePlus } from "lucide-react-native"
 import { Controller, useForm } from "react-hook-form"
 import { Pressable, Text, TextInput, View } from "react-native"
+import Toast from "react-native-toast-message"
 import z from "zod"
 import { useAssignCulturaToCliente } from "@/http/use-assign-cultura-to-cliente"
 import { colors } from "@/themes/colors"
@@ -12,17 +13,35 @@ import { styles } from "./styles"
 // Regex para validar o formato DD/MM/AAAA
 const datePattern = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/
 
+// Função para verificar se o ano é pelo menos o atual
+const isYearAtLeastCurrent = (dateString: string): boolean => {
+	const parts = dateString.split("/")
+	if (parts.length !== 3) {
+		return true // Se não for uma data completa, deixa passar (outros validadores pegam)
+	}
+	
+	const year = Number(parts[2])
+	const currentYear = new Date().getFullYear()
+	return year >= currentYear
+}
+
 const assignCulturaToClienteSchema = z.object({
 	data_inicio: z
 		.string()
 		.min(1, "Data de início obrigatória")
 		.max(10, "Formato inválido")
-		.regex(datePattern, "Use o formato DD/MM/AAAA"),
+		.regex(datePattern, "Use o formato DD/MM/AAAA")
+		.refine(isYearAtLeastCurrent, {
+			message: `O ano deve ser pelo menos ${new Date().getFullYear()}`,
+		}),
 	data_fim: z
 		.string()
 		.min(1, "Data de fim obrigatória")
 		.max(10, "Formato inválido")
-		.regex(datePattern, "Use o formato DD/MM/AAAA"),
+		.regex(datePattern, "Use o formato DD/MM/AAAA")
+		.refine(isYearAtLeastCurrent, {
+			message: `O ano deve ser pelo menos ${new Date().getFullYear()}`,
+		}),
 })
 
 type AssignCulturaToClienteFormData = z.infer<
@@ -98,18 +117,9 @@ export function AssignCulturaToClienteForm({
 		return month
 	}
 
-	// Validar o ano (não menor que o atual)
+	// Validar o ano (não alteramos mais automaticamente)
 	function validateYear(year: string): string {
-		if (!year || year.length !== 4) {
-			return year
-		}
-
-		const numYear = Number(year)
-		const currentYear = new Date().getFullYear()
-		if (numYear < currentYear) {
-			return currentYear.toString()
-		}
-
+		// Apenas retorna o valor sem modificar
 		return year
 	}
 
@@ -164,12 +174,20 @@ export function AssignCulturaToClienteForm({
 		data_inicio,
 		data_fim,
 	}: AssignCulturaToClienteFormData) {
-		await assignCultura({
-			cliente_id,
-			data_inicio: formatDateForAPI(data_inicio),
-			data_fim: formatDateForAPI(data_fim),
-			cultura_id,
-		})
+		try {
+			await assignCultura({
+				cliente_id,
+				data_inicio: formatDateForAPI(data_inicio),
+				data_fim: formatDateForAPI(data_fim),
+				cultura_id,
+			})
+		} catch (error) {
+			Toast.show({
+				type: "error",
+				text1: "Erro",
+				text2: "Erro ao atribuir cultura ao cliente",
+			})
+		}
 	}
 
 	return (

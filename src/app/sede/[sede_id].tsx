@@ -45,7 +45,7 @@ export default function SedeDetailsScreen() {
 		<SafeAreaView style={[globalStyles.screenContainer, { gap: 20 }]}>
 			<Header backToLastPageIcon />
 
-			<PropertyInfo listHeader="LAVOURAS" nome={data?.nome} />
+			<PropertyInfo listHeader="LAVOURAS" nome={data?.nome} pagePath="/sede/" />
 
 			{isLoading ? (
 				<Text>Carregando...</Text>

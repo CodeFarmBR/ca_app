@@ -71,10 +71,10 @@ export function RootLayoutNav() {
 				name="fazenda/fazenda-registration"
 				options={{ headerShown: false }}
 			/>
-			{/* <Stack.Screen
-						name="sede/sede-registration"
-						options={{ headerShown: false }}
-					/> */}
+			<Stack.Screen
+				name="fazenda/sede-registration"
+				options={{ headerShown: false }}
+			/>
 			<Stack.Screen name="sede" options={{ headerShown: false }} />
 			<Stack.Screen
 				name="lavoura/[lavoura_id]"

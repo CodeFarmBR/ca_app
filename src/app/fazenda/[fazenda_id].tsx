@@ -20,7 +20,11 @@ export default function FazendaDetailsScreen() {
 			<Header backToLastPageIcon />
 
 			<View style={{ width: "100%", flex: 1, gap: 12 }}>
-				<PropertyInfo listHeader="SEDES" nome={data?.nome} />
+				<PropertyInfo
+					listHeader="SEDES"
+					nome={data?.nome}
+					pagePath={`/fazenda/sede-registration?fazenda_id=${fazenda_id}`}
+				/>
 
 				{isLoading ? (
 					<Text>Carregando...</Text>

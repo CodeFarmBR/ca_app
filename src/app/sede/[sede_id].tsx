@@ -37,8 +37,8 @@ export default function SedeDetailsScreen() {
 			) {
 				return cultura.cliente_cultura
 			}
-			return null
 		}
+		return null
 	}
 
 	return (

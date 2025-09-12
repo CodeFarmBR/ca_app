@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
 import { apiFetch } from "./api-client"
-import type { GetLavourasAPIResponse } from "./types/get-lavouras-responsa"
+import type { GetLavourasAPIResponse } from "./types/get-lavouras-response"
 
 export function useLavouras(sede_id: number) {
 	return useQuery({

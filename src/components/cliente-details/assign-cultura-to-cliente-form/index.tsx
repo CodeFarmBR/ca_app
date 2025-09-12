@@ -1,5 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { CalendarIcon, CirclePlus } from "lucide-react-native"
+import { useRef } from "react"
 import { Controller, useForm } from "react-hook-form"
 import { Pressable, Text, TextInput, View } from "react-native"
 import z from "zod"
@@ -57,6 +58,8 @@ export function AssignCulturaToClienteForm({
 	cultura_id,
 }: FormProps) {
 	const inputErrorStyle = [typography.bodyMd, globalStyles.inputError]
+	const dataInicioRef = useRef<TextInput>(null)
+	const dataFimRef = useRef<TextInput>(null)
 
 	const { mutateAsync: assignCultura } = useAssignCulturaToCliente()
 
@@ -194,13 +197,17 @@ export function AssignCulturaToClienteForm({
 							render={({ field: { onChange, value, onBlur } }) => (
 								<TextInput
 									inputMode="numeric"
+									keyboardType="numbers-and-punctuation"
 									maxLength={10}
 									onBlur={onBlur}
 									onChangeText={(text) => {
 										const formatted = validateAndFormatDate(text, value)
 										onChange(formatted)
 									}}
+									onSubmitEditing={() => dataFimRef.current?.focus()}
 									placeholder="DD/MM/AAAA"
+									ref={dataInicioRef}
+									returnKeyType="next"
 									style={{ flex: 1 }}
 									value={value}
 								/>
@@ -225,13 +232,17 @@ export function AssignCulturaToClienteForm({
 							render={({ field: { onChange, value, onBlur } }) => (
 								<TextInput
 									inputMode="numeric"
+									keyboardType="numbers-and-punctuation"
 									maxLength={10}
 									onBlur={onBlur}
 									onChangeText={(text) => {
 										const formatted = validateAndFormatDate(text, value)
 										onChange(formatted)
 									}}
+									onSubmitEditing={handleSubmit(handleAssignCultura)}
 									placeholder="DD/MM/AAAA"
+									ref={dataFimRef}
+									returnKeyType="done"
 									style={{ flex: 1 }}
 									value={value}
 								/>

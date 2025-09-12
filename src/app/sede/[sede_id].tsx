@@ -45,7 +45,7 @@ export default function SedeDetailsScreen() {
 		<SafeAreaView style={[globalStyles.screenContainer, { gap: 20 }]}>
 			<Header backToLastPageIcon />
 
-			<PropertyInfo listHeader="LAVOURAS" nome="Sede X" />
+			<PropertyInfo listHeader="LAVOURAS" nome={data?.nome} />
 
 			{isLoading ? (
 				<Text>Carregando...</Text>
@@ -58,7 +58,6 @@ export default function SedeDetailsScreen() {
 					onRefresh={refetch}
 					refreshing={isFetching}
 					renderItem={({ item }) => {
-						// Get the first cultura if available
 						const culturasByLavoura = item.culturas
 						const currentCultura = getCurrentCultura(culturasByLavoura)
 

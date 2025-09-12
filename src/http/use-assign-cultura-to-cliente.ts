@@ -40,7 +40,7 @@ export function useAssignCulturaToCliente() {
 			})
 		},
 		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ["get-culturas"] })
+			queryClient.invalidateQueries({ queryKey: ["get-cliente-culturas"] })
 			Toast.show({
 				type: "success",
 				text1: "Sucesso",

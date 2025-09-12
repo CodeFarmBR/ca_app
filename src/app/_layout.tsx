@@ -75,7 +75,7 @@ export function RootLayoutNav() {
 						name="sede/sede-registration"
 						options={{ headerShown: false }}
 					/> */}
-			<Stack.Screen name="sede/[sede_id]" options={{ headerShown: false }} />
+			<Stack.Screen name="sede" options={{ headerShown: false }} />
 			<Stack.Screen
 				name="lavoura/[lavoura_id]"
 				options={{ headerShown: false }}

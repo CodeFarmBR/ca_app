@@ -5,7 +5,7 @@ import { apiFetch } from "./api-client"
 import type { CreateSedeAPIRequest } from "./types/create-sede-request"
 
 type CreateSedeParams = CreateSedeAPIRequest & {
-	fazenda_id?: number
+	fazenda_id: number
 }
 
 const createSede = async (data: CreateSedeParams) => {

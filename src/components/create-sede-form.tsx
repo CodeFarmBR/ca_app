@@ -22,7 +22,7 @@ const createSedeSchema = z.object({
 type CreateSedeFormData = z.infer<typeof createSedeSchema>
 
 type CreateSedeFormProps = {
-	fazenda_id?: number
+	fazenda_id: number
 }
 
 export function CreateSedeForm({ fazenda_id }: CreateSedeFormProps) {

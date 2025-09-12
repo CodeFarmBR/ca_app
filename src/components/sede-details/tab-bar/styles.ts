@@ -11,8 +11,7 @@ export const styles = StyleSheet.create({
 	},
 	tabBar: {
 		width: 288,
-		// height: 40,
-		height: 60, // Padding não está sendo aplicado verticalmente, por isso a altura foi diminuida em 4
+		height: 60,
 		padding: 2,
 		backgroundColor: colors.green500,
 		borderRadius: 22,

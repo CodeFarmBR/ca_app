@@ -134,9 +134,6 @@ export function CreateSedeForm({ fazenda_id }: CreateSedeFormProps) {
 								value={value}
 							/>
 						)}
-						rules={{
-							required: true,
-						}}
 					/>
 					{errors.descricao && (
 						<Text style={inputErrorStyle}>{errors.descricao.message}</Text>

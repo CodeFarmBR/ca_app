@@ -1,22 +1,23 @@
 import type { BottomTabBarProps } from "@react-navigation/bottom-tabs"
-import { Calendar1, ClipboardPen, Home, Wheat } from "lucide-react-native"
+import { ClipboardList, Map as MapIcon } from "lucide-react-native"
 import { Pressable, View } from "react-native"
 import { colors } from "@/themes/colors"
+import { BuildingOfficeIcon as BuildingOffice } from "../../../../assets/building-office-icon"
 import { styles } from "./styles"
 
-function HomeIcon({ isFocused }: { isFocused: boolean }) {
+function BuildingOfficeIcon({ isFocused }: { isFocused: boolean }) {
 	return (
-		<Home
-			color={isFocused ? colors.green500 : colors.background}
-			size={28}
-			strokeWidth={1}
+		<BuildingOffice
+			height={28}
+			pathFill={isFocused ? colors.green500 : colors.background}
+			width={28}
 		/>
 	)
 }
 
 function VisitasIcon({ isFocused }: { isFocused: boolean }) {
 	return (
-		<ClipboardPen
+		<ClipboardList
 			color={isFocused ? colors.green500 : colors.background}
 			size={28}
 			strokeWidth={1}
@@ -24,27 +25,18 @@ function VisitasIcon({ isFocused }: { isFocused: boolean }) {
 	)
 }
 
-function CulturasIcon({ isFocused }: { isFocused: boolean }) {
+function MapaIcon({ isFocused }: { isFocused: boolean }) {
 	return (
-		<Wheat
-			color={isFocused ? colors.green500 : colors.background}
+		<MapIcon
+			// Cor do ícone indicando que ele está desabilitado
+			color={isFocused ? colors.green500 : colors.gray300}
 			size={28}
 			strokeWidth={1}
 		/>
 	)
 }
 
-function CalendarioIcon({ isFocused }: { isFocused: boolean }) {
-	return (
-		<Calendar1
-			color={isFocused ? colors.green500 : colors.background}
-			size={28}
-			strokeWidth={1}
-		/>
-	)
-}
-
-export function CustomTabBar({
+export function SedeDetailsScreenTabBar({
 	state,
 	descriptors,
 	navigation,
@@ -73,19 +65,18 @@ export function CustomTabBar({
 						<Pressable
 							accessibilityRole="button"
 							accessibilityState={isFocused ? { selected: true } : {}}
+							// Página de mapas desabilitada (@todo)
+							disabled={route.name === "mapa"}
 							key={route.key}
 							onPress={onPress}
 							style={[styles.tabItem, isFocused ? styles.tabItemFocused : null]}
 						>
-							{route.name === "index" && <HomeIcon isFocused={isFocused} />}
+							{route.name === "[sede_id]" && (
+								<BuildingOfficeIcon isFocused={isFocused} />
+							)}
+							{route.name === "mapa" && <MapaIcon isFocused={isFocused} />}
 							{route.name === "visitas" && (
 								<VisitasIcon isFocused={isFocused} />
-							)}
-							{route.name === "culturas" && (
-								<CulturasIcon isFocused={isFocused} />
-							)}
-							{route.name === "calendario" && (
-								<CalendarioIcon isFocused={isFocused} />
 							)}
 						</Pressable>
 					)

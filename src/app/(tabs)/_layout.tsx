@@ -1,6 +1,6 @@
 import { Redirect, Tabs } from "expo-router"
 import { Header } from "@/components/header"
-import { CustomTabBar } from "@/components/tabs"
+import { HomeTabBar } from "@/components/home-tab-bar"
 import { useAuth } from "@/context/auth-context"
 import { colors } from "@/themes/colors"
 
@@ -23,7 +23,7 @@ export default function TabsLayout() {
 				headerShadowVisible: false,
 				sceneStyle: { backgroundColor: colors.background },
 			}}
-			tabBar={(props) => <CustomTabBar {...props} />}
+			tabBar={(props) => <HomeTabBar {...props} />}
 		>
 			<Tabs.Screen name="index" />
 			<Tabs.Screen name="visitas" />

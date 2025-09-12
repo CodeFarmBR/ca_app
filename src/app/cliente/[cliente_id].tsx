@@ -96,9 +96,9 @@ export default function ClienteDetailsScreen() {
 								refreshing={culturasIsFetching}
 								renderItem={({ item }) => {
 									const dataInicioCultura = dayjs(item.data_inicio).format(
-										"DD/MM"
+										"DD/MM/YY"
 									)
-									const dataFimCultura = dayjs(item.data_fim).format("DD/MM")
+									const dataFimCultura = dayjs(item.data_fim).format("DD/MM/YY")
 
 									return (
 										<CulturasListItem

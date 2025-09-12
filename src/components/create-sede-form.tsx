@@ -2,77 +2,63 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Controller, useForm } from "react-hook-form"
 import { Text, View } from "react-native"
 import z from "zod"
-import { MyButton } from "@/components/button"
-import { Input } from "@/components/input"
-import { useCreateFazenda } from "@/http/use-create-fazenda"
+import { useCreateSede } from "@/http/use-create-sede"
 import { colors } from "@/themes/colors"
 import { globalStyles } from "@/themes/global-styles"
 import { typography } from "@/themes/typography"
+import { MyButton } from "./button"
+import { Input } from "./input"
 
-const createFazendaSchema = z.object({
-	nome: z
-		.string()
-		.min(3, "O nome é obrigatório e deve conter 3 ou mais caracteres"),
+const createSedeSchema = z.object({
+	nome: z.string().min(1, "O nome é obrigatório"),
 	localizacao: z
 		.string()
-		.min(3, "A localização é obrigatória  e deve conter 3 ou mais caracteres"),
+		.min(1, "A localização é obrigatória e deve conter 3 ou mais caracteres"),
 	latitude: z.number().min(-90).max(90),
 	longitude: z.number().min(-180).max(180),
-	tamanho: z.number().optional(),
-	clima_regiao: z.string().optional(),
-	cliente_id: z.string().optional(),
+	descricao: z.string().optional(),
 })
 
-type CreateFazendaFormData = z.infer<typeof createFazendaSchema>
+type CreateSedeFormData = z.infer<typeof createSedeSchema>
 
-type CreateFazendaFormProps = {
-	clienteId?: string
+type CreateSedeFormProps = {
+	fazenda_id?: number
 }
 
-export function CreateFazendaForm({ clienteId }: CreateFazendaFormProps) {
+export function CreateSedeForm({ fazenda_id }: CreateSedeFormProps) {
 	const inputErrorStyle = [typography.bodyMd, globalStyles.inputError]
 
-	const { mutateAsync: createFazenda } = useCreateFazenda()
+	const { mutateAsync: createSede } = useCreateSede()
 
 	const {
 		control,
-		setValue,
-		handleSubmit,
 		formState: { errors },
-	} = useForm<CreateFazendaFormData>({
-		resolver: zodResolver(createFazendaSchema),
+		handleSubmit,
+	} = useForm<CreateSedeFormData>({
+		resolver: zodResolver(createSedeSchema),
 		defaultValues: {
 			nome: "",
 			localizacao: "",
-			tamanho: 0,
-			clima_regiao: "",
+			latitude: 1,
+			longitude: 1,
+			descricao: "",
 		},
 	})
 
-	setValue("latitude", 1)
-	setValue("longitude", 1)
-	// Set the cliente_id if it's provided
-	if (clienteId) {
-		setValue("cliente_id", clienteId)
-	}
-
-	async function handleCreateFazenda({
+	async function handleCreateSede({
 		nome,
 		localizacao,
 		latitude,
 		longitude,
-		tamanho,
-		clima_regiao,
-		cliente_id,
-	}: CreateFazendaFormData) {
-		await createFazenda({
+		descricao,
+	}: CreateSedeFormData) {
+		await createSede({
 			nome,
 			localizacao,
 			latitude,
 			longitude,
-			tamanho,
-			clima_regiao,
-			cliente_id,
+			descricao,
+			fazenda_id,
 		})
 	}
 
@@ -84,7 +70,7 @@ export function CreateFazendaForm({ clienteId }: CreateFazendaFormProps) {
 					<Controller
 						control={control}
 						name="nome"
-						render={({ field: { onChange, value, onBlur } }) => (
+						render={({ field: { onChange, onBlur, value } }) => (
 							<Input
 								autoCapitalize="words"
 								error={!!errors.nome}
@@ -110,8 +96,9 @@ export function CreateFazendaForm({ clienteId }: CreateFazendaFormProps) {
 					<Controller
 						control={control}
 						name="localizacao"
-						render={({ field: { onChange, value, onBlur } }) => (
+						render={({ field: { onChange, onBlur, value } }) => (
 							<Input
+								autoCapitalize="words"
 								error={!!errors.localizacao}
 								inputMode="text"
 								onBlur={onBlur}
@@ -130,57 +117,35 @@ export function CreateFazendaForm({ clienteId }: CreateFazendaFormProps) {
 					)}
 				</View>
 
-				{/* Input Tamanho */}
+				{/* Input Descrição */}
 				<View style={globalStyles.input}>
 					<Controller
 						control={control}
-						name="tamanho"
-						render={({ field: { onChange, value, onBlur } }) => (
+						name="descricao"
+						render={({ field: { onChange, onBlur, value } }) => (
 							<Input
-								error={!!errors.tamanho}
-								inputMode="decimal"
-								onBlur={onBlur}
-								onChangeText={(text) => {
-									// Aceita ponto ou vírgula como separador decimal
-									const normalized = text.replace(",", ".")
-									onChange(text === "" ? undefined : Number(normalized))
-								}}
-								placeholder="Tamanho em hectares (opcional)"
-								placeholderTextColor={colors.gray300}
-								value={value ? String(value) : ""}
-							/>
-						)}
-					/>
-					{errors.tamanho && (
-						<Text style={inputErrorStyle}>{errors.tamanho?.message}</Text>
-					)}
-				</View>
-
-				{/* Input Clima Região */}
-				<View style={globalStyles.input}>
-					<Controller
-						control={control}
-						name="clima_regiao"
-						render={({ field: { onChange, value, onBlur } }) => (
-							<Input
-								error={!!errors.clima_regiao}
+								autoCapitalize="words"
+								error={!!errors.descricao}
 								inputMode="text"
 								onBlur={onBlur}
 								onChangeText={onChange}
-								placeholder="Clima da região (opcional)"
+								placeholder="Descrição (opcional)"
 								placeholderTextColor={colors.gray300}
 								value={value}
 							/>
 						)}
+						rules={{
+							required: true,
+						}}
 					/>
-					{errors.clima_regiao && (
-						<Text style={inputErrorStyle}>{errors.clima_regiao.message}</Text>
+					{errors.descricao && (
+						<Text style={inputErrorStyle}>{errors.descricao.message}</Text>
 					)}
 				</View>
 			</View>
 
 			<View style={globalStyles.submitButtons}>
-				<MyButton onPress={handleSubmit(handleCreateFazenda)} primary>
+				<MyButton onPress={handleSubmit(handleCreateSede)} primary>
 					<Text style={[typography.bodyLgBold, { color: colors.white }]}>
 						Salvar
 					</Text>
@@ -188,7 +153,7 @@ export function CreateFazendaForm({ clienteId }: CreateFazendaFormProps) {
 
 				{/* <MyButton secundary> @todo
 							<Text style={[typography.bodyLgBold, { color: colors.green500 }]}>
-								Salvar e cadastrar sede
+								Salvar e cadastrar lavoura
 							</Text>
 						</MyButton> */}
 			</View>

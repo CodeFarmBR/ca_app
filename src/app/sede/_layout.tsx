@@ -6,13 +6,25 @@ export default function TabsLayout() {
 		<Tabs
 			screenOptions={{
 				headerShown: false,
-				headerShadowVisible: false,
 			}}
-			tabBar={(props) => <SedeDetailsScreenTabBar {...props} />}
+			tabBar={(props) => {
+				// Não mostrar a tabBar na tela de registro de lavoura
+				const currentRouteName = props.state.routes[props.state.index].name
+				if (currentRouteName === "lavoura-registration") {
+					return null
+				}
+				return <SedeDetailsScreenTabBar {...props} />
+			}}
 		>
 			<Tabs.Screen name="[sede_id]" />
 			<Tabs.Screen name="mapa" />
 			<Tabs.Screen name="visitas" />
+			<Tabs.Screen
+				name="lavoura-registration"
+				options={{
+					href: null,
+				}}
+			/>
 		</Tabs>
 	)
 }

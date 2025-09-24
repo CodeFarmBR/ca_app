@@ -38,7 +38,7 @@ export function RadioInputText({
 										: { borderColor: colors.gray500 },
 								]}
 							>
-								<View style={active ? [styles.radioButtonChecked] : ""} />
+								<View style={active ? [styles.radioButtonChecked] : null} />
 							</View>
 							<Text
 								style={[

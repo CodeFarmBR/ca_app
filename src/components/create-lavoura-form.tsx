@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Controller, useForm } from "react-hook-form"
 import { Text, type TextInput, View } from "react-native"
 import z from "zod"
@@ -56,8 +56,12 @@ export function CreateLavouraForm({ sede_id }: CreateLavouraFormProps) {
 		},
 	})
 
-	setValue("tipo_formato", formatoInputValue)
-	setValue("tem_irrigacao", temIrrigacaoInputValue)
+	useEffect(() => {
+		setValue("tipo_formato", formatoInputValue)
+	}, [formatoInputValue, setValue])
+	useEffect(() => {
+		setValue("tem_irrigacao", temIrrigacaoInputValue)
+	}, [temIrrigacaoInputValue, setValue])
 
 	async function handleCreateLavoura({
 		nome,

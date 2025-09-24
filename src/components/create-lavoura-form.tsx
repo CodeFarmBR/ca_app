@@ -176,7 +176,9 @@ export function CreateLavouraForm({ sede_id }: CreateLavouraFormProps) {
 
 					{/* Input Irrigação */}
 					<View style={{ gap: 8 }}>
-						<Text>Tipo irrigação:</Text>
+						<Text style={[typography.bodyLg, { color: colors.gray500 }]}>
+							Tipo irrigação:
+						</Text>
 						<RadioInputBoolean
 							checkedValue={temIrrigacaoInputValue}
 							onChange={setTemIrrigacaoInputValue}

@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useRef } from "react"
+import { useRef, useState } from "react"
 import { Controller, useForm } from "react-hook-form"
 import { Text, type TextInput, View } from "react-native"
 import z from "zod"
@@ -9,12 +9,14 @@ import { globalStyles } from "@/themes/global-styles"
 import { typography } from "@/themes/typography"
 import { MyButton } from "./button"
 import { Input } from "./input"
+import { RadioInputBoolean } from "./radio-inputs/radio-input-boolean"
+import { RadioInputText } from "./radio-inputs/radio-input-text"
 
 const createLavouraSchema = z.object({
 	nome: z.string().min(1, "O nome é obrigatório"),
-	tamanho: z.number().optional(),
+	tamanho: z.string().optional(), // Mudando para number | undefined para corresponder à API
 	tipo_solo: z.string().optional(),
-	formato: z.string().min(1, "O formato é obrigatório"),
+	tipo_formato: z.string().min(1, "O formato é obrigatório"),
 	tem_irrigacao: z.boolean(),
 })
 
@@ -25,45 +27,55 @@ type CreateLavouraFormProps = {
 }
 
 export function CreateLavouraForm({ sede_id }: CreateLavouraFormProps) {
+	const [temIrrigacaoInputValue, setTemIrrigacaoInputValue] = useState(true)
+	const [formatoInputValue, setFormatoInputValue] = useState("")
+
 	const inputErrorStyle = [typography.bodyMd, globalStyles.inputError]
+
 	const nomeRef = useRef<TextInput>(null)
 	const tamanhoRef = useRef<TextInput>(null)
 	const tipoSoloRef = useRef<TextInput>(null)
 	const formatoRef = useRef<TextInput>(null)
-	const temIrrigacao = useRef<TextInput>(null)
 
 	const { mutateAsync: createLavoura } = useCreateLavoura()
 
 	const {
 		control,
 		handleSubmit,
+		setValue,
+		reset,
 		formState: { errors },
 	} = useForm<CreateLavouraFormData>({
 		resolver: zodResolver(createLavouraSchema),
 		defaultValues: {
 			nome: "",
-			tamanho: 0,
+			tamanho: undefined,
 			tipo_solo: "",
-			formato: "",
-			tem_irrigacao: false,
+			tipo_formato: "",
+			tem_irrigacao: true,
 		},
 	})
+
+	setValue("tipo_formato", formatoInputValue)
+	setValue("tem_irrigacao", temIrrigacaoInputValue)
 
 	async function handleCreateLavoura({
 		nome,
 		tamanho,
 		tipo_solo,
-		formato,
+		tipo_formato,
 		tem_irrigacao,
 	}: CreateLavouraFormData) {
 		await createLavoura({
 			nome,
 			tamanho,
 			tipo_solo,
-			formato,
+			tipo_formato,
 			tem_irrigacao,
 			sede_id,
 		})
+
+		reset()
 	}
 
 	return (
@@ -106,13 +118,17 @@ export function CreateLavouraForm({ sede_id }: CreateLavouraFormProps) {
 								error={!!errors.tamanho}
 								inputMode="decimal"
 								onBlur={onBlur}
-								onChangeText={onChange}
+								onChangeText={(text) => {
+									const formatedText = text.replace(",", ".")
+
+									onChange(formatedText)
+								}}
 								onSubmitEditing={() => tipoSoloRef.current?.focus()}
 								placeholder="Tamanho/ha (opcional)"
 								placeholderTextColor={colors.gray300}
 								ref={tamanhoRef}
 								returnKeyType="next"
-								value={value ? String(value) : ""}
+								value={value !== undefined ? String(value) : ""}
 							/>
 						)}
 					/>
@@ -143,33 +159,38 @@ export function CreateLavouraForm({ sede_id }: CreateLavouraFormProps) {
 						<Text style={inputErrorStyle}>{errors.tipo_solo.message}</Text>
 					)}
 
-					{/* Input Tipo Formato */}
-					<Controller
-						control={control}
-						name="formato"
-						render={({ field: { onChange, onBlur, value } }) => (
-							<Input
-								error={!!errors.formato}
-								inputMode="text"
-								onBlur={onBlur}
-								onChangeText={onChange}
-								onSubmitEditing={() => formatoRef.current?.focus()}
-								placeholder="Formato (opcional)"
-								placeholderTextColor={colors.gray300}
-								ref={formatoRef}
-								returnKeyType="next"
-								value={value}
-							/>
-						)}
-					/>
-					{errors.formato && (
-						<Text style={inputErrorStyle}>{errors.formato.message}</Text>
-					)}
+					{/* Input Formato */}
+					<View style={{ gap: 8 }}>
+						<Text style={[typography.bodyLg, { color: colors.gray500 }]}>
+							Formato:
+						</Text>
+						<RadioInputText
+							checkedValue={formatoInputValue}
+							onChange={setFormatoInputValue}
+							options={[
+								{ label: "Retangular", value: "retangular" },
+								{ label: "Circular", value: "circular" },
+							]}
+						/>
+					</View>
+
+					{/* Input Irrigação */}
+					<View style={{ gap: 8 }}>
+						<Text>Tipo irrigação:</Text>
+						<RadioInputBoolean
+							checkedValue={temIrrigacaoInputValue}
+							onChange={setTemIrrigacaoInputValue}
+							options={[
+								{ label: "Irrigação", value: true },
+								{ label: "Cerqueiro", value: false },
+							]}
+						/>
+					</View>
 				</View>
 			</View>
 
 			<View style={globalStyles.submitButtons}>
-				<MyButton primary>
+				<MyButton onPress={handleSubmit(handleCreateLavoura)} primary>
 					<Text style={[typography.bodyLgBold, { color: colors.white }]}>
 						Salvar
 					</Text>

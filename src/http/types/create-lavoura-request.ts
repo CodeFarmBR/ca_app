@@ -1,7 +1,7 @@
 export type CreateLavouraAPIRequest = {
 	nome: string
-	tamanho?: number
+	tamanho?: string
 	tipo_solo?: string
-	formato: string
+	tipo_formato: string
 	tem_irrigacao?: boolean
 }

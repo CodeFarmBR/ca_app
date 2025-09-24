@@ -38,16 +38,21 @@ function MapaIcon({ isFocused }: { isFocused: boolean }) {
 
 export function SedeDetailsScreenTabBar({
 	state,
-	descriptors,
 	navigation,
 }: BottomTabBarProps) {
+	const tabBarRoutes = state.routes.filter(
+		(route) => route.name !== "lavoura-registration"
+	)
+	// console.log(state.routes)
+
 	return (
 		<View style={styles.tabBarContainer}>
 			<View style={styles.tabBar}>
-				{state.routes.map((route, index) => {
-					// biome-ignore lint/correctness/noUnusedVariables: I think may e useful for some reason
-					const { options } = descriptors[route.key]
-					const isFocused = state.index === index // Verifica se a aba está ativa
+				{tabBarRoutes.map((route) => {
+					const originalRouteIndex = state.routes.findIndex(
+						(r) => r.key === route.key
+					)
+					const isFocused = state.index === originalRouteIndex // Verifica se a aba está ativa
 
 					const onPress = () => {
 						const event = navigation.emit({

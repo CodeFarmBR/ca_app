@@ -27,7 +27,7 @@ export const globalStyles = StyleSheet.create({
 		gap: 16,
 	},
 	input: {
-		gap: 4,
+		gap: 16,
 	},
 	inputError: {
 		color: colors.red400,
